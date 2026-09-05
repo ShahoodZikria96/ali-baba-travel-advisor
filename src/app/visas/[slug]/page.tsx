@@ -10,6 +10,7 @@ import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
 import { popularDestinations, moreDestinations } from "@/data/countries";
 import { getCountryPage } from "@/data/countryPages";
+import { getRefusalPage } from "@/data/refusalPages";
 import { offices } from "@/data/offices";
 
 const allCountries = [...popularDestinations, ...moreDestinations];
@@ -34,6 +35,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const basic = allCountries.find((c) => c.slug === slug);
   if (!basic) notFound();
   const rich = getCountryPage(slug);
+  const hasRefusalPage = Boolean(getRefusalPage(slug));
 
   return (
     <>
@@ -50,7 +52,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
         </div>
         <div className="mt-6 flex flex-wrap gap-3">
           <Button href="/consultation">Get Visa Assessment</Button>
-          <Button href={`/visa-refusal/${slug}`} variant="outline">
+          <Button href={hasRefusalPage ? `/visa-refusal/${slug}` : "/visa-refusal"} variant="outline">
             Previously Refused for {basic.name}?
           </Button>
         </div>
