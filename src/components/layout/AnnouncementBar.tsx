@@ -5,9 +5,9 @@ import { X } from "lucide-react";
 import Link from "next/link";
 
 const message = {
-  text: "Now offering visa case reviews for previously refused applicants.",
-  href: "/visa-refusal",
-  cta: "Learn more",
+  text: "Our new Karachi office opens Monday, 7 September 2026.",
+  href: "/locations/karachi",
+  cta: "Get directions",
 };
 
 export function AnnouncementBar() {

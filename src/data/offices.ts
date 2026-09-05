@@ -5,6 +5,7 @@ export interface Office {
   phone: string;
   hours: string;
   mapUrl: string;
+  openingDate?: string;
 }
 
 export const offices: Office[] = [
@@ -33,5 +34,19 @@ export const offices: Office[] = [
     hours: "Mon – Sat: 10:00 AM – 6:00 PM",
     mapUrl:
       "https://www.google.com/maps/place/32%C2%B026'21.0%22N+74%C2%B006'59.1%22E/@32.439157,74.116412,17z/data=!3m1!4b1!4m4!3m3!8m2!3d32.439157!4d74.116412",
+  },
+  {
+    slug: "karachi",
+    city: "Karachi",
+    address:
+      "Office No. 3, Mezzanine Floor, 10C Building, 12 Commercial Street, near Cafe Musa, DHA Phase 2 Extension, Karachi",
+    phone: "+92 311 1666076",
+    hours: "Mon – Sat: 10:00 AM – 6:00 PM",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=" +
+      encodeURIComponent(
+        "Office No. 3, Mezzanine Floor, 10C Building, 12 Commercial Street, near Cafe Musa, DHA Phase 2 Extension, Karachi"
+      ),
+    openingDate: "2026-09-07",
   },
 ];
