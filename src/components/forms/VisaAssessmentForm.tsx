@@ -9,6 +9,7 @@ import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess } from "@/c
 import { whatsappHref } from "@/data/site";
 import { popularDestinations } from "@/data/countries";
 import { offices } from "@/data/offices";
+import { submitLead } from "@/lib/leads";
 
 const schema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
@@ -49,6 +50,7 @@ export function VisaAssessmentForm({ defaultCountry }: { defaultCountry?: string
       .filter(Boolean)
       .join("\n");
 
+    submitLead("visa_assessment", data);
     window.open(whatsappHref(message), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };

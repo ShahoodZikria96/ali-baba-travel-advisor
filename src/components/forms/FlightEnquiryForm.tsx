@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { FieldWrapper, TextInput, SelectInput, FormSuccess } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/data/site";
+import { submitLead } from "@/lib/leads";
 
 const schema = z.object({
   from: z.string().min(2, "Enter departure city"),
@@ -42,6 +43,7 @@ export function FlightEnquiryForm() {
       .filter(Boolean)
       .join("\n");
 
+    submitLead("flight_enquiry", data);
     window.open(whatsappHref(message), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };

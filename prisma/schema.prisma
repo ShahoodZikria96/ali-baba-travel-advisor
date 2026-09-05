@@ -1,0 +1,238 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Auth ----------
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------- Site-wide settings (singleton row, id = "main") ----------
+
+model SiteSettings {
+  id                  String   @id @default("main")
+  phone               String
+  phoneSecondary      String?
+  whatsappNumber      String
+  email                String
+  facebookUrl          String
+  instagramUrl         String
+  youtubeUrl           String
+  announcementText     String
+  announcementHref     String
+  announcementActive   Boolean  @default(true)
+  youtubeSubscribers   String   @default("58,000+")
+  happyCustomersStat   String   @default("7,000+")
+  updatedAt            DateTime @updatedAt
+}
+
+// ---------- Offices / Locations ----------
+
+model Office {
+  id               String    @id @default(cuid())
+  slug             String    @unique
+  city             String
+  address          String
+  phone            String
+  hours            String
+  mapUrl           String
+  openingDate      DateTime?
+  intro            String    @db.Text
+  localContext     String    @db.Text
+  servicesOffered  Json // string[]
+  sortOrder        Int       @default(0)
+  published        Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+// ---------- Countries (visa destination pages) ----------
+
+model Country {
+  id                String   @id @default(cuid())
+  slug              String   @unique
+  name              String
+  flagEmoji         String?
+  flagImage         String?
+  heroImage         String?
+  visaType          String
+  description       String   @db.Text
+  featured          Boolean  @default(false) // shows on homepage "popular" row
+  metaTitle         String?
+  metaDescription   String?  @db.Text
+  intro             String?  @db.Text
+  whoCanApply       Json? // string[]
+  visaTypes         Json? // {name, description}[]
+  documents         Json? // string[]
+  financialNote     String?  @db.Text
+  processingTime    String?  @db.Text
+  steps             Json? // string[]
+  refusalReasons    Json? // string[]
+  faqs              Json? // {question, answer}[]
+  sortOrder         Int      @default(0)
+  published         Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+// ---------- Visa refusal country pages ----------
+
+model RefusalPage {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  country          String
+  metaTitle        String?
+  metaDescription  String?  @db.Text
+  intro            String   @db.Text
+  commonReasons    Json // string[]
+  whatWeReview     Json // string[]
+  specialNote      String?  @db.Text
+  faqs             Json // {question, answer}[]
+  sortOrder        Int      @default(0)
+  published        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// ---------- Visa consultancy service pages ----------
+
+model ServicePage {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  title            String
+  metaDescription  String?  @db.Text
+  intro            String   @db.Text
+  highlights       Json // string[]
+  process          Json // string[]
+  faqs             Json // {question, answer}[]
+  sortOrder        Int      @default(0)
+  published        Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+// ---------- Tour packages ----------
+
+model Tour {
+  id             String   @id @default(cuid())
+  slug           String   @unique
+  destination    String
+  image          String
+  duration       String
+  departure      String
+  price          String
+  visaAssistance Boolean  @default(true)
+  summary        String   @db.Text
+  highlights     Json // string[]
+  included       Json // string[]
+  excluded       Json // string[]
+  itinerary      Json // {day, description}[]
+  notes          Json // string[]
+  category       String   @default("group") // group | customized
+  sortOrder      Int      @default(0)
+  published      Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ---------- Blog / Guides ----------
+
+model Guide {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  image         String
+  category      String // "Visa Guides" | "Travel Guides" | "Latest Updates"
+  publishedDate DateTime
+  readingTime   String
+  excerpt       String   @db.Text
+  content       Json // string[] paragraphs
+  published     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ---------- Testimonials ----------
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  location  String
+  rating    Int      @default(5)
+  text      String   @db.Text
+  photo     String?
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// ---------- Success stories (short case highlights) ----------
+
+model SuccessStory {
+  id        String   @id @default(cuid())
+  country   String
+  category  String
+  period    String
+  summary   String   @db.Text
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+// ---------- Video library cards ----------
+
+model Video {
+  id         String   @id @default(cuid())
+  title      String
+  category   String
+  duration   String
+  youtubeUrl String?
+  thumbnail  String?
+  sortOrder  Int      @default(0)
+  published  Boolean  @default(true)
+  createdAt  DateTime @default(now())
+}
+
+// ---------- General FAQs ----------
+
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+}
+
+// ---------- Team members ----------
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  photo     String?
+  bio       String?  @db.Text
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+}
+
+// ---------- Lead form submissions ----------
+
+model Lead {
+  id        String   @id @default(cuid())
+  type      String // visa_assessment | tour_enquiry | flight_enquiry | refusal_case | contact
+  data      Json
+  status    String   @default("new") // new | contacted | closed
+  source    String? // page path the lead came from
+  createdAt DateTime @default(now())
+}

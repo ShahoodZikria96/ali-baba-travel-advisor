@@ -7,6 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/data/site";
+import { submitLead } from "@/lib/leads";
 
 const schema = z.object({
   applicantName: z.string().min(2, "Enter the applicant's name"),
@@ -45,6 +46,7 @@ export function RefusalCaseForm({ defaultCountry }: { defaultCountry?: string })
       .filter(Boolean)
       .join("\n");
 
+    submitLead("refusal_case", data);
     window.open(whatsappHref(message), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
