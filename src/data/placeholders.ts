@@ -30,12 +30,6 @@ export const sampleReviews = [
   },
 ];
 
-export const sampleTours = [
-  { slug: "uk-group-tour", destination: "United Kingdom", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 620,000", visaAssistance: true },
-  { slug: "azerbaijan-group-tour", destination: "Azerbaijan", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 270,000", visaAssistance: true },
-  { slug: "france-group-tour", destination: "France", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 550,000", visaAssistance: true },
-];
-
 export const sampleVideos = [
   { title: "UK Visit Visa: Documents You Actually Need", category: "Visa Guides", duration: "8:42" },
   { title: "Why Visa Applications Get Refused", category: "Refusal Guidance", duration: "11:15" },
