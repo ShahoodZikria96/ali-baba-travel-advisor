@@ -3,6 +3,9 @@ import { jwtVerify } from "jose";
 
 const SESSION_COOKIE = "ab_admin_session";
 
+// Optimistic check only (signature + expiry, no DB lookup) — per Next.js
+// guidance, Proxy pre-filters unauthenticated requests but every admin API
+// route also re-verifies the session itself before touching data.
 async function isValidSession(token: string | undefined) {
   if (!token) return false;
   try {
@@ -14,7 +17,7 @@ async function isValidSession(token: string | undefined) {
   }
 }
 
-export async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   const valid = await isValidSession(token);

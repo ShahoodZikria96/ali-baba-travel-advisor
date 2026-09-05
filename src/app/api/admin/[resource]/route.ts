@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getResource } from "@/lib/admin-resources";
+import { getCurrentAdmin } from "@/lib/auth";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function delegate(model: string): any {
@@ -8,6 +9,8 @@ function delegate(model: string): any {
 }
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
+  if (!(await getCurrentAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { resource } = await params;
   const config = getResource(resource);
   if (!config) return NextResponse.json({ error: "Unknown resource" }, { status: 404 });
@@ -19,6 +22,8 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ res
 }
 
 export async function POST(req: NextRequest, { params }: { params: Promise<{ resource: string }> }) {
+  if (!(await getCurrentAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { resource } = await params;
   const config = getResource(resource);
   if (!config) return NextResponse.json({ error: "Unknown resource" }, { status: 404 });

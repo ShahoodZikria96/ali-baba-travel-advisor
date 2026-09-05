@@ -46,7 +46,7 @@ model Office {
   address          String
   phone            String
   hours            String
-  mapUrl           String
+  mapUrl           String    @db.Text
   openingDate      DateTime?
   intro            String    @db.Text
   localContext     String    @db.Text

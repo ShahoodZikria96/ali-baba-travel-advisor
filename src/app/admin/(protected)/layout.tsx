@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
 import { getCurrentAdmin } from "@/lib/auth";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
 
@@ -7,11 +8,11 @@ export const metadata = { title: "Admin — Ali Baba Travel Advisor" };
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const admin = await getCurrentAdmin();
 
-  // The /admin/login page itself is not wrapped by this check because
-  // middleware already redirects unauthenticated users away from every
-  // other /admin/* route before this layout renders.
+  // Proxy already performs an optimistic (JWT-only) redirect for unauthenticated
+  // requests, but per Next.js guidance that check must not be the sole
+  // authorization layer — this re-verifies the session before rendering.
   if (!admin) {
-    return <div className="min-h-screen bg-[#f5f2ee]">{children}</div>;
+    redirect("/admin/login");
   }
 
   return (

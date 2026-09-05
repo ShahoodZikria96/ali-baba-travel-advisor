@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getResource } from "@/lib/admin-resources";
+import { getCurrentAdmin } from "@/lib/auth";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function delegate(model: string): any {
@@ -10,6 +11,8 @@ function delegate(model: string): any {
 type Params = { params: Promise<{ resource: string; id: string }> };
 
 export async function GET(_req: NextRequest, { params }: Params) {
+  if (!(await getCurrentAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { resource, id } = await params;
   const config = getResource(resource);
   if (!config) return NextResponse.json({ error: "Unknown resource" }, { status: 404 });
@@ -20,6 +23,8 @@ export async function GET(_req: NextRequest, { params }: Params) {
 }
 
 export async function PUT(req: NextRequest, { params }: Params) {
+  if (!(await getCurrentAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { resource, id } = await params;
   const config = getResource(resource);
   if (!config) return NextResponse.json({ error: "Unknown resource" }, { status: 404 });
@@ -34,6 +39,8 @@ export async function PUT(req: NextRequest, { params }: Params) {
 }
 
 export async function DELETE(_req: NextRequest, { params }: Params) {
+  if (!(await getCurrentAdmin())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   const { resource, id } = await params;
   const config = getResource(resource);
   if (!config) return NextResponse.json({ error: "Unknown resource" }, { status: 404 });
