@@ -20,32 +20,37 @@ export function VisaFinder() {
             <Link
               key={country.slug}
               href={`/visas/${country.slug}`}
-              className="group rounded-[var(--radius-md)] border border-border bg-surface p-5 transition-colors hover:border-primary"
+              className="group overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface transition-colors hover:border-primary"
             >
-              {country.flagImage ? (
+              <div className="relative h-24 w-full">
                 <Image
-                  src={country.flagImage}
-                  alt={`${country.name} flag`}
-                  width={40}
-                  height={26}
-                  className="h-6 w-10 rounded-sm object-cover"
+                  src={`/destinations/${country.slug}.jpg`}
+                  alt={`${country.name} landmark`}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-              ) : (
-                <span className="text-3xl">{country.flag}</span>
-              )}
-              <p className="mt-3 font-heading text-base font-bold text-charcoal">
-                {country.name}
-              </p>
-              <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.04em] text-primary">
-                {country.visaType}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-text-muted">
-                {country.description}
-              </p>
-              <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-charcoal group-hover:text-primary">
-                View Visa Guide
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-              </span>
+                {country.flagImage && (
+                  <Image
+                    src={country.flagImage}
+                    alt={`${country.name} flag`}
+                    width={32}
+                    height={20}
+                    className="absolute bottom-2 left-2 h-5 w-8 rounded-sm object-cover shadow"
+                  />
+                )}
+              </div>
+              <div className="p-4">
+                <p className="font-heading text-base font-bold text-charcoal">{country.name}</p>
+                <p className="mt-0.5 text-xs font-semibold uppercase tracking-[0.04em] text-primary">
+                  {country.visaType}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-text-muted">{country.description}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-charcoal group-hover:text-primary">
+                  View Visa Guide
+                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
             </Link>
           ))}
         </div>

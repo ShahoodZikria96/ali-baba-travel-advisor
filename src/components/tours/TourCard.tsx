@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { CalendarDays, MapPin, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+import { CalendarDays, ShieldCheck } from "lucide-react";
 import type { TourPackage } from "@/data/tours";
 
 export function TourCard({ tour }: { tour: TourPackage }) {
   return (
     <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
-      <div className="flex h-32 items-center justify-center bg-gradient-to-br from-charcoal to-primary-dark">
-        <MapPin className="text-white/70" size={28} />
+      <div className="relative h-32 w-full">
+        <Image src={tour.image} alt={tour.destination} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
       </div>
       <div className="p-5">
         <p className="font-heading text-lg font-bold text-charcoal">{tour.destination}</p>

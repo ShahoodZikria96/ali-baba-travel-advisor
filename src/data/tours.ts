@@ -1,6 +1,7 @@
 export interface TourPackage {
   slug: string;
   destination: string;
+  image: string;
   duration: string;
   departure: string;
   price: string;
@@ -17,6 +18,7 @@ export const tours: TourPackage[] = [
   {
     slug: "uk-group-tour",
     destination: "United Kingdom",
+    image: "/destinations/uk.jpg",
     duration: "6 Days / 5 Nights",
     departure: "Ask for next departure",
     price: "PKR 620,000",
@@ -42,6 +44,7 @@ export const tours: TourPackage[] = [
   {
     slug: "azerbaijan-group-tour",
     destination: "Azerbaijan",
+    image: "/destinations/azerbaijan.jpg",
     duration: "6 Days / 5 Nights",
     departure: "Ask for next departure",
     price: "PKR 270,000",
@@ -67,6 +70,7 @@ export const tours: TourPackage[] = [
   {
     slug: "france-group-tour",
     destination: "France",
+    image: "/destinations/schengen.jpg",
     duration: "6 Days / 5 Nights",
     departure: "Ask for next departure",
     price: "PKR 550,000",

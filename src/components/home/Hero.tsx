@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -69,10 +70,19 @@ export function Hero() {
         </div>
 
         <div className="relative">
-          <div className="relative aspect-[4/5] w-full max-w-md justify-self-center overflow-hidden rounded-[var(--radius-lg)] border border-border bg-gradient-to-br from-charcoal via-charcoal-soft to-primary-dark shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:justify-self-end">
+          <div className="relative aspect-[4/5] w-full max-w-md justify-self-center overflow-hidden rounded-[var(--radius-lg)] border border-border shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:justify-self-end">
+            <Image
+              src="/destinations/uk.jpg"
+              alt="Big Ben, London"
+              fill
+              priority
+              sizes="(max-width: 1024px) 90vw, 480px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-end p-7">
               <p className="font-heading text-4xl font-extrabold text-white">7,000+</p>
-              <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-white/60">
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-white/70">
                 Happy Customers Served
               </p>
               <p className="mt-3 text-lg font-bold leading-snug text-white">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { CalendarDays, CheckCircle2, XCircle, ShieldCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
@@ -34,9 +35,11 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
         ]}
       />
 
-      <section className="flex h-56 items-center justify-center bg-gradient-to-br from-charcoal to-primary-dark text-white sm:h-64">
-        <div className="text-center">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/60">Group Tour</p>
+      <section className="relative flex h-56 items-center justify-center overflow-hidden text-white sm:h-64">
+        <Image src={tour.image} alt={tour.destination} fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-charcoal/55" />
+        <div className="relative text-center">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">Group Tour</p>
           <h1 className="mt-2 font-heading text-3xl font-extrabold sm:text-4xl">{tour.destination}</h1>
         </div>
       </section>

@@ -40,6 +40,17 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas", href: "/visas" }, { label: basic.name }]} />
+      <div className="relative h-48 w-full overflow-hidden sm:h-64">
+        <Image
+          src={`/destinations/${slug}.jpg`}
+          alt={`${basic.name} landmark`}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-charcoal/10 to-transparent" />
+      </div>
       <PageHero
         eyebrow={basic.visaType}
         title={`${basic.name} Visit Visa from Pakistan`}

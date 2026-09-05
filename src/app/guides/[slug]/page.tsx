@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { Clock, CalendarDays } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
@@ -28,6 +29,7 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
     headline: guide.title,
     description: guide.excerpt,
     datePublished: guide.publishedDate,
+    image: `https://www.alibabatraveladvisor.com${guide.image}`,
     author: { "@type": "Organization", name: "Ali Baba Travel Advisor" },
     publisher: { "@type": "Organization", name: "Ali Baba Travel Advisor" },
   };
@@ -44,6 +46,9 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
       />
       <Container className="py-14">
         <div className="mx-auto max-w-[760px]">
+          <div className="relative mb-6 h-52 w-full overflow-hidden rounded-[var(--radius-lg)] sm:h-72">
+            <Image src={guide.image} alt={guide.title} fill priority sizes="760px" className="object-cover" />
+          </div>
           <span className="text-xs font-bold uppercase tracking-[0.08em] text-primary">{guide.category}</span>
           <h1 className="mt-2 font-heading text-2xl font-extrabold leading-tight text-charcoal sm:text-3xl">
             {guide.title}

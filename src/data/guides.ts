@@ -1,6 +1,7 @@
 export interface Guide {
   slug: string;
   title: string;
+  image: string;
   category: "Visa Guides" | "Travel Guides" | "Latest Updates";
   publishedDate: string;
   readingTime: string;
@@ -12,6 +13,7 @@ export const guides: Guide[] = [
   {
     slug: "uk-visit-visa-from-pakistan-easy-guide",
     title: "UK Visit Visa from Pakistan: Easy Guide",
+    image: "/destinations/uk.jpg",
     category: "Visa Guides",
     publishedDate: "2026-06-23",
     readingTime: "6 min read",
@@ -27,6 +29,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-travel-europe-on-a-budget-from-lahore",
     title: "How to Travel Europe on Budget from Travel Agency in Lahore",
+    image: "/destinations/schengen.jpg",
     category: "Travel Guides",
     publishedDate: "2026-06-16",
     readingTime: "5 min read",
@@ -42,6 +45,7 @@ export const guides: Guide[] = [
   {
     slug: "why-book-air-blue-ticket-in-lahore-with-ali-baba",
     title: "Why Book Your Air Blue Ticket in Lahore with Ali Baba?",
+    image: "/destinations/airliner.jpg",
     category: "Latest Updates",
     publishedDate: "2026-06-27",
     readingTime: "4 min read",
