@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { popularDestinations, moreDestinations } from "@/data/countries";
@@ -21,7 +22,17 @@ export function DestinationsGrid() {
               href={`/visas/${country.slug}`}
               className="flex flex-col items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-5 text-center transition-colors hover:border-primary"
             >
-              <span className="text-2xl">{country.flag}</span>
+              {country.flagImage ? (
+                <Image
+                  src={country.flagImage}
+                  alt={`${country.name} flag`}
+                  width={32}
+                  height={20}
+                  className="h-5 w-8 rounded-sm object-cover"
+                />
+              ) : (
+                <span className="text-2xl">{country.flag}</span>
+              )}
               <span className="text-[0.82rem] font-semibold text-charcoal">
                 {country.name}
               </span>

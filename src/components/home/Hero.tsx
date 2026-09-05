@@ -1,6 +1,7 @@
 import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { whatsappHref } from "@/data/site";
 
 const trustPoints = [
   { icon: Building2, label: "Multiple Pakistan Offices" },
@@ -43,7 +44,7 @@ export function Hero() {
               Explore Visa Services
             </Button>
             <Button
-              href="https://wa.me/923000000000?text=Hi%20Ali%20Baba%20Travel%20Advisor%2C%20I%20need%20visa%20information."
+              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.")}
               external
               variant="whatsapp"
               size="lg"
@@ -70,10 +71,11 @@ export function Hero() {
         <div className="relative">
           <div className="relative aspect-[4/5] w-full max-w-md justify-self-center overflow-hidden rounded-[var(--radius-lg)] border border-border bg-gradient-to-br from-charcoal via-charcoal-soft to-primary-dark shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:justify-self-end">
             <div className="absolute inset-0 flex flex-col justify-end p-7">
-              <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/60">
-                Trusted By Families &amp; Businesses
+              <p className="font-heading text-4xl font-extrabold text-white">7,000+</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-white/60">
+                Happy Customers Served
               </p>
-              <p className="mt-2 text-xl font-bold leading-snug text-white">
+              <p className="mt-3 text-lg font-bold leading-snug text-white">
                 Real consultants. Real offices. Real case guidance.
               </p>
             </div>

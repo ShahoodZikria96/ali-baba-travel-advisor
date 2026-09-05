@@ -1,6 +1,9 @@
 /**
- * Sample content only. Replace with real, consented client stories, reviews,
- * tour departures and video content before launch — see project notes.
+ * Real testimonials and tour pricing pulled from alibabatraveladvisor.com.
+ * Departure dates were not carried over (the source site listed months that
+ * have already passed) — confirm current departure dates with the client
+ * before launch. Success stories and video cards remain illustrative sample
+ * content; replace with real case studies and video titles before launch.
  */
 
 export const sampleSuccessStories = [
@@ -11,15 +14,26 @@ export const sampleSuccessStories = [
 ];
 
 export const sampleReviews = [
-  { name: "Client, Lahore", rating: 5, text: "Clear guidance throughout the documentation process and quick responses on WhatsApp.", source: "Google" },
-  { name: "Client, Islamabad", rating: 5, text: "Explained the requirements in detail before we started preparing documents.", source: "Google" },
-  { name: "Client, Karachi", rating: 4, text: "Professional office visit experience and helpful follow-up calls.", source: "Facebook" },
+  {
+    name: "Sara Malik",
+    location: "Islamabad",
+    rating: 5,
+    text: "Alibaba Travel made my dream trip to Canada a reality, and I'm so grateful for their amazing service! Their team was patient, understanding, and went above and beyond to ensure everything was perfect.",
+    photo: "/testimonials/sara-malik.webp",
+  },
+  {
+    name: "Zeeshan Shah",
+    location: "Lahore",
+    rating: 5,
+    text: "I recently booked a trip to the UK through Alibaba Travel, and I can't praise their service enough! From start to finish, the team was incredibly professional and attentive.",
+    photo: "/testimonials/zeeshan-shah.webp",
+  },
 ];
 
 export const sampleTours = [
-  { slug: "azerbaijan-group-tour", destination: "Azerbaijan", duration: "6 Days / 5 Nights", departure: "15 Nov 2026", price: "PKR 145,000", visaAssistance: true },
-  { slug: "turkey-group-tour", destination: "Turkey", duration: "7 Days / 6 Nights", departure: "22 Nov 2026", price: "PKR 189,000", visaAssistance: true },
-  { slug: "malaysia-family-tour", destination: "Malaysia", duration: "5 Days / 4 Nights", departure: "05 Dec 2026", price: "PKR 129,000", visaAssistance: true },
+  { slug: "uk-group-tour", destination: "United Kingdom", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 620,000", visaAssistance: true },
+  { slug: "azerbaijan-group-tour", destination: "Azerbaijan", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 270,000", visaAssistance: true },
+  { slug: "france-group-tour", destination: "France", duration: "6 Days / 5 Nights", departure: "Ask for next departure", price: "PKR 550,000", visaAssistance: true },
 ];
 
 export const sampleVideos = [

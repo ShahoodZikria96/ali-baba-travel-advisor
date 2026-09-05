@@ -1,11 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { offices } from "@/data/offices";
+import { siteConfig, telHref } from "@/data/site";
 import {
   FacebookIcon,
   InstagramIcon,
-  LinkedInIcon,
   YouTubeIcon,
 } from "@/components/ui/SocialIcons";
 
@@ -57,9 +58,13 @@ export function Footer() {
       <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-6">
         <div className="sm:col-span-2 lg:col-span-2">
           <Link href="/" className="mb-4 flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-sm)] bg-primary text-base font-extrabold text-white">
-              A
-            </span>
+            <Image
+              src="/brand/logo.webp"
+              alt="Ali Baba Travel Advisor"
+              width={100}
+              height={100}
+              className="h-11 w-11 rounded-[var(--radius-sm)] bg-white object-contain p-1"
+            />
             <span className="font-heading text-base font-bold text-white">
               Ali Baba Travel Advisor
             </span>
@@ -71,10 +76,9 @@ export function Footer() {
           </p>
           <div className="mt-5 flex items-center gap-3">
             {[
-              { icon: FacebookIcon, label: "Facebook", href: "https://facebook.com" },
-              { icon: InstagramIcon, label: "Instagram", href: "https://instagram.com" },
-              { icon: YouTubeIcon, label: "YouTube", href: "https://youtube.com" },
-              { icon: LinkedInIcon, label: "LinkedIn", href: "https://linkedin.com" },
+              { icon: FacebookIcon, label: "Facebook", href: siteConfig.socials.facebook },
+              { icon: InstagramIcon, label: "Instagram", href: siteConfig.socials.instagram },
+              { icon: YouTubeIcon, label: "YouTube", href: siteConfig.socials.youtube },
             ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
@@ -134,11 +138,11 @@ export function Footer() {
         <Container className="flex flex-col items-center justify-between gap-4 py-6 text-sm text-white/60 sm:flex-row">
           <p>&copy; {new Date().getFullYear()} Ali Baba Travel Advisor. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a href="tel:+923000000000" className="flex items-center gap-1.5 hover:text-primary-light">
-              <Phone size={14} /> +92 300 0000000
+            <a href={telHref()} className="flex items-center gap-1.5 hover:text-primary-light">
+              <Phone size={14} /> {siteConfig.phone}
             </a>
-            <a href="mailto:info@alibabatraveladvisor.com" className="flex items-center gap-1.5 hover:text-primary-light">
-              <Mail size={14} /> info@alibabatraveladvisor.com
+            <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-1.5 hover:text-primary-light">
+              <Mail size={14} /> {siteConfig.email}
             </a>
             <Link href="/privacy-policy" className="hover:text-primary-light">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-primary-light">Terms</Link>

@@ -2,6 +2,7 @@ export interface CountryDestination {
   slug: string;
   name: string;
   flag: string;
+  flagImage?: string;
   visaType: string;
   description: string;
 }
@@ -11,6 +12,7 @@ export const popularDestinations: CountryDestination[] = [
     slug: "uk",
     name: "United Kingdom",
     flag: "🇬🇧",
+    flagImage: "/flags/uk.webp",
     visaType: "Visit, Business & Family Visa",
     description: "Standard Visitor visa assistance for tourism, family and business trips.",
   },
@@ -18,6 +20,7 @@ export const popularDestinations: CountryDestination[] = [
     slug: "canada",
     name: "Canada",
     flag: "🇨🇦",
+    flagImage: "/flags/canada.webp",
     visaType: "Visitor Visa",
     description: "Temporary Resident Visa documentation and case guidance.",
   },
@@ -25,6 +28,7 @@ export const popularDestinations: CountryDestination[] = [
     slug: "usa",
     name: "United States",
     flag: "🇺🇸",
+    flagImage: "/flags/usa.webp",
     visaType: "B1/B2 Visa",
     description: "Interview preparation and documentation support for the US visitor visa.",
   },
@@ -32,6 +36,7 @@ export const popularDestinations: CountryDestination[] = [
     slug: "schengen",
     name: "Schengen Europe",
     flag: "🇪🇺",
+    flagImage: "/flags/schengen.webp",
     visaType: "Short-Stay Schengen Visa",
     description: "Guidance across France, Italy, Germany, Spain and other Schengen states.",
   },
@@ -39,6 +44,7 @@ export const popularDestinations: CountryDestination[] = [
     slug: "australia",
     name: "Australia",
     flag: "🇦🇺",
+    flagImage: "/flags/australia.webp",
     visaType: "Visitor Visa (Subclass 600)",
     description: "Assessment and documentation support for tourism and family visits.",
   },

@@ -4,15 +4,21 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { YouTubeIcon } from "@/components/ui/SocialIcons";
 import { sampleVideos } from "@/data/placeholders";
+import { siteConfig } from "@/data/site";
 
 export function VideoUpdates() {
   return (
     <section className="py-16 lg:py-20">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading eyebrow="Video Library" title="Latest Visa Updates &amp; Expert Videos" />
+          <div>
+            <SectionHeading eyebrow="Video Library" title="Latest Visa Updates &amp; Expert Videos" />
+            <p className="mt-2 text-sm font-semibold text-primary">
+              58,000+ subscribers on YouTube
+            </p>
+          </div>
           <Button
-            href="https://youtube.com"
+            href={siteConfig.socials.youtube}
             external
             variant="outline"
             size="sm"

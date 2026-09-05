@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Menu, MessageCircle, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { telHref, whatsappHref } from "@/data/site";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -46,18 +48,18 @@ export function Header() {
             scrolled ? "h-[68px]" : "h-[88px]"
           )}
         >
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-primary text-lg font-extrabold text-white">
-              A
-            </span>
-            <span className="leading-tight">
-              <span className="block font-heading text-[1.05rem] font-bold text-charcoal">
-                Ali Baba
-              </span>
-              <span className="block text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
-                Travel Advisor
-              </span>
-            </span>
+          <Link href="/" className="flex shrink-0 items-center">
+            <Image
+              src="/brand/logo.webp"
+              alt="Ali Baba Travel Advisor"
+              width={150}
+              height={150}
+              priority
+              className={cn(
+                "w-auto object-contain transition-[height] duration-200",
+                scrolled ? "h-12" : "h-16"
+              )}
+            />
           </Link>
 
           <nav className="hidden items-center lg:flex" aria-label="Primary">
@@ -137,14 +139,14 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <a
-              href="tel:+923000000000"
+              href={telHref()}
               className="hidden items-center gap-1.5 rounded-full border border-border p-2.5 text-charcoal hover:border-primary hover:text-primary xl:inline-flex"
               aria-label="Call Ali Baba Travel Advisor"
             >
               <Phone size={17} />
             </a>
             <Button
-              href="https://wa.me/923000000000"
+              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.")}
               external
               variant="whatsapp"
               size="sm"

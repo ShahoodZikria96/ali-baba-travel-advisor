@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -21,7 +22,17 @@ export function VisaFinder() {
               href={`/visas/${country.slug}`}
               className="group rounded-[var(--radius-md)] border border-border bg-surface p-5 transition-colors hover:border-primary"
             >
-              <span className="text-3xl">{country.flag}</span>
+              {country.flagImage ? (
+                <Image
+                  src={country.flagImage}
+                  alt={`${country.name} flag`}
+                  width={40}
+                  height={26}
+                  className="h-6 w-10 rounded-sm object-cover"
+                />
+              ) : (
+                <span className="text-3xl">{country.flag}</span>
+              )}
               <p className="mt-3 font-heading text-base font-bold text-charcoal">
                 {country.name}
               </p>

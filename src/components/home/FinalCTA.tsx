@@ -1,6 +1,7 @@
 import { MessageCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { whatsappHref } from "@/data/site";
 
 export function FinalCTA() {
   return (
@@ -18,7 +19,7 @@ export function FinalCTA() {
             Book Consultation
           </Button>
           <Button
-            href="https://wa.me/923000000000"
+            href={whatsappHref("Hello I want details.")}
             external
             variant="whatsapp"
             size="lg"

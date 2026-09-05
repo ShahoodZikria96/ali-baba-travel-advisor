@@ -6,6 +6,7 @@ import { ChevronDown, MessageCircle, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/data/navigation";
 import { cn } from "@/lib/utils";
+import { telHref, whatsappHref } from "@/data/site";
 
 export function MobileMenu({
   open,
@@ -113,14 +114,14 @@ export function MobileMenu({
           </Button>
           <div className="grid grid-cols-2 gap-2.5">
             <Button
-              href="tel:+923000000000"
+              href={telHref()}
               variant="outline"
               icon={<Phone size={16} />}
             >
               Call Us
             </Button>
             <Button
-              href="https://wa.me/923000000000"
+              href={whatsappHref("Hello I want details.")}
               external
               variant="whatsapp"
               icon={<MessageCircle size={16} />}

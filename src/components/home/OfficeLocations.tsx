@@ -14,7 +14,7 @@ export function OfficeLocations() {
           description="Walk in for a face-to-face consultation, or reach us by phone and WhatsApp."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {offices.map((office) => (
             <div key={office.slug} className="rounded-[var(--radius-md)] border border-border bg-surface p-5">
               <p className="font-heading text-base font-bold text-charcoal">{office.city}</p>
@@ -32,12 +32,22 @@ export function OfficeLocations() {
                   {office.phone}
                 </a>
               </div>
-              <Link
-                href={`/locations/${office.slug}`}
-                className="mt-4 inline-block text-sm font-bold text-primary hover:text-primary-dark"
-              >
-                Office Details &amp; Directions →
-              </Link>
+              <div className="mt-4 flex items-center gap-4">
+                <Link
+                  href={`/locations/${office.slug}`}
+                  className="text-sm font-bold text-primary hover:text-primary-dark"
+                >
+                  Office Details →
+                </Link>
+                <a
+                  href={office.mapUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-bold text-charcoal hover:text-primary"
+                >
+                  Get Directions
+                </a>
+              </div>
             </div>
           ))}
         </div>
