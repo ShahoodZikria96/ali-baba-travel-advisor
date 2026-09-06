@@ -1,14 +1,9 @@
 import type { MetadataRoute } from "next";
-import { popularDestinations, moreDestinations } from "@/data/countries";
-import { refusalPages } from "@/data/refusalPages";
-import { servicePages } from "@/data/servicePages";
-import { tours } from "@/data/tours";
-import { offices } from "@/data/offices";
-import { guides } from "@/data/guides";
+import { getCountries, getRefusalPages, getServicePages, getTours, getOffices, getGuides } from "@/lib/content";
 
 const baseUrl = "https://www.alibabatraveladvisor.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     "",
     "/visa-consultancy",
@@ -34,9 +29,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
   ];
 
+  const [countries, refusalPages, servicePages, tours, offices, guides] = await Promise.all([
+    getCountries(),
+    getRefusalPages(),
+    getServicePages(),
+    getTours(),
+    getOffices(),
+    getGuides(),
+  ]);
+
   const dynamicRoutes = [
     ...servicePages.map((s) => `/visa-consultancy/${s.slug}`),
-    ...[...popularDestinations, ...moreDestinations].map((c) => `/visas/${c.slug}`),
+    ...countries.map((c) => `/visas/${c.slug}`),
     ...refusalPages.map((r) => `/visa-refusal/${r.slug}`),
     ...tours.map((t) => `/tour-packages/${t.slug}`),
     ...offices.map((o) => `/locations/${o.slug}`),

@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Book a Consultation",
@@ -17,7 +18,9 @@ const points = [
   "No guaranteed-outcome promises — just honest, professional guidance",
 ];
 
-export default function ConsultationPage() {
+export default async function ConsultationPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Consultation" }]} />
@@ -44,7 +47,7 @@ export default function ConsultationPage() {
         </div>
 
         <div className="rounded-[var(--radius-lg)] border border-border bg-surface p-6">
-          <VisaAssessmentForm />
+          <VisaAssessmentForm whatsappNumber={settings.whatsappNumber} />
         </div>
       </Container>
     </>

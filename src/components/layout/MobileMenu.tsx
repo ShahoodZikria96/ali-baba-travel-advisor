@@ -6,14 +6,18 @@ import { ChevronDown, MessageCircle, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/data/navigation";
 import { cn } from "@/lib/utils";
-import { telHref, whatsappHref } from "@/data/site";
+import { telHref, whatsappHref } from "@/lib/whatsapp";
 
 export function MobileMenu({
   open,
   onClose,
+  phone,
+  whatsappNumber,
 }: {
   open: boolean;
   onClose: () => void;
+  phone: string;
+  whatsappNumber: string;
 }) {
   const [expanded, setExpanded] = useState<string | null>(null);
 
@@ -114,14 +118,14 @@ export function MobileMenu({
           </Button>
           <div className="grid grid-cols-2 gap-2.5">
             <Button
-              href={telHref()}
+              href={telHref(phone)}
               variant="outline"
               icon={<Phone size={16} />}
             >
               Call Us
             </Button>
             <Button
-              href={whatsappHref("Hello I want details.")}
+              href={whatsappHref("Hello I want details.", whatsappNumber)}
               external
               variant="whatsapp"
               icon={<MessageCircle size={16} />}

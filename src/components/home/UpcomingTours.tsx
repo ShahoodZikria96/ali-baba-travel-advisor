@@ -2,9 +2,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { TourCard } from "@/components/tours/TourCard";
-import { tours } from "@/data/tours";
+import { getTours } from "@/lib/content";
 
-export function UpcomingTours() {
+export async function UpcomingTours() {
+  const tours = await getTours();
+
   return (
     <section className="border-y border-border bg-surface-muted/60 py-16 lg:py-20">
       <Container>

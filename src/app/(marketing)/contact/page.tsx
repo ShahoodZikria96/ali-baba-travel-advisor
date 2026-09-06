@@ -6,16 +6,16 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
-import { offices } from "@/data/offices";
-import { siteConfig, telHref, whatsappHref } from "@/data/site";
-import { generalFaqs } from "@/data/faqs";
+import { getOffices, getSiteSettings, getFaqs, telHref, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description: "Contact Ali Baba Travel Advisor by phone, WhatsApp, email or in person at our Lahore, Islamabad, Wazirabad or Karachi offices.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [offices, siteConfig, generalFaqs] = await Promise.all([getOffices(), getSiteSettings(), getFaqs()]);
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
@@ -25,8 +25,8 @@ export default function ContactPage() {
         description="Reach us by phone, WhatsApp, email, or visit any of our offices for a face-to-face consultation."
       >
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button href={telHref()} variant="outline" icon={<Phone size={16} />}>{siteConfig.phone}</Button>
-          <Button href={whatsappHref("Hello I want details.")} external variant="whatsapp">WhatsApp Us</Button>
+          <Button href={telHref(siteConfig.phone)} variant="outline" icon={<Phone size={16} />}>{siteConfig.phone}</Button>
+          <Button href={whatsappHref("Hello I want details.", siteConfig.whatsappNumber)} external variant="whatsapp">WhatsApp Us</Button>
           <Button href={`mailto:${siteConfig.email}`} variant="outline" icon={<Mail size={16} />}>Email Us</Button>
         </div>
       </PageHero>
@@ -63,7 +63,7 @@ export default function ContactPage() {
           <h2 className="font-heading text-lg font-bold text-charcoal">Send a General Enquiry</h2>
           <p className="mt-1.5 text-sm text-text-muted">Tell us how we can help and we&rsquo;ll get back to you.</p>
           <div className="mt-5">
-            <VisaAssessmentForm />
+            <VisaAssessmentForm whatsappNumber={siteConfig.whatsappNumber} />
           </div>
         </div>
       </Container>

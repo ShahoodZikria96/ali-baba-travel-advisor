@@ -5,14 +5,16 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { servicePages } from "@/data/servicePages";
+import { getServicePages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Visa Consultancy Services",
   description: "Professional visa consultancy for visit, business, family visit and study visas — documentation support for Pakistani applicants.",
 };
 
-export default function VisaConsultancyPage() {
+export default async function VisaConsultancyPage() {
+  const servicePages = await getServicePages();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visa Consultancy" }]} />

@@ -2,11 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { popularDestinations, moreDestinations } from "@/data/countries";
+import { getCountries } from "@/lib/content";
 
-const all = [...popularDestinations, ...moreDestinations];
+export async function DestinationsGrid() {
+  const all = await getCountries();
 
-export function DestinationsGrid() {
   return (
     <section className="border-y border-border bg-surface-muted/60 py-16 lg:py-20">
       <Container>
@@ -31,7 +31,7 @@ export function DestinationsGrid() {
                   className="h-5 w-8 rounded-sm object-cover"
                 />
               ) : (
-                <span className="text-2xl">{country.flag}</span>
+                <span className="text-2xl">{country.flagEmoji}</span>
               )}
               <span className="text-[0.82rem] font-semibold text-charcoal">
                 {country.name}

@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/data/site";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "How Ali Baba Travel Advisor collects, uses and protects your personal information.",
 };
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  const siteConfig = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Privacy Policy" }]} />

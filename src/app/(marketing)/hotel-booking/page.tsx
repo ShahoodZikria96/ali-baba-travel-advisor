@@ -4,7 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/data/site";
+import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Hotel Booking",
@@ -17,7 +17,9 @@ const points = [
   { icon: MapPinned, title: "Location-Aware Recommendations", description: "Stays chosen for proximity to your sightseeing plans or meeting locations." },
 ];
 
-export default function HotelBookingPage() {
+export default async function HotelBookingPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Hotel Booking" }]} />
@@ -39,7 +41,7 @@ export default function HotelBookingPage() {
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
-          <Button href={whatsappHref("Hi, I would like help booking a hotel for my trip.")} external variant="whatsapp">
+          <Button href={whatsappHref("Hi, I would like help booking a hotel for my trip.", settings.whatsappNumber)} external variant="whatsapp">
             WhatsApp for Hotel Options
           </Button>
           <Button href="/consultation" variant="outline">General Enquiry</Button>

@@ -1,19 +1,13 @@
 import { prisma } from "@/lib/prisma";
 
+export { whatsappHref, telHref } from "@/lib/whatsapp";
+
 // ---------- Site settings ----------
 
 export async function getSiteSettings() {
   const settings = await prisma.siteSettings.findUnique({ where: { id: "main" } });
   if (!settings) throw new Error("Site settings not seeded — run `npm run db:seed`");
   return settings;
-}
-
-export function whatsappHref(message: string, whatsappNumber: string) {
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-}
-
-export function telHref(phone: string) {
-  return `tel:${phone.replace(/\s/g, "")}`;
 }
 
 // ---------- Offices ----------

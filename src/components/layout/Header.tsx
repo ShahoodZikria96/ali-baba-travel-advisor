@@ -9,9 +9,9 @@ import { Button } from "@/components/ui/Button";
 import { primaryNav } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { telHref, whatsappHref } from "@/data/site";
+import { telHref, whatsappHref } from "@/lib/whatsapp";
 
-export function Header() {
+export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumber: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -139,14 +139,14 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <a
-              href={telHref()}
+              href={telHref(phone)}
               className="hidden items-center gap-1.5 rounded-full border border-border p-2.5 text-charcoal hover:border-primary hover:text-primary xl:inline-flex"
               aria-label="Call Ali Baba Travel Advisor"
             >
               <Phone size={17} />
             </a>
             <Button
-              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.")}
+              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.", whatsappNumber)}
               external
               variant="whatsapp"
               size="sm"
@@ -171,7 +171,12 @@ export function Header() {
       </Container>
     </header>
 
-    <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+    <MobileMenu
+      open={mobileOpen}
+      onClose={() => setMobileOpen(false)}
+      phone={phone}
+      whatsappNumber={whatsappNumber}
+    />
     </>
   );
 }

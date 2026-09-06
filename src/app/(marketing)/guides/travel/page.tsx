@@ -3,14 +3,15 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { GuideCard } from "@/components/guides/GuideCard";
-import { guides } from "@/data/guides";
+import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Travel Guides",
   description: "Destination guides and travel planning tips from Ali Baba Travel Advisor.",
 };
 
-export default function TravelGuidesPage() {
+export default async function TravelGuidesPage() {
+  const guides = await getGuides();
   const filtered = guides.filter((g) => g.category === "Travel Guides");
   return (
     <>

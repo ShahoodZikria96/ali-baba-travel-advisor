@@ -5,17 +5,16 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { offices } from "@/data/offices";
-import { getLocationContent } from "@/data/locationContent";
-import { whatsappHref } from "@/data/site";
+import { getOffices, getOffice, getSiteSettings, whatsappHref } from "@/lib/content";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const offices = await getOffices();
   return offices.map((o) => ({ slug: o.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const office = offices.find((o) => o.slug === slug);
+  const office = await getOffice(slug);
   if (!office) return {};
   return {
     title: `Visa Consultant & Travel Agency in ${office.city}`,
@@ -25,10 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function LocationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const office = offices.find((o) => o.slug === slug);
+  const [office, settings] = await Promise.all([getOffice(slug), getSiteSettings()]);
   if (!office) notFound();
-  const content = getLocationContent(slug);
   const isUpcoming = office.openingDate && new Date(office.openingDate) > new Date();
+  const servicesOffered = office.servicesOffered as string[];
 
   return (
     <>
@@ -36,10 +35,14 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
       <PageHero
         eyebrow={isUpcoming ? "Opening Soon" : "Visit Us"}
         title={`Visa Consultant & Travel Agency in ${office.city}`}
-        description={content?.intro}
+        description={office.intro}
       >
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button href={whatsappHref(`Hi, I would like to visit the ${office.city} office.`)} external variant="whatsapp">
+          <Button
+            href={whatsappHref(`Hi, I would like to visit the ${office.city} office.`, settings.whatsappNumber)}
+            external
+            variant="whatsapp"
+          >
             WhatsApp This Office
           </Button>
           <Button href="/consultation" variant="outline">Book Consultation</Button>
@@ -48,18 +51,18 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
 
       <Container className="grid grid-cols-1 gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          {isUpcoming && (
+          {isUpcoming && office.openingDate && (
             <div className="mb-8 flex items-center gap-2 rounded-[var(--radius-md)] border border-primary/30 bg-primary-tint px-4 py-3 text-sm font-semibold text-primary">
-              <Sparkles size={16} /> Opening {new Date(`${office.openingDate}T00:00:00`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
+              <Sparkles size={16} /> Opening {new Date(office.openingDate).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
             </div>
           )}
 
           <h2 className="font-heading text-xl font-bold text-charcoal">About This Office</h2>
-          <p className="mt-4 text-sm leading-relaxed text-text-muted">{content?.localContext}</p>
+          <p className="mt-4 text-sm leading-relaxed text-text-muted">{office.localContext}</p>
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Services Offered Here</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-            {content?.servicesOffered.map((s) => (
+            {servicesOffered.map((s) => (
               <li key={s} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {s}
               </li>

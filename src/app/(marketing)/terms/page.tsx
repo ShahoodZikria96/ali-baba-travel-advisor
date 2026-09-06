@@ -2,14 +2,16 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
-import { siteConfig } from "@/data/site";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description: "Terms and conditions for using Ali Baba Travel Advisor's visa consultancy and travel services.",
 };
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const siteConfig = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Terms" }]} />

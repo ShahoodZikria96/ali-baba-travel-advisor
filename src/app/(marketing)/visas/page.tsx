@@ -5,16 +5,16 @@ import { ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
-import { popularDestinations, moreDestinations } from "@/data/countries";
+import { getCountries } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Visa Countries",
   description: "Explore visa guidance for the UK, Canada, USA, Australia, Schengen Europe, Turkey, Japan, New Zealand and more.",
 };
 
-const all = [...popularDestinations, ...moreDestinations];
+export default async function VisasPage() {
+  const all = await getCountries();
 
-export default function VisasPage() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas" }]} />

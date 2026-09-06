@@ -1,9 +1,11 @@
 import { MessageCircle } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/data/site";
+import { getSiteSettings, whatsappHref } from "@/lib/content";
 
-export function FinalCTA() {
+export async function FinalCTA() {
+  const settings = await getSiteSettings();
+
   return (
     <section className="bg-charcoal py-16 lg:py-20">
       <Container className="flex flex-col items-center gap-6 text-center">
@@ -19,7 +21,7 @@ export function FinalCTA() {
             Book Consultation
           </Button>
           <Button
-            href={whatsappHref("Hello I want details.")}
+            href={whatsappHref("Hello I want details.", settings.whatsappNumber)}
             external
             variant="whatsapp"
             size="lg"

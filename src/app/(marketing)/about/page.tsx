@@ -3,8 +3,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { offices } from "@/data/offices";
-import { siteConfig } from "@/data/site";
+import { getOffices, getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -20,7 +19,9 @@ const differentiators = [
   "An active YouTube channel with 58,000+ subscribers sharing visa guidance",
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const [offices, siteConfig] = await Promise.all([getOffices(), getSiteSettings()]);
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />

@@ -3,14 +3,16 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { GuideCard } from "@/components/guides/GuideCard";
-import { guides } from "@/data/guides";
+import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Visa & Travel Knowledge Centre",
   description: "Visa guides, travel guides and the latest updates from Ali Baba Travel Advisor.",
 };
 
-export default function GuidesPage() {
+export default async function GuidesPage() {
+  const guides = await getGuides();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Guides" }]} />

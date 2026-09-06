@@ -3,14 +3,16 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { TourCard } from "@/components/tours/TourCard";
-import { tours } from "@/data/tours";
+import { getTours } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Tour Packages",
   description: "International group tour packages from Pakistan with visa assistance included — UK, France, Azerbaijan and more.",
 };
 
-export default function TourPackagesPage() {
+export default async function TourPackagesPage() {
+  const tours = await getTours();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Tour Packages" }]} />

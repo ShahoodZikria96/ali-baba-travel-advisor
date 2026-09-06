@@ -2,11 +2,11 @@ import Link from "next/link";
 import { Clock, MapPin, Phone, Sparkles } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { offices } from "@/data/offices";
+import { getOffices } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-function formatOpeningDate(dateStr: string) {
-  return new Date(`${dateStr}T00:00:00`).toLocaleDateString("en-GB", {
+function formatOpeningDate(date: Date) {
+  return date.toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -14,7 +14,8 @@ function formatOpeningDate(dateStr: string) {
   });
 }
 
-export function OfficeLocations() {
+export async function OfficeLocations() {
+  const offices = await getOffices();
   const now = new Date();
 
   return (

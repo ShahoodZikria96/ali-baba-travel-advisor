@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { offices } from "@/data/offices";
-import { siteConfig, telHref } from "@/data/site";
+import { getOffices, getSiteSettings, telHref } from "@/lib/content";
 import {
   FacebookIcon,
   InstagramIcon,
@@ -52,7 +51,9 @@ const footerColumns = [
   },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const [offices, siteConfig] = await Promise.all([getOffices(), getSiteSettings()]);
+
   return (
     <footer className="border-t border-border bg-charcoal text-text-inverse">
       <Container className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-2 lg:grid-cols-6">
@@ -76,9 +77,9 @@ export function Footer() {
           </p>
           <div className="mt-5 flex items-center gap-3">
             {[
-              { icon: FacebookIcon, label: "Facebook", href: siteConfig.socials.facebook },
-              { icon: InstagramIcon, label: "Instagram", href: siteConfig.socials.instagram },
-              { icon: YouTubeIcon, label: "YouTube", href: siteConfig.socials.youtube },
+              { icon: FacebookIcon, label: "Facebook", href: siteConfig.facebookUrl },
+              { icon: InstagramIcon, label: "Instagram", href: siteConfig.instagramUrl },
+              { icon: YouTubeIcon, label: "YouTube", href: siteConfig.youtubeUrl },
             ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
@@ -138,7 +139,7 @@ export function Footer() {
         <Container className="flex flex-col items-center justify-between gap-4 py-6 text-sm text-white/60 sm:flex-row">
           <p>&copy; {new Date().getFullYear()} Ali Baba Travel Advisor. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <a href={telHref()} className="flex items-center gap-1.5 hover:text-primary-light">
+            <a href={telHref(siteConfig.phone)} className="flex items-center gap-1.5 hover:text-primary-light">
               <Phone size={14} /> {siteConfig.phone}
             </a>
             <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-1.5 hover:text-primary-light">

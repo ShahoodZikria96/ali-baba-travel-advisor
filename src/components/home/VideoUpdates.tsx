@@ -3,10 +3,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { YouTubeIcon } from "@/components/ui/SocialIcons";
-import { sampleVideos } from "@/data/placeholders";
-import { siteConfig } from "@/data/site";
+import { getVideos, getSiteSettings } from "@/lib/content";
 
-export function VideoUpdates() {
+export async function VideoUpdates() {
+  const [sampleVideos, settings] = await Promise.all([getVideos(), getSiteSettings()]);
+
   return (
     <section className="py-16 lg:py-20">
       <Container>
@@ -14,11 +15,11 @@ export function VideoUpdates() {
           <div>
             <SectionHeading eyebrow="Video Library" title="Latest Visa Updates &amp; Expert Videos" />
             <p className="mt-2 text-sm font-semibold text-primary">
-              58,000+ subscribers on YouTube
+              {settings.youtubeSubscribers} subscribers on YouTube
             </p>
           </div>
           <Button
-            href={siteConfig.socials.youtube}
+            href={settings.youtubeUrl}
             external
             variant="outline"
             size="sm"
@@ -29,8 +30,8 @@ export function VideoUpdates() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {sampleVideos.map((video, i) => (
-            <div key={i} className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
+          {sampleVideos.map((video) => (
+            <div key={video.id} className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
               <div className="relative flex h-40 items-center justify-center bg-charcoal">
                 <PlayCircle className="text-white/85" size={40} />
                 <span className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-xs font-semibold text-white">

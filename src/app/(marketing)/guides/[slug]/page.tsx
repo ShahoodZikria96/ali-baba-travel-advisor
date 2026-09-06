@@ -5,23 +5,26 @@ import { Clock, CalendarDays } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { guides, getGuide } from "@/data/guides";
+import { getGuides, getGuide } from "@/lib/content";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const guides = await getGuides();
   return guides.map((g) => ({ slug: g.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const guide = getGuide(slug);
+  const guide = await getGuide(slug);
   if (!guide) return {};
   return { title: guide.title, description: guide.excerpt };
 }
 
 export default async function GuideArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const guide = getGuide(slug);
+  const guide = await getGuide(slug);
   if (!guide) notFound();
+
+  const content = guide.content as string[];
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -65,7 +68,7 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
           </div>
 
           <div className="prose-content mt-6 space-y-4 text-[0.98rem] leading-relaxed text-text">
-            {guide.content.map((paragraph, i) => (
+            {content.map((paragraph, i) => (
               <p key={i}>{paragraph}</p>
             ))}
           </div>

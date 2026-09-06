@@ -3,14 +3,15 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { GuideCard } from "@/components/guides/GuideCard";
-import { guides } from "@/data/guides";
+import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Latest Updates",
   description: "The latest visa, airline and travel policy updates from Ali Baba Travel Advisor.",
 };
 
-export default function UpdatesPage() {
+export default async function UpdatesPage() {
+  const guides = await getGuides();
   const filtered = guides.filter((g) => g.category === "Latest Updates");
   return (
     <>

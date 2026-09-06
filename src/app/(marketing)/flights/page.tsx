@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { FlightEnquiryForm } from "@/components/forms/FlightEnquiryForm";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Flight Booking",
@@ -16,7 +17,9 @@ const points = [
   { icon: Headset, title: "Support If Plans Change", description: "Walk-in or call for help with rebooking, refunds, or coordinating your ticket with a visa timeline." },
 ];
 
-export default function FlightsPage() {
+export default async function FlightsPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Flights" }]} />
@@ -49,7 +52,7 @@ export default function FlightsPage() {
           <h2 className="font-heading text-lg font-bold text-charcoal">Request a Flight Quote</h2>
           <p className="mt-1.5 text-sm text-text-muted">Share your travel dates and we&rsquo;ll get back with fare options.</p>
           <div className="mt-5">
-            <FlightEnquiryForm />
+            <FlightEnquiryForm whatsappNumber={settings.whatsappNumber} />
           </div>
         </div>
       </Container>

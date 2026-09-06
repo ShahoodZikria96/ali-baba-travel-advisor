@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { FieldWrapper, TextInput, TextArea, FormSuccess } from "@/components/forms/FormFields";
-import { whatsappHref } from "@/data/site";
+import { whatsappHref } from "@/lib/whatsapp";
 import { submitLead } from "@/lib/leads";
 
 const schema = z.object({
@@ -21,7 +21,13 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function TourEnquiryForm({ defaultDestination }: { defaultDestination?: string }) {
+export function TourEnquiryForm({
+  defaultDestination,
+  whatsappNumber = "923111666076",
+}: {
+  defaultDestination?: string;
+  whatsappNumber?: string;
+}) {
   const [submitted, setSubmitted] = useState(false);
   const {
     register,
@@ -46,7 +52,7 @@ export function TourEnquiryForm({ defaultDestination }: { defaultDestination?: s
       .join("\n");
 
     submitLead("tour_enquiry", data);
-    window.open(whatsappHref(message), "_blank", "noopener,noreferrer");
+    window.open(whatsappHref(message, whatsappNumber), "_blank", "noopener,noreferrer");
     setSubmitted(true);
   };
 

@@ -6,24 +6,30 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
-import { tours, getTour } from "@/data/tours";
-import { whatsappHref } from "@/data/site";
+import { getTours, getTour, getSiteSettings, whatsappHref } from "@/lib/content";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const tours = await getTours();
   return tours.map((t) => ({ slug: t.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const tour = getTour(slug);
+  const tour = await getTour(slug);
   if (!tour) return {};
   return { title: `${tour.destination} Group Tour`, description: tour.summary };
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tour = getTour(slug);
+  const [tour, settings] = await Promise.all([getTour(slug), getSiteSettings()]);
   if (!tour) notFound();
+
+  const highlights = tour.highlights as string[];
+  const included = tour.included as string[];
+  const excluded = tour.excluded as string[];
+  const itinerary = tour.itinerary as { day: string; description: string }[];
+  const notes = tour.notes as string[];
 
   return (
     <>
@@ -63,7 +69,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Tour Highlights</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-            {tour.highlights.map((h) => (
+            {highlights.map((h) => (
               <li key={h} className="flex items-start gap-2">
                 <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-success" /> {h}
               </li>
@@ -74,7 +80,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             <div>
               <h2 className="font-heading text-lg font-bold text-charcoal">What&rsquo;s Included</h2>
               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-text-muted">
-                {tour.included.map((i) => (
+                {included.map((i) => (
                   <li key={i} className="flex items-start gap-2">
                     <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-success" /> {i}
                   </li>
@@ -84,7 +90,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             <div>
               <h2 className="font-heading text-lg font-bold text-charcoal">What&rsquo;s Not Included</h2>
               <ul className="mt-3 space-y-2 text-sm leading-relaxed text-text-muted">
-                {tour.excluded.map((i) => (
+                {excluded.map((i) => (
                   <li key={i} className="flex items-start gap-2">
                     <XCircle size={15} className="mt-0.5 shrink-0 text-text-muted" /> {i}
                   </li>
@@ -95,7 +101,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Day-by-Day Itinerary</h2>
           <ol className="mt-4 space-y-4">
-            {tour.itinerary.map((day) => (
+            {itinerary.map((day) => (
               <li key={day.day} className="flex gap-4">
                 <span className="w-16 shrink-0 font-heading text-sm font-bold text-primary">{day.day}</span>
                 <span className="text-sm leading-relaxed text-text-muted">{day.description}</span>
@@ -105,7 +111,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Important Notes</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-            {tour.notes.map((n) => (
+            {notes.map((n) => (
               <li key={n} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {n}
               </li>
@@ -117,7 +123,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           <p className="font-heading text-lg font-bold text-charcoal">{tour.price} <span className="text-sm font-normal text-text-muted">/ person</span></p>
           <div className="mt-4 flex flex-col gap-2.5">
             <Button
-              href={whatsappHref(`Hi, I would like details about the ${tour.destination} group tour.`)}
+              href={whatsappHref(`Hi, I would like details about the ${tour.destination} group tour.`, settings.whatsappNumber)}
               external
               variant="whatsapp"
             >
@@ -127,7 +133,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           <div className="mt-6 border-t border-border pt-5">
             <h2 className="font-heading text-base font-bold text-charcoal">Package Enquiry</h2>
             <div className="mt-4">
-              <TourEnquiryForm defaultDestination={tour.destination} />
+              <TourEnquiryForm defaultDestination={tour.destination} whatsappNumber={settings.whatsappNumber} />
             </div>
           </div>
         </div>

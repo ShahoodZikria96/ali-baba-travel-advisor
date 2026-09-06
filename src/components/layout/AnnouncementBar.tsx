@@ -4,13 +4,7 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
 
-const message = {
-  text: "Our new Karachi office opens Monday, 7 September 2026.",
-  href: "/locations/karachi",
-  cta: "Get directions",
-};
-
-export function AnnouncementBar() {
+export function AnnouncementBar({ text, href }: { text: string; href: string }) {
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
@@ -19,9 +13,9 @@ export function AnnouncementBar() {
     <div className="relative bg-charcoal text-text-inverse">
       <div className="mx-auto flex max-w-[1280px] items-center justify-center gap-2 px-10 py-2 text-center text-[0.8rem] sm:text-sm">
         <p>
-          {message.text}{" "}
-          <Link href={message.href} className="font-semibold underline underline-offset-2 hover:text-primary-light">
-            {message.cta}
+          {text}{" "}
+          <Link href={href} className="font-semibold underline underline-offset-2 hover:text-primary-light">
+            Learn more
           </Link>
         </p>
       </div>

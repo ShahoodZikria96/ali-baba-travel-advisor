@@ -6,23 +6,28 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { RefusalCaseForm } from "@/components/forms/RefusalCaseForm";
-import { refusalPages, getRefusalPage } from "@/data/refusalPages";
+import { getRefusalPages, getRefusalPage, getSiteSettings } from "@/lib/content";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const refusalPages = await getRefusalPages();
   return refusalPages.map((r) => ({ slug: r.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const r = getRefusalPage(slug);
+  const r = await getRefusalPage(slug);
   if (!r) return {};
-  return { title: r.metaTitle, description: r.metaDescription };
+  return { title: r.metaTitle ?? undefined, description: r.metaDescription ?? undefined };
 }
 
 export default async function RefusalCountryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const r = getRefusalPage(slug);
+  const [r, settings] = await Promise.all([getRefusalPage(slug), getSiteSettings()]);
   if (!r) notFound();
+
+  const commonReasons = r.commonReasons as string[];
+  const whatWeReview = r.whatWeReview as string[];
+  const faqs = r.faqs as { question: string; answer: string }[];
 
   return (
     <>
@@ -39,7 +44,7 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
         <div>
           <h2 className="font-heading text-xl font-bold text-charcoal">Common Reasons for Refusal</h2>
           <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-text-muted">
-            {r.commonReasons.map((reason) => (
+            {commonReasons.map((reason) => (
               <li key={reason} className="flex items-start gap-2">
                 <ShieldAlert size={16} className="mt-0.5 shrink-0 text-primary" /> {reason}
               </li>
@@ -48,7 +53,7 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">What We Review</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-            {r.whatWeReview.map((item) => (
+            {whatWeReview.map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {item}
               </li>
@@ -63,7 +68,7 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Frequently Asked Questions</h2>
           <div className="mt-4">
-            <FAQAccordion items={r.faqs} />
+            <FAQAccordion items={faqs} />
           </div>
 
           <p className="mt-8 text-xs leading-relaxed text-text-muted">
@@ -76,7 +81,7 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
           <h2 className="font-heading text-lg font-bold text-charcoal">Discuss My Case</h2>
           <p className="mt-1.5 text-sm text-text-muted">Share your refusal details and we&rsquo;ll review your options.</p>
           <div className="mt-5">
-            <RefusalCaseForm defaultCountry={r.country} />
+            <RefusalCaseForm defaultCountry={r.country} whatsappNumber={settings.whatsappNumber} />
           </div>
         </div>
       </Container>

@@ -5,7 +5,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { refusalPages } from "@/data/refusalPages";
+import { getRefusalPages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Visa Refusal Assistance",
@@ -21,7 +21,9 @@ const commonFactors = [
   "Inconsistencies between the application and supporting documents",
 ];
 
-export default function VisaRefusalHubPage() {
+export default async function VisaRefusalHubPage() {
+  const refusalPages = await getRefusalPages();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visa Refusal Assistance" }]} />

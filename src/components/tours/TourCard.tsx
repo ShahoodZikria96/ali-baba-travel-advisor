@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CalendarDays, ShieldCheck } from "lucide-react";
-import type { TourPackage } from "@/data/tours";
+import type { Tour } from "@prisma/client";
 
-export function TourCard({ tour }: { tour: TourPackage }) {
+export function TourCard({ tour }: { tour: Tour }) {
   return (
     <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
       <div className="relative h-32 w-full">

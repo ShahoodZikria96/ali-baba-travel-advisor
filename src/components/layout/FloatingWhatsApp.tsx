@@ -1,10 +1,10 @@
 import { MessageCircle } from "lucide-react";
-import { whatsappHref } from "@/data/site";
+import { whatsappHref } from "@/lib/whatsapp";
 
-export function FloatingWhatsApp() {
+export function FloatingWhatsApp({ whatsappNumber }: { whatsappNumber: string }) {
   return (
     <a
-      href={whatsappHref("Hello I want details.")}
+      href={whatsappHref("Hello I want details.", whatsappNumber)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

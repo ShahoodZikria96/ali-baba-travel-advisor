@@ -3,9 +3,11 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { popularDestinations } from "@/data/countries";
+import { getFeaturedCountries } from "@/lib/content";
 
-export function VisaFinder() {
+export async function VisaFinder() {
+  const popularDestinations = await getFeaturedCountries();
+
   return (
     <section className="py-16 lg:py-20">
       <Container>

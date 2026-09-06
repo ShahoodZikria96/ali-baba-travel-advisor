@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
+import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Customized Tours",
@@ -16,7 +17,9 @@ const highlights = [
   "Visa documentation assistance for every traveler on the itinerary",
 ];
 
-export default function CustomizedToursPage() {
+export default async function CustomizedToursPage() {
+  const settings = await getSiteSettings();
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Tours", href: "/tour-packages" }, { label: "Customized Tours" }]} />
@@ -40,7 +43,7 @@ export default function CustomizedToursPage() {
           <h2 className="font-heading text-lg font-bold text-charcoal">Tell Us About Your Trip</h2>
           <p className="mt-1.5 text-sm text-text-muted">Share your destination and dates and we&rsquo;ll get back with options.</p>
           <div className="mt-5">
-            <TourEnquiryForm />
+            <TourEnquiryForm whatsappNumber={settings.whatsappNumber} />
           </div>
         </div>
       </Container>

@@ -1,9 +1,11 @@
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
-import { sampleSuccessStories } from "@/data/placeholders";
+import { getSuccessStories } from "@/lib/content";
 
-export function SuccessStories() {
+export async function SuccessStories() {
+  const sampleSuccessStories = await getSuccessStories();
+
   return (
     <section className="py-16 lg:py-20">
       <Container>
@@ -15,8 +17,8 @@ export function SuccessStories() {
         </div>
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {sampleSuccessStories.map((story, i) => (
-            <div key={i} className="rounded-[var(--radius-md)] border border-border bg-surface p-5">
+          {sampleSuccessStories.map((story) => (
+            <div key={story.id} className="rounded-[var(--radius-md)] border border-border bg-surface p-5">
               <div className="flex items-center justify-between">
                 <span className="rounded-full bg-primary-tint px-2.5 py-1 text-xs font-bold text-primary">
                   {story.country}

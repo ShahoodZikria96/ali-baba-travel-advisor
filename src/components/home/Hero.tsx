@@ -2,7 +2,7 @@ import Image from "next/image";
 import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/data/site";
+import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 const trustPoints = [
   { icon: Building2, label: "Multiple Pakistan Offices" },
@@ -11,7 +11,9 @@ const trustPoints = [
   { icon: PhoneCall, label: "Dedicated Client Support" },
 ];
 
-export function Hero() {
+export async function Hero() {
+  const settings = await getSiteSettings();
+
   return (
     <section className="relative overflow-hidden border-b border-border bg-surface">
       <div
@@ -45,7 +47,7 @@ export function Hero() {
               Explore Visa Services
             </Button>
             <Button
-              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.")}
+              href={whatsappHref("Hi Ali Baba Travel Advisor, I need visa information.", settings.whatsappNumber)}
               external
               variant="whatsapp"
               size="lg"
@@ -81,7 +83,7 @@ export function Hero() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent" />
             <div className="absolute inset-0 flex flex-col justify-end p-7">
-              <p className="font-heading text-4xl font-extrabold text-white">7,000+</p>
+              <p className="font-heading text-4xl font-extrabold text-white">{settings.happyCustomersStat}</p>
               <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-white/70">
                 Happy Customers Served
               </p>
