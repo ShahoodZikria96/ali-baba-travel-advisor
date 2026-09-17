@@ -181,34 +181,53 @@ async function main() {
 
   console.log("Seeding testimonials...");
   for (const [i, t] of sampleReviews.entries()) {
-    await prisma.testimonial.create({
-      data: { name: t.name, location: t.location, rating: t.rating, text: t.text, photo: t.photo, sortOrder: i },
-    });
+    const existing = await prisma.testimonial.findFirst({ where: { name: t.name, text: t.text } });
+    if (!existing) {
+      await prisma.testimonial.create({
+        data: { name: t.name, location: t.location, rating: t.rating, text: t.text, photo: t.photo, sortOrder: i },
+      });
+    }
   }
 
   console.log("Seeding success stories...");
   for (const [i, s] of sampleSuccessStories.entries()) {
-    await prisma.successStory.create({
-      data: { country: s.country, category: s.category, period: s.period, summary: s.summary, sortOrder: i },
-    });
+    const existing = await prisma.successStory.findFirst({ where: { country: s.country, summary: s.summary } });
+    if (!existing) {
+      await prisma.successStory.create({
+        data: { country: s.country, category: s.category, period: s.period, summary: s.summary, sortOrder: i },
+      });
+    }
   }
 
   console.log("Seeding videos...");
   for (const [i, v] of sampleVideos.entries()) {
-    await prisma.video.create({
-      data: { title: v.title, category: v.category, duration: v.duration, sortOrder: i },
-    });
+    const existing = await prisma.video.findFirst({ where: { title: v.title } });
+    if (!existing) {
+      await prisma.video.create({
+        data: { title: v.title, category: v.category, duration: v.duration, sortOrder: i },
+      });
+    }
   }
 
   console.log("Seeding FAQs...");
   for (const [i, f] of generalFaqs.entries()) {
-    await prisma.faq.create({ data: { question: f.question, answer: f.answer, sortOrder: i } });
+    const existing = await prisma.faq.findFirst({ where: { question: f.question } });
+    if (!existing) {
+      await prisma.faq.create({ data: { question: f.question, answer: f.answer, sortOrder: i } });
+    }
   }
 
   console.log("Seeding team...");
-  await prisma.teamMember.create({
-    data: { name: "Syed Ali Jawad", role: "Chief Executive Officer", sortOrder: 0 },
-  });
+  const ceoBio =
+    "Leads Ali Baba Travel Advisor's visa consultancy and travel advisory operations across Lahore, Islamabad, Wazirabad and the newly opened Karachi office.";
+  const existingCeo = await prisma.teamMember.findFirst({ where: { name: "Syed Ali Jawad" } });
+  if (existingCeo) {
+    await prisma.teamMember.update({ where: { id: existingCeo.id }, data: { bio: ceoBio } });
+  } else {
+    await prisma.teamMember.create({
+      data: { name: "Syed Ali Jawad", role: "Chief Executive Officer", bio: ceoBio, sortOrder: 0 },
+    });
+  }
 
   console.log("Seed complete.");
 }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall } from "lucide-react";
+import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall, Star, PlaneTakeoff } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getSiteSettings, whatsappHref } from "@/lib/content";
@@ -16,22 +16,18 @@ export async function Hero() {
 
   return (
     <section className="relative overflow-hidden border-b border-border bg-surface">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06]"
-        style={{
-          backgroundImage:
-            "radial-gradient(var(--color-primary) 1.5px, transparent 1.5px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+      <div aria-hidden className="bg-mesh pointer-events-none absolute inset-0" />
+      <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.06]" />
+
       <Container className="relative grid grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
-        <div>
+        <div className="animate-fade-up">
           <span className="inline-flex items-center gap-2 rounded-full bg-primary-tint px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-primary">
+            <PlaneTakeoff size={13} />
             Pakistan&rsquo;s Trusted Visa &amp; Travel Consultancy
           </span>
-          <h1 className="mt-5 text-[2.1rem] font-extrabold leading-[1.12] text-charcoal sm:text-[2.6rem] lg:text-[3rem]">
-            Visa &amp; Travel Solutions for Your Next International Journey
+          <h1 className="mt-5 text-[2.1rem] font-extrabold leading-[1.12] text-charcoal sm:text-[2.6rem] lg:text-[3.15rem]">
+            Visa &amp; Travel Solutions for Your{" "}
+            <span className="text-gradient">Next International Journey</span>
           </h1>
           <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-text-muted">
             Professional visa assistance, international tours, flight booking
@@ -40,7 +36,7 @@ export async function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button href="/consultation" size="lg">
+            <Button href="/consultation" size="lg" className="shadow-[0_10px_30px_rgba(158,27,38,0.28)]">
               Get Visa Assessment
             </Button>
             <Button href="/visa-consultancy" variant="outline" size="lg">
@@ -71,7 +67,8 @@ export async function Hero() {
           </div>
         </div>
 
-        <div className="relative">
+        <div className="relative animate-fade-up-delay-1">
+          <div aria-hidden className="absolute -inset-6 -z-10 rounded-[var(--radius-lg)] bg-gradient-to-br from-primary/15 via-transparent to-transparent blur-2xl" />
           <div className="relative aspect-[4/5] w-full max-w-md justify-self-center overflow-hidden rounded-[var(--radius-lg)] border border-border shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:justify-self-end">
             <Image
               src="/destinations/uk.jpg"
@@ -91,6 +88,20 @@ export async function Hero() {
                 Real consultants. Real offices. Real case guidance.
               </p>
             </div>
+          </div>
+
+          <div className="animate-float-slow absolute -left-4 top-6 hidden w-52 rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-[0_16px_40px_rgba(29,26,25,0.14)] sm:block lg:-left-8">
+            <div className="flex items-center gap-1 text-primary">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
+              ))}
+            </div>
+            <p className="mt-2 text-[0.8rem] font-semibold leading-snug text-charcoal">
+              &ldquo;Transparent guidance from day one — highly recommended.&rdquo;
+            </p>
+            <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-text-muted">
+              Verified Client
+            </p>
           </div>
         </div>
       </Container>

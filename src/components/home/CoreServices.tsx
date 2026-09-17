@@ -38,7 +38,7 @@ export function CoreServices() {
               <Link
                 key={service.slug}
                 href={`/${service.slug}`}
-                className="group flex flex-col rounded-[var(--radius-lg)] border border-border bg-surface p-6 transition-colors hover:border-primary"
+                className="card-hover group flex flex-col rounded-[var(--radius-lg)] border border-border bg-surface p-6"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] bg-primary-tint text-primary">
                   <Icon size={20} />

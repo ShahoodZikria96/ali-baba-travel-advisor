@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/Hero";
+import { StatsBar } from "@/components/home/StatsBar";
 import { VisaFinder } from "@/components/home/VisaFinder";
 import { CoreServices } from "@/components/home/CoreServices";
 import { RefusalAssistance } from "@/components/home/RefusalAssistance";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <StatsBar />
       <VisaFinder />
       <CoreServices />
       <RefusalAssistance />

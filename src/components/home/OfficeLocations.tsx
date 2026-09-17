@@ -34,7 +34,7 @@ export async function OfficeLocations() {
               <div
                 key={office.slug}
                 className={cn(
-                  "rounded-[var(--radius-md)] border bg-surface p-5",
+                  "card-hover rounded-[var(--radius-md)] border bg-surface p-5",
                   isUpcoming ? "border-primary" : "border-border"
                 )}
               >

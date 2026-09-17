@@ -7,7 +7,7 @@ export function GuideCard({ guide }: { guide: Guide }) {
   return (
     <Link
       href={`/guides/${guide.slug}`}
-      className="group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface transition-colors hover:border-primary"
+      className="card-hover group flex flex-col overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface"
     >
       <div className="relative h-40 w-full">
         <Image

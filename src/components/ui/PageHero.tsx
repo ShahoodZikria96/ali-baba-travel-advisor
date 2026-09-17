@@ -13,8 +13,10 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="border-b border-border bg-surface-muted/50 py-12 lg:py-16">
-      <Container>
+    <section className="relative overflow-hidden border-b border-border bg-surface-muted/50 py-12 lg:py-16">
+      <div aria-hidden className="bg-mesh pointer-events-none absolute inset-0" />
+      <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.05]" />
+      <Container className="relative">
         {eyebrow && (
           <span className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">
             {eyebrow}

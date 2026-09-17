@@ -5,9 +5,15 @@ import type { Tour } from "@prisma/client";
 
 export function TourCard({ tour }: { tour: Tour }) {
   return (
-    <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
-      <div className="relative h-32 w-full">
-        <Image src={tour.image} alt={tour.destination} fill sizes="(max-width: 640px) 100vw, 33vw" className="object-cover" />
+    <div className="card-hover group overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
+      <div className="relative h-32 w-full overflow-hidden">
+        <Image
+          src={tour.image}
+          alt={tour.destination}
+          fill
+          sizes="(max-width: 640px) 100vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
       </div>
       <div className="p-5">
         <p className="font-heading text-lg font-bold text-charcoal">{tour.destination}</p>

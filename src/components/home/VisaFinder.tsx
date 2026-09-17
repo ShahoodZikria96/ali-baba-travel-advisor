@@ -22,7 +22,7 @@ export async function VisaFinder() {
             <Link
               key={country.slug}
               href={`/visas/${country.slug}`}
-              className="group overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface transition-colors hover:border-primary"
+              className="card-hover group overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface"
             >
               <div className="relative h-24 w-full">
                 <Image

@@ -32,9 +32,12 @@ export function WhyChooseUs() {
           description="We focus on transparent guidance and thorough documentation rather than guaranteed outcomes."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason) => (
-            <div key={reason.title}>
+            <div
+              key={reason.title}
+              className="card-hover rounded-[var(--radius-lg)] border border-border bg-surface p-5"
+            >
               <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-primary-tint text-primary">
                 <reason.icon size={18} />
               </span>

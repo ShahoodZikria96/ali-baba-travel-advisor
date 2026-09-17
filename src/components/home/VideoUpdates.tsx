@@ -31,9 +31,12 @@ export async function VideoUpdates() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {sampleVideos.map((video) => (
-            <div key={video.id} className="overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
-              <div className="relative flex h-40 items-center justify-center bg-charcoal">
-                <PlayCircle className="text-white/85" size={40} />
+            <div key={video.id} className="card-hover group overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
+              <div className="relative flex h-40 items-center justify-center overflow-hidden bg-gradient-to-br from-charcoal to-charcoal-soft">
+                <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.08]" />
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-transform group-hover:scale-105">
+                  <PlayCircle className="text-white" size={30} />
+                </span>
                 <span className="absolute bottom-2 right-2 rounded bg-black/70 px-1.5 py-0.5 text-xs font-semibold text-white">
                   {video.duration}
                 </span>

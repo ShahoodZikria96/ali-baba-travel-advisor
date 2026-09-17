@@ -1,7 +1,7 @@
-import Image from "next/image";
-import { Star } from "lucide-react";
+import { Star, Quote, BadgeCheck } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Avatar } from "@/components/ui/Avatar";
 import { getTestimonials } from "@/lib/content";
 
 export async function Reviews() {
@@ -14,28 +14,28 @@ export async function Reviews() {
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:max-w-2xl sm:mx-auto">
           {testimonials.map((review) => (
-            <div key={review.id} className="rounded-[var(--radius-md)] border border-border bg-surface p-6">
-              <div className="flex items-center gap-0.5 text-primary">
+            <div
+              key={review.id}
+              className="card-hover relative overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface p-6"
+            >
+              <Quote size={64} className="pointer-events-none absolute -right-2 -top-3 text-primary-tint" strokeWidth={0} fill="currentColor" />
+              <div className="relative flex items-center gap-0.5 text-primary">
                 {Array.from({ length: review.rating }).map((_, idx) => (
                   <Star key={idx} size={14} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
-              <p className="mt-3 text-sm leading-relaxed text-text">
+              <p className="relative mt-3 text-sm leading-relaxed text-text">
                 &ldquo;{review.text}&rdquo;
               </p>
-              <div className="mt-4 flex items-center gap-2.5">
-                {review.photo && (
-                  <Image
-                    src={review.photo}
-                    alt={review.name}
-                    width={36}
-                    height={36}
-                    className="h-9 w-9 rounded-full object-cover"
-                  />
-                )}
-                <p className="text-xs font-semibold text-text-muted">
-                  {review.name} &middot; {review.location}
-                </p>
+              <div className="relative mt-5 flex items-center gap-3 border-t border-border pt-4">
+                <Avatar src={review.photo} name={review.name} size={38} />
+                <div>
+                  <p className="flex items-center gap-1 text-sm font-bold text-charcoal">
+                    {review.name}
+                    <BadgeCheck size={14} className="text-primary" />
+                  </p>
+                  <p className="text-xs font-medium text-text-muted">{review.location} &middot; Verified Client</p>
+                </div>
               </div>
             </div>
           ))}

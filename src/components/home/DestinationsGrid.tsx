@@ -20,7 +20,7 @@ export async function DestinationsGrid() {
             <Link
               key={country.slug}
               href={`/visas/${country.slug}`}
-              className="flex flex-col items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-5 text-center transition-colors hover:border-primary"
+              className="card-hover flex flex-col items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-5 text-center"
             >
               {country.flagImage ? (
                 <Image
