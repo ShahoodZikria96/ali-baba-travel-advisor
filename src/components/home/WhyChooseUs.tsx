@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { TiltCard } from "@/components/ui/TiltCard";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 const reasons = [
   { icon: Users, title: "Experienced Visa Consultants", description: "A team focused specifically on visa documentation and case guidance." },
@@ -32,24 +34,25 @@ export function WhyChooseUs() {
           description="We focus on transparent guidance and thorough documentation rather than guaranteed outcomes."
         />
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {reasons.map((reason) => (
-            <div
-              key={reason.title}
-              className="card-hover rounded-[var(--radius-lg)] border border-border bg-surface p-5"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-primary-tint text-primary">
-                <reason.icon size={18} />
-              </span>
-              <p className="mt-3 font-heading text-[0.98rem] font-bold text-charcoal">
-                {reason.title}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-text-muted">
-                {reason.description}
-              </p>
-            </div>
+            <RevealItem key={reason.title}>
+              <TiltCard strength={6} className="h-full rounded-[var(--radius-lg)]">
+                <div className="tilt-card-inner h-full rounded-[var(--radius-lg)] border border-border bg-surface p-5">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] bg-primary-tint text-primary">
+                    <reason.icon size={18} />
+                  </span>
+                  <p className="mt-3 font-heading text-[0.98rem] font-bold text-charcoal">
+                    {reason.title}
+                  </p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-text-muted">
+                    {reason.description}
+                  </p>
+                </div>
+              </TiltCard>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );

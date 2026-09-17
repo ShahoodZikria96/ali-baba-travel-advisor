@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { TiltCard } from "@/components/ui/TiltCard";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { getCountries } from "@/lib/content";
 
 export async function DestinationsGrid() {
@@ -15,30 +17,33 @@ export async function DestinationsGrid() {
           title="Popular Visa Destinations from Pakistan"
         />
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+        <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {all.map((country) => (
-            <Link
-              key={country.slug}
-              href={`/visas/${country.slug}`}
-              className="card-hover flex flex-col items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-5 text-center"
-            >
-              {country.flagImage ? (
-                <Image
-                  src={country.flagImage}
-                  alt={`${country.name} flag`}
-                  width={32}
-                  height={20}
-                  className="h-5 w-8 rounded-sm object-cover"
-                />
-              ) : (
-                <span className="text-2xl">{country.flagEmoji}</span>
-              )}
-              <span className="text-[0.82rem] font-semibold text-charcoal">
-                {country.name}
-              </span>
-            </Link>
+            <RevealItem key={country.slug}>
+              <TiltCard strength={8} className="rounded-[var(--radius-md)]">
+                <Link
+                  href={`/visas/${country.slug}`}
+                  className="tilt-card-inner flex flex-col items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-3 py-5 text-center"
+                >
+                  {country.flagImage ? (
+                    <Image
+                      src={country.flagImage}
+                      alt={`${country.name} flag`}
+                      width={32}
+                      height={20}
+                      className="h-5 w-8 rounded-sm object-cover"
+                    />
+                  ) : (
+                    <span className="text-2xl">{country.flagEmoji}</span>
+                  )}
+                  <span className="text-[0.82rem] font-semibold text-charcoal">
+                    {country.name}
+                  </span>
+                </Link>
+              </TiltCard>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );

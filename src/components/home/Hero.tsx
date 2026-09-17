@@ -2,6 +2,7 @@ import Image from "next/image";
 import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall, Star, PlaneTakeoff } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { TiltCard } from "@/components/ui/TiltCard";
 import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 const trustPoints = [
@@ -67,19 +68,23 @@ export async function Hero() {
           </div>
         </div>
 
-        <div className="relative animate-fade-up-delay-1">
+        <div className="relative animate-fade-up-delay-1" style={{ perspective: 1000 }}>
           <div aria-hidden className="absolute -inset-6 -z-10 rounded-[var(--radius-lg)] bg-gradient-to-br from-primary/15 via-transparent to-transparent blur-2xl" />
-          <div className="relative aspect-[4/5] w-full max-w-md justify-self-center overflow-hidden rounded-[var(--radius-lg)] border border-border shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:justify-self-end">
+          <TiltCard
+            strength={8}
+            className="group mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[var(--radius-lg)] border border-border shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:mr-0"
+          >
             <Image
               src="/destinations/uk.jpg"
               alt="Big Ben, London"
               fill
               priority
               sizes="(max-width: 1024px) 90vw, 480px"
-              className="object-cover"
+              className="rounded-[var(--radius-lg)] object-cover"
+              style={{ transform: "translateZ(0)" }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent" />
-            <div className="absolute inset-0 flex flex-col justify-end p-7">
+            <div className="absolute inset-0 rounded-[var(--radius-lg)] bg-gradient-to-t from-charcoal/85 via-charcoal/10 to-transparent" />
+            <div className="absolute inset-0 flex flex-col justify-end p-7" style={{ transform: "translateZ(40px)" }}>
               <p className="font-heading text-4xl font-extrabold text-white">{settings.happyCustomersStat}</p>
               <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-white/70">
                 Happy Customers Served
@@ -88,9 +93,12 @@ export async function Hero() {
                 Real consultants. Real offices. Real case guidance.
               </p>
             </div>
-          </div>
+          </TiltCard>
 
-          <div className="animate-float-slow absolute -left-4 top-6 hidden w-52 rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-[0_16px_40px_rgba(29,26,25,0.14)] sm:block lg:-left-8">
+          <div
+            className="animate-float-slow absolute -left-4 top-6 hidden w-52 rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-[0_16px_40px_rgba(29,26,25,0.14)] sm:block lg:-left-8"
+            style={{ transform: "translateZ(60px)" }}
+          >
             <div className="flex items-center gap-1 text-primary">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} size={13} fill="currentColor" strokeWidth={0} />

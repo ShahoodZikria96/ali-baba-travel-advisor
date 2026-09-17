@@ -8,8 +8,21 @@ import type { ResourceConfig } from "@/lib/admin-resources";
 
 type Row = Record<string, unknown> & { id: string };
 
-function formatCell(value: unknown) {
+function formatCell(col: string, value: unknown) {
   if (value === null || value === undefined) return "—";
+  if (col === "published" && typeof value === "boolean") {
+    return (
+      <span
+        className={
+          value
+            ? "rounded-full bg-[#e8f5ee] px-2 py-0.5 text-xs font-bold text-[#1e7a46]"
+            : "rounded-full bg-[#fbebec] px-2 py-0.5 text-xs font-bold text-[#9e1b26]"
+        }
+      >
+        {value ? "Published" : "Hidden / Pending"}
+      </span>
+    );
+  }
   if (typeof value === "boolean") return value ? "Yes" : "No";
   if (value instanceof Date) return value.toLocaleDateString();
   if (typeof value === "string" && /^\d{4}-\d{2}-\d{2}T/.test(value)) {
@@ -76,7 +89,7 @@ export function AdminTable({ resource, rows }: { resource: ResourceConfig; rows:
               <tr key={row.id}>
                 {resource.listColumns.map((col) => (
                   <td key={col} className="px-4 py-3 text-[#3a3532]">
-                    {formatCell(row[col])}
+                    {formatCell(col, row[col])}
                   </td>
                 ))}
                 <td className="px-4 py-3">

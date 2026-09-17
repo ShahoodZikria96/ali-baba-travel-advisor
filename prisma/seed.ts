@@ -204,7 +204,14 @@ async function main() {
     const existing = await prisma.video.findFirst({ where: { title: v.title } });
     if (!existing) {
       await prisma.video.create({
-        data: { title: v.title, category: v.category, duration: v.duration, sortOrder: i },
+        data: {
+          title: v.title,
+          category: v.category,
+          duration: v.duration,
+          youtubeUrl: v.youtubeUrl,
+          thumbnail: v.thumbnail,
+          sortOrder: i,
+        },
       });
     }
   }

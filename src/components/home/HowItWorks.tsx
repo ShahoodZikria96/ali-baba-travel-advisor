@@ -1,6 +1,7 @@
 import { MessageSquareText, ClipboardCheck, FolderCheck, SendHorizontal } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 const steps = [
   {
@@ -36,9 +37,9 @@ export function HowItWorks() {
           className="mx-auto"
         />
 
-        <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
-            <div key={step.title} className="relative">
+            <RevealItem key={step.title} className="relative">
               <div className="flex items-center gap-3">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
                   <step.icon size={20} />
@@ -53,9 +54,9 @@ export function HowItWorks() {
               <p className="mt-1.5 text-sm leading-relaxed text-text-muted">
                 {step.description}
               </p>
-            </div>
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
 
         <p className="mx-auto mt-12 max-w-2xl text-center text-xs leading-relaxed text-text-muted">
           Visa decisions are made solely by the relevant embassy, consulate or

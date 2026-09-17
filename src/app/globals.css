@@ -86,15 +86,17 @@ body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
-  color: var(--color-charcoal);
-  letter-spacing: -0.01em;
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
+    color: var(--color-charcoal);
+    letter-spacing: -0.01em;
+  }
 }
 
 ::selection {
@@ -119,6 +121,17 @@ h6 {
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(29, 26, 25, 0.1);
+  border-color: var(--color-primary);
+}
+
+.tilt-card-inner {
+  transition:
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.tilt-card-inner:hover {
+  box-shadow: 0 20px 45px rgba(29, 26, 25, 0.14);
   border-color: var(--color-primary);
 }
 

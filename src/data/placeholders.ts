@@ -1,9 +1,10 @@
 /**
- * Real testimonials and tour pricing pulled from alibabatraveladvisor.com.
+ * Real testimonials, tour pricing and video links pulled from
+ * alibabatraveladvisor.com / the client's YouTube channel.
  * Departure dates were not carried over (the source site listed months that
  * have already passed) — confirm current departure dates with the client
- * before launch. Success stories and video cards remain illustrative sample
- * content; replace with real case studies and video titles before launch.
+ * before launch. Success stories remain illustrative sample content; replace
+ * with real case studies before launch.
  */
 
 export const sampleSuccessStories = [
@@ -31,7 +32,25 @@ export const sampleReviews = [
 ];
 
 export const sampleVideos = [
-  { title: "UK Visit Visa: Documents You Actually Need", category: "Visa Guides", duration: "8:42" },
-  { title: "Why Visa Applications Get Refused", category: "Refusal Guidance", duration: "11:15" },
-  { title: "Inside Our Azerbaijan Group Tour", category: "Group Tours", duration: "6:03" },
+  {
+    title: "How to Apply for a Spain Visa from Pakistan? | Complete Application Process 2026",
+    category: "Visa Guides",
+    duration: "10:55",
+    youtubeUrl: "https://www.youtube.com/watch?v=AedYZXUmxKc",
+    thumbnail: "https://i.ytimg.com/vi/AedYZXUmxKc/hqdefault.jpg",
+  },
+  {
+    title: "Canada Visa Approved After Multiple Refusals! | Refusal se Approval Tak Complete Guide",
+    category: "Refusal Guidance",
+    duration: "9:54",
+    youtubeUrl: "https://www.youtube.com/watch?v=0OzxNNQuFQI",
+    thumbnail: "https://i.ytimg.com/vi/0OzxNNQuFQI/hqdefault.jpg",
+  },
+  {
+    title: "Travel History Banani Hai? 2 Best International Tour Packages Explained",
+    category: "Group Tours",
+    duration: "7:08",
+    youtubeUrl: "https://www.youtube.com/watch?v=k9u0OBwYDMk",
+    thumbnail: "https://i.ytimg.com/vi/k9u0OBwYDMk/hqdefault.jpg",
+  },
 ];

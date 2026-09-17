@@ -11,6 +11,7 @@ import { UpcomingTours } from "@/components/home/UpcomingTours";
 import { VideoUpdates } from "@/components/home/VideoUpdates";
 import { Reviews } from "@/components/home/Reviews";
 import { OfficeLocations } from "@/components/home/OfficeLocations";
+import { FaqPreview } from "@/components/home/FaqPreview";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export default function Home() {
@@ -29,6 +30,7 @@ export default function Home() {
       <VideoUpdates />
       <Reviews />
       <OfficeLocations />
+      <FaqPreview />
       <FinalCTA />
     </>
   );

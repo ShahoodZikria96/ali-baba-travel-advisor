@@ -2,6 +2,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { TourCard } from "@/components/tours/TourCard";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { getTours } from "@/lib/content";
 
 export async function UpcomingTours() {
@@ -17,11 +18,13 @@ export async function UpcomingTours() {
           </Button>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <RevealGroup className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {tours.map((tour) => (
-            <TourCard key={tour.slug} tour={tour} />
+            <RevealItem key={tour.slug}>
+              <TourCard tour={tour} />
+            </RevealItem>
           ))}
-        </div>
+        </RevealGroup>
       </Container>
     </section>
   );
