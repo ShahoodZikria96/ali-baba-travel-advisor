@@ -5,6 +5,7 @@ import { Clock, CalendarDays } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { GuideCard } from "@/components/guides/GuideCard";
 import { getGuides, getGuide } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -21,9 +22,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function GuideArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const guide = await getGuide(slug);
+  const [guide, allGuides] = await Promise.all([getGuide(slug), getGuides()]);
   if (!guide) notFound();
 
+  const otherGuides = allGuides.filter((g) => g.slug !== slug).slice(0, 3);
   const content = guide.content as string[];
 
   const articleJsonLd = {
@@ -84,6 +86,17 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
           </div>
         </div>
       </Container>
+
+      {otherGuides.length > 0 && (
+        <Container className="border-t border-border py-14">
+          <h2 className="mx-auto max-w-[760px] font-heading text-xl font-bold text-charcoal">More Guides</h2>
+          <div className="mx-auto mt-6 grid max-w-[760px] grid-cols-1 gap-5 sm:grid-cols-2">
+            {otherGuides.map((g) => (
+              <GuideCard key={g.slug} guide={g} />
+            ))}
+          </div>
+        </Container>
+      )}
     </>
   );
 }

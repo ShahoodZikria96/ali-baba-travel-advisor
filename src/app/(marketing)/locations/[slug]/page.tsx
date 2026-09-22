@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Clock, MapPin, Phone, Sparkles } from "lucide-react";
+import { ArrowRight, Clock, MapPin, Phone, Sparkles } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { coreServices } from "@/data/services";
 import { getOffices, getOffice, getSiteSettings, whatsappHref } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -24,14 +26,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function LocationPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [office, settings] = await Promise.all([getOffice(slug), getSiteSettings()]);
+  const [office, settings, allOffices] = await Promise.all([getOffice(slug), getSiteSettings(), getOffices()]);
   if (!office) notFound();
   const isUpcoming = office.openingDate && new Date(office.openingDate) > new Date();
   const servicesOffered = office.servicesOffered as string[];
+  const otherOffices = allOffices.filter((o) => o.slug !== office.slug);
 
   return (
     <>
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Locations" }, { label: office.city }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Locations", href: "/locations" }, { label: office.city }]} />
       <PageHero
         eyebrow={isUpcoming ? "Opening Soon" : "Visit Us"}
         title={`Visa Consultant & Travel Agency in ${office.city}`}
@@ -68,6 +71,43 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
               </li>
             ))}
           </ul>
+
+          <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Explore Our Services</h2>
+          <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+            {coreServices.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/${service.slug}`}
+                className="group flex items-center justify-between rounded-[var(--radius-sm)] border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-charcoal transition-colors hover:border-primary hover:text-primary"
+              >
+                {service.title}
+                <ArrowRight size={14} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            ))}
+          </div>
+
+          {otherOffices.length > 0 && (
+            <>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Our Other Offices</h2>
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {otherOffices.map((o) => (
+                  <Link
+                    key={o.slug}
+                    href={`/locations/${o.slug}`}
+                    className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-charcoal hover:border-primary hover:text-primary"
+                  >
+                    {o.city}
+                  </Link>
+                ))}
+                <Link
+                  href="/locations"
+                  className="rounded-full border border-primary/30 bg-primary-tint px-4 py-2 text-sm font-bold text-primary hover:border-primary"
+                >
+                  View All Locations →
+                </Link>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6">

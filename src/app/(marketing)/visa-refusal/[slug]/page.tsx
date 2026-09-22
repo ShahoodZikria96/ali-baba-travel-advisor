@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ShieldAlert } from "lucide-react";
+import { ArrowRight, ShieldAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { RefusalCaseForm } from "@/components/forms/RefusalCaseForm";
-import { getRefusalPages, getRefusalPage, getSiteSettings } from "@/lib/content";
+import { getRefusalPages, getRefusalPage, getCountry, getSiteSettings } from "@/lib/content";
 
 export async function generateStaticParams() {
   const refusalPages = await getRefusalPages();
@@ -22,15 +23,28 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function RefusalCountryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [r, settings] = await Promise.all([getRefusalPage(slug), getSiteSettings()]);
+  const [r, settings, country] = await Promise.all([getRefusalPage(slug), getSiteSettings(), getCountry(slug)]);
   if (!r) notFound();
 
   const commonReasons = r.commonReasons as string[];
   const whatWeReview = r.whatWeReview as string[];
   const faqs = r.faqs as { question: string; answer: string }[];
 
+  const faqJsonLd = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  } : null;
+
   return (
     <>
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -38,7 +52,15 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
           { label: r.country },
         ]}
       />
-      <PageHero eyebrow="Refusal Guidance" title={`${r.country} Visa Refusal`} description={r.intro} />
+      <PageHero eyebrow="Refusal Guidance" title={`${r.country} Visa Refusal`} description={r.intro}>
+        {country && (
+          <div className="mt-6">
+            <Button href={`/visas/${country.slug}`} variant="outline" icon={<ArrowRight size={16} />} iconPosition="right">
+              View {country.name} Visa Requirements
+            </Button>
+          </div>
+        )}
+      </PageHero>
 
       <Container className="grid grid-cols-1 gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr]">
         <div>

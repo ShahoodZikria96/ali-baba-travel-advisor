@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -22,15 +23,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [service, settings] = await Promise.all([getServicePage(slug), getSiteSettings()]);
+  const [service, settings, allServices] = await Promise.all([
+    getServicePage(slug),
+    getSiteSettings(),
+    getServicePages(),
+  ]);
   if (!service) notFound();
+  const otherServices = allServices.filter((s) => s.slug !== slug);
 
   const highlights = service.highlights as string[];
   const process = service.process as string[];
   const faqs = service.faqs as { question: string; answer: string }[];
 
+  const faqJsonLd = faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  } : null;
+
   return (
     <>
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },
@@ -85,6 +104,20 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           <div className="mt-5">
             <VisaAssessmentForm whatsappNumber={settings.whatsappNumber} />
           </div>
+          {otherServices.length > 0 && (
+            <div className="mt-6 border-t border-border pt-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Other Visa Services</p>
+              <ul className="mt-2.5 space-y-1.5">
+                {otherServices.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/visa-consultancy/${s.slug}`} className="text-sm font-semibold text-primary hover:text-primary-dark">
+                      {s.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </Container>
     </>

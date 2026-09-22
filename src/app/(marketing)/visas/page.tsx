@@ -8,7 +8,7 @@ import { Container } from "@/components/ui/Container";
 import { getCountries } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Visa Countries",
+  title: "Visa Countries from Pakistan",
   description: "Explore visa guidance for the UK, Canada, USA, Australia, Schengen Europe, Turkey, Japan, New Zealand and more.",
 };
 

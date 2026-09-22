@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
+import { TourCard } from "@/components/tours/TourCard";
 import { getTours, getTour, getSiteSettings, whatsappHref } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -22,9 +23,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [tour, settings] = await Promise.all([getTour(slug), getSiteSettings()]);
+  const [tour, settings, allTours] = await Promise.all([getTour(slug), getSiteSettings(), getTours()]);
   if (!tour) notFound();
 
+  const otherTours = allTours.filter((t) => t.slug !== slug);
   const highlights = tour.highlights as string[];
   const included = tour.included as string[];
   const excluded = tour.excluded as string[];
@@ -138,6 +140,17 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
       </Container>
+
+      {otherTours.length > 0 && (
+        <Container className="border-t border-border py-14">
+          <h2 className="font-heading text-xl font-bold text-charcoal">Other Group Tours</h2>
+          <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {otherTours.map((t) => (
+              <TourCard key={t.slug} tour={t} />
+            ))}
+          </div>
+        </Container>
+      )}
     </>
   );
 }

@@ -131,6 +131,11 @@ export async function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/locations" className="text-sm font-semibold text-white/75 hover:text-primary-light">
+                View All Locations
+              </Link>
+            </li>
           </ul>
         </div>
       </Container>

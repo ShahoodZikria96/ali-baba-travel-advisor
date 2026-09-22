@@ -7,7 +7,7 @@ import { FlightEnquiryForm } from "@/components/forms/FlightEnquiryForm";
 import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Flight Booking",
+  title: "Flight Booking from Pakistan",
   description: "International and domestic airline ticket booking support from Ali Baba Travel Advisor.",
 };
 

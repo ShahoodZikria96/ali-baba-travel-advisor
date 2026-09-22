@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
@@ -30,9 +31,15 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const country = await getCountry(slug);
   if (!country) notFound();
 
-  const [refusalPage, offices, settings] = await Promise.all([getRefusalPage(slug), getOffices(), getSiteSettings()]);
+  const [refusalPage, offices, settings, allCountries] = await Promise.all([
+    getRefusalPage(slug),
+    getOffices(),
+    getSiteSettings(),
+    getCountries(),
+  ]);
   const hasRefusalPage = Boolean(refusalPage);
   const hasRichContent = Boolean(country.whoCanApply);
+  const relatedCountries = allCountries.filter((c) => c.slug !== slug).slice(0, 4);
 
   const whoCanApply = country.whoCanApply as string[] | null;
   const visaTypes = country.visaTypes as { name: string; description: string }[] | null;
@@ -41,8 +48,21 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const refusalReasons = country.refusalReasons as string[] | null;
   const faqs = country.faqs as { question: string; answer: string }[] | null;
 
+  const faqJsonLd = faqs && faqs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  } : null;
+
   return (
     <>
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas", href: "/visas" }, { label: country.name }]} />
       <div className="relative h-48 w-full overflow-hidden sm:h-64">
         <Image
@@ -156,7 +176,9 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Nearest Office</p>
-              <p className="mt-1.5 text-sm text-charcoal">{offices[0].city} — {offices[0].address}</p>
+              <Link href={`/locations/${offices[0].slug}`} className="mt-1.5 block text-sm text-charcoal hover:text-primary">
+                {offices[0].city} — {offices[0].address}
+              </Link>
             </div>
           </div>
         </Container>
@@ -168,6 +190,24 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
           </p>
           <div className="mt-6">
             <Button href="/consultation">Get Visa Assessment</Button>
+          </div>
+        </Container>
+      )}
+
+      {relatedCountries.length > 0 && (
+        <Container className="border-t border-border py-14">
+          <h2 className="font-heading text-xl font-bold text-charcoal">Other Popular Destinations</h2>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {relatedCountries.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/visas/${c.slug}`}
+                className="group flex items-center justify-between gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-charcoal hover:border-primary hover:text-primary"
+              >
+                {c.name}
+                <ArrowRight size={14} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            ))}
           </div>
         </Container>
       )}

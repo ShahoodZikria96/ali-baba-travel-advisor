@@ -6,7 +6,7 @@ import { TourCard } from "@/components/tours/TourCard";
 import { getTours } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Tour Packages",
+  title: "International Tour Packages from Pakistan",
   description: "International group tour packages from Pakistan with visa assistance included — UK, France, Azerbaijan and more.",
 };
 

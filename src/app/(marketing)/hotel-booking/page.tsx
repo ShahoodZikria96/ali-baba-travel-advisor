@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Hotel Booking",
+  title: "Hotel Booking from Pakistan",
   description: "Worldwide hotel and accommodation booking assistance from Ali Baba Travel Advisor.",
 };
 

@@ -9,6 +9,7 @@ import { SuccessStories } from "@/components/home/SuccessStories";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { UpcomingTours } from "@/components/home/UpcomingTours";
 import { VideoUpdates } from "@/components/home/VideoUpdates";
+import { LatestGuides } from "@/components/home/LatestGuides";
 import { Reviews } from "@/components/home/Reviews";
 import { OfficeLocations } from "@/components/home/OfficeLocations";
 import { FaqPreview } from "@/components/home/FaqPreview";
@@ -28,6 +29,7 @@ export default function Home() {
       <HowItWorks />
       <UpcomingTours />
       <VideoUpdates />
+      <LatestGuides />
       <Reviews />
       <OfficeLocations />
       <FaqPreview />
