@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getResource } from "@/lib/admin-resources";
 import { getCurrentAdmin } from "@/lib/auth";
@@ -32,6 +33,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   const body = await req.json();
   try {
     const updated = await delegate(config.model).update({ where: { id }, data: body });
+    revalidatePath("/", "layout");
     return NextResponse.json(updated);
   } catch (err) {
     return NextResponse.json({ error: err instanceof Error ? err.message : "Update failed" }, { status: 400 });
@@ -47,6 +49,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
   try {
     await delegate(config.model).delete({ where: { id } });
+    revalidatePath("/", "layout");
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({ error: err instanceof Error ? err.message : "Delete failed" }, { status: 400 });

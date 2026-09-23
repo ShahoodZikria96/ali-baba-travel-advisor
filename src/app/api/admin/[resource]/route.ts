@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getResource } from "@/lib/admin-resources";
 import { getCurrentAdmin } from "@/lib/auth";
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ res
   const body = await req.json();
   try {
     const created = await delegate(config.model).create({ data: body });
+    revalidatePath("/", "layout");
     return NextResponse.json(created, { status: 201 });
   } catch (err) {
     return NextResponse.json({ error: err instanceof Error ? err.message : "Create failed" }, { status: 400 });
