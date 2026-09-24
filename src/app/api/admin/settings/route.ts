@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { getCurrentAdmin } from "@/lib/auth";
 
@@ -21,5 +22,6 @@ export async function PUT(req: NextRequest) {
     update: body,
     create: { id: "main", ...body },
   });
+  revalidatePath("/", "layout");
   return NextResponse.json(updated);
 }
