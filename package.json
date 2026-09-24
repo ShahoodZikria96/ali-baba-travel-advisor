@@ -13,6 +13,7 @@
     "db:seed:direct": "npx tsx prisma/seed.ts",
     "db:seed:bundled": "node prisma/seed.bundle.cjs",
     "fix-perms": "node -e \"const fs=require('fs'),path=require('path');function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory()){fs.chmodSync(p,0o755);walk(p);}else{fs.chmodSync(p,0o644);}}}walk('.next');console.log('done');\"",
+    "fix-prisma-shim": "node -e \"const fs=require('fs'),path=require('path');const dir=path.join('.next','node_modules','@prisma','client-2c3a283f134fdcb6');fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'@prisma/client-2c3a283f134fdcb6',version:'1.0.0',main:'index.js'}));fs.writeFileSync(path.join(dir,'index.js'),'module.exports = require(\\\"@prisma/client\\\");');console.log('shim created');\"",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
   },
