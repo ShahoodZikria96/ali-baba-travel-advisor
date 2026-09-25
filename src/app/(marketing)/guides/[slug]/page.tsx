@@ -34,7 +34,7 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
     headline: guide.title,
     description: guide.excerpt,
     datePublished: guide.publishedDate,
-    image: `https://www.alibabatraveladvisor.com${guide.image}`,
+    image: `https://alibabatraveladvisor.com${guide.image}`,
     author: { "@type": "Organization", name: "Ali Baba Travel Advisor" },
     publisher: { "@type": "Organization", name: "Ali Baba Travel Advisor" },
   };

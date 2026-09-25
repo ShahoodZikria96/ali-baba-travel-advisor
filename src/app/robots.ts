@@ -5,7 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
+      disallow: "/admin",
     },
-    sitemap: "https://www.alibabatraveladvisor.com/sitemap.xml",
+    sitemap: "https://alibabatraveladvisor.com/sitemap.xml",
   };
 }

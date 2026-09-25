@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getCountries, getRefusalPages, getServicePages, getTours, getOffices, getGuides } from "@/lib/content";
 
-const baseUrl = "https://www.alibabatraveladvisor.com";
+const baseUrl = "https://alibabatraveladvisor.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [

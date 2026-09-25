@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { fontHeading, fontBody } from "@/lib/fonts";
 
-const baseUrl = "https://www.alibabatraveladvisor.com";
+const baseUrl = "https://alibabatraveladvisor.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),

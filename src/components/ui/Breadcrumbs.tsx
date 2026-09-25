@@ -7,7 +7,7 @@ export interface Crumb {
   href?: string;
 }
 
-const baseUrl = "https://www.alibabatraveladvisor.com";
+const baseUrl = "https://alibabatraveladvisor.com";
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   const jsonLd = {

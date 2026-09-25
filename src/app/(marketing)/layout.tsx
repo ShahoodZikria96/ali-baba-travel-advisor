@@ -6,7 +6,7 @@ import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
 import { getOffices, getSiteSettings } from "@/lib/content";
 
-const baseUrl = "https://www.alibabatraveladvisor.com";
+const baseUrl = "https://alibabatraveladvisor.com";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
   const [settings, offices] = await Promise.all([getSiteSettings(), getOffices()]);
