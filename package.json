@@ -19,6 +19,8 @@
     "backup-next": "node -e \"const fs=require('fs');fs.rmSync('.next.bak',{recursive:true,force:true});fs.renameSync('.next','.next.bak');console.log('moved .next to .next.bak');\"",
     "restore-next-bak": "node -e \"const fs=require('fs');fs.rmSync('.next',{recursive:true,force:true});fs.renameSync('.next.bak','.next');console.log('restored .next from .next.bak');\"",
     "drop-next-bak": "node -e \"require('fs').rmSync('.next.bak',{recursive:true,force:true});console.log('removed .next.bak');\"",
+    "check-unzip": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('which unzip').toString());}catch(e){console.log('no unzip:', e.message);}\"",
+    "extract-build": "node -e \"const {execSync}=require('child_process');console.log(execSync('unzip -o -q next-build.zip').toString());console.log('extracted');\"",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
   },
