@@ -16,6 +16,7 @@
     "fix-prisma-shim": "node -e \"const fs=require('fs'),path=require('path');const dir=path.join('.next','node_modules','@prisma','client-2c3a283f134fdcb6');fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'@prisma/client-2c3a283f134fdcb6',version:'1.0.0',main:'index.js'}));fs.writeFileSync(path.join(dir,'index.js'),'module.exports = require(\\\"@prisma/client\\\");');console.log('shim created');\"",
     "reassemble-build": "node -e \"const fs=require('fs');const parts=fs.readdirSync('.').filter(f=>/^next-build\\\\.part\\\\d+$/.test(f)).sort();const out=fs.createWriteStream('next-build.zip');for(const p of parts){out.write(fs.readFileSync(p));console.log('appended',p);}out.end(()=>console.log('done, parts:',parts.length));\"",
     "check-build-id": "node -e \"console.log('BUILD_ID:', require('fs').readFileSync('.next/BUILD_ID', 'utf8'));\"",
+    "clean-next": "node -e \"require('fs').rmSync('.next', {recursive:true, force:true}); console.log('removed .next');\"",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
   },
