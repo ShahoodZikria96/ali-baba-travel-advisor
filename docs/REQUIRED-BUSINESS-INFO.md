@@ -7,7 +7,7 @@ Nothing below was invented. Each item is a placeholder or an assumption carried 
 | 1 | Legal company name | Confirmed by owner: "Ali Baba Travel Advisor" | `src/data/site.ts` |
 | 2 | Registration / SECP / NTN / IATA or other licence details | **Missing.** Add to About + footer only if real | About page |
 | 3 | Public email | `info@alibabatraveladvisor.com` (you supplied it; the old site used a Gmail address). Confirm the mailbox exists | Admin → Settings, `site.ts` |
-| 4 | Phone numbers | 0311-1666076 (primary/WhatsApp) and 0309-6611955 (secondary) are used. The other four you supplied (0321-4419469, 0300-3567312, 0300-4044443, 0323-8814614) are stored in `site.ts` `otherPhones` but not displayed. Tell us which office or person each belongs to | Admin → Settings |
+| 4 | Phone numbers | All 6 numbers from your poster are now shown on Contact and Urdu pages as booking lines (0311-1666076 is primary/WhatsApp). Optional: tell us which office each belongs to | Admin → Settings, `site.ts` |
 | 5 | Opening hours | Assumed Mon–Sat 10:00–18:00 (from the old site). Confirm per office | Admin → Offices; `site.ts` |
 | 6 | Islamabad floor detail | "First Floor" removed to match the address you supplied. Confirm | Admin → Offices |
 | 7 | Google Business Profile URL per office | Only the Lahore link exists | `site.ts`, Admin → Offices |
