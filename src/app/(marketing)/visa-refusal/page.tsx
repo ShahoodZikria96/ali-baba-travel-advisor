@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -7,10 +8,11 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getRefusalPages } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Visa Refusal Assistance",
   description: "Case review and reapplication guidance for applicants who have received a previous visa refusal — UK, Canada, Schengen, Australia and USA.",
-};
+  path: "/visa-refusal",
+});
 
 const commonFactors = [
   "Financial evidence that doesn't match declared income",

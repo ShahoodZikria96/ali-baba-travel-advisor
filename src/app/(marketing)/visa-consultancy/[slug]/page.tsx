@@ -7,6 +7,9 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
+import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { getServicePages, getServicePage, getSiteSettings } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -18,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = await getServicePage(slug);
   if (!service) return {};
-  return { title: service.title, description: service.metaDescription ?? undefined };
+  return pageMetadata({ title: service.title, description: service.metaDescription ?? service.intro.slice(0, 155), path: `/visa-consultancy/${slug}` });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -35,21 +38,21 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const process = service.process as string[];
   const faqs = service.faqs as { question: string; answer: string }[];
 
-  const faqJsonLd = faqs.length > 0 ? {
+  const serviceJsonLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  } : null;
+    "@type": "Service",
+    name: service.title,
+    serviceType: "Visa consultancy",
+    description: service.metaDescription ?? service.intro,
+    url: absoluteUrl(`/visa-consultancy/${slug}`),
+    provider: { "@id": orgId },
+    areaServed: { "@type": "Country", name: "Pakistan" },
+  };
 
   return (
     <>
-      {faqJsonLd && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      )}
+      <FaqJsonLd faqs={faqs} />
+      <JsonLd data={serviceJsonLd} />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

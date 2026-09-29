@@ -17,8 +17,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding admin user...");
-  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminEmail || !adminPassword || adminPassword.length < 12) {
+    throw new Error("Set ADMIN_EMAIL and a strong ADMIN_PASSWORD (12+ chars) before seeding.");
+  }
   const passwordHash = await bcrypt.hash(adminPassword, 10);
   await prisma.adminUser.upsert({
     where: { email: adminEmail },
@@ -39,7 +42,7 @@ async function main() {
       facebookUrl: siteConfig.socials.facebook,
       instagramUrl: siteConfig.socials.instagram,
       youtubeUrl: siteConfig.socials.youtube,
-      announcementText: "Our new Karachi office opens Monday, 7 September 2026.",
+      announcementText: "Now open in Karachi — visit our DHA Phase 2 Extension office.",
       announcementHref: "/locations/karachi",
       announcementActive: true,
     },

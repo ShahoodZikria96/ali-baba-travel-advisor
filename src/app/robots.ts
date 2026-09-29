@@ -1,12 +1,15 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/admin",
+      // Admin, API and any parameterised/filter URLs are never useful in search.
+      disallow: ["/admin", "/api/", "/*?*utm_", "/*?*fbclid=", "/*?*gclid="],
     },
-    sitemap: "https://alibabatraveladvisor.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }

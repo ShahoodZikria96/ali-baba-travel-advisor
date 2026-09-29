@@ -126,6 +126,13 @@ Only possible if the hosting plan's cPanel has a **"Setup Node.js App"** feature
 
 This path has none of Vercel's automatic redeploys, ISR/CDN caching, or preview deployments — every future update has to be uploaded and rebuilt manually.
 
+## SEO, deployment and business docs
+
+- `docs/SEO-STRATEGY.md` — URL architecture, keyword map, internal linking, schema, checklists, off-page and monetization plan, 3/6/12-month roadmap
+- `docs/DEPLOYMENT-CPANEL.md` — Namecheap cPanel deploy, Search Console, GA4/GTM, Google Business Profile
+- `docs/REQUIRED-BUSINESS-INFO.md` — facts the owner must confirm before launch
+- `.env.example` — every environment variable; `deploy/htaccess-snippet.txt` — HTTPS / non-www redirects
+
 ## Admin Panel
 
 The admin panel manages 12 content types (Offices, Visa Countries, Visa Refusal Pages, Visa Consultancy Services, Tour Packages, Blog/Guides, Testimonials, Success Stories, Video Library, FAQs, Team Members, Leads) plus site-wide Settings (phone, WhatsApp, social links, announcement bar). Public testimonial submissions land as unpublished until an admin approves them.

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
-import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess } from "@/components/forms/FormFields";
+import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess, Honeypot } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/lib/whatsapp";
 import { submitLead } from "@/lib/leads";
 
@@ -65,6 +65,7 @@ export function RefusalCaseForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <Honeypot />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FieldWrapper label="Applicant Name" htmlFor="rf-name" error={errors.applicantName?.message}>
           <TextInput id="rf-name" error={!!errors.applicantName} {...register("applicantName")} />

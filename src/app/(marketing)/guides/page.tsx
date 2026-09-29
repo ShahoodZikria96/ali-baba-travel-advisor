@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { GuideCard } from "@/components/guides/GuideCard";
 import { getGuides } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Visa & Travel Knowledge Centre",
   description: "Visa guides, travel guides and the latest updates from Ali Baba Travel Advisor.",
-};
+  path: "/guides",
+});
 
 export default async function GuidesPage() {
   const guides = await getGuides();

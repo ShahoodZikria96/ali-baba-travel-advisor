@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -7,10 +8,11 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getServicePages } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Visa Consultancy Services",
   description: "Professional visa consultancy for visit, business, family visit and study visas — documentation support for Pakistani applicants.",
-};
+  path: "/visa-consultancy",
+});
 
 export default async function VisaConsultancyPage() {
   const servicePages = await getServicePages();

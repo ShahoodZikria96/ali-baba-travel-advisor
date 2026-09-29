@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { FileText, ClipboardCheck, FolderCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Travel Documentation",
   description: "Support with travel documentation, itinerary planning and application requirements from Ali Baba Travel Advisor.",
-};
+  path: "/travel-documentation",
+});
 
 const points = [
   { icon: FileText, title: "Document Checklists", description: "Clear, destination-specific lists so you know exactly what to prepare." },

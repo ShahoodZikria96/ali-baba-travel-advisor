@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Customized Tours",
   description: "Personalized, custom-built international itineraries from Pakistan for families, couples and small groups.",
-};
+  path: "/tour-packages/customized",
+});
 
 const highlights = [
   "Private or small-group itineraries built around your dates and budget",

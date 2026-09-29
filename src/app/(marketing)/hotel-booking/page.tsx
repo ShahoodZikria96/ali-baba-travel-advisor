@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { BedDouble, Wallet, MapPinned } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -6,10 +7,11 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getSiteSettings, whatsappHref } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Hotel Booking from Pakistan",
   description: "Worldwide hotel and accommodation booking assistance from Ali Baba Travel Advisor.",
-};
+  path: "/hotel-booking",
+});
 
 const points = [
   { icon: BedDouble, title: "Worldwide Accommodation", description: "From budget-friendly stays to luxury hotels, matched to your itinerary." },

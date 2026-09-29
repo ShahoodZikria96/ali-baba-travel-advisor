@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description: "How Ali Baba Travel Advisor collects, uses and protects your personal information.",
-};
+  path: "/privacy-policy",
+});
 
 export default async function PrivacyPolicyPage() {
   const siteConfig = await getSiteSettings();
@@ -44,10 +46,6 @@ export default async function PrivacyPolicyPage() {
           <p>
             For questions about this policy or your personal information, contact us at{" "}
             <a href={`mailto:${siteConfig.email}`} className="font-semibold text-primary">{siteConfig.email}</a>.
-          </p>
-          <p className="text-xs italic">
-            This policy is a general template and should be reviewed by legal counsel before publication to ensure
-            it reflects your actual data practices and complies with applicable law.
           </p>
         </div>
       </Container>

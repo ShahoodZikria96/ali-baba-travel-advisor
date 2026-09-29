@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Plane, Clock, Headset } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -6,10 +7,11 @@ import { Container } from "@/components/ui/Container";
 import { FlightEnquiryForm } from "@/components/forms/FlightEnquiryForm";
 import { getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Flight Booking from Pakistan",
   description: "International and domestic airline ticket booking support from Ali Baba Travel Advisor.",
-};
+  path: "/flights",
+});
 
 const points = [
   { icon: Plane, title: "International & Domestic Routes", description: "Airline ticketing for both local travel within Pakistan and international connections." },

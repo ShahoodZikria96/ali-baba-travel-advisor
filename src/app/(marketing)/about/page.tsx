@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getOffices, getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description: "Ali Baba Travel Advisor is Pakistan's visa consultancy and travel advisory, serving clients from Lahore, Islamabad, Wazirabad and Karachi.",
-};
+  path: "/about",
+});
 
 const differentiators = [
   "Experienced visa consultants focused specifically on documentation and case guidance",

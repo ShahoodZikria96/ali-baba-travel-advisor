@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Star, Quote, BadgeCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,10 +9,11 @@ import { Avatar } from "@/components/ui/Avatar";
 import { WriteReviewCTA } from "@/components/home/WriteReviewCTA";
 import { getSuccessStories, getTestimonials } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Success Stories",
-  description: "Client outcomes and reviews from Ali Baba Travel Advisor's visa consultancy and travel planning clients.",
-};
+export const metadata: Metadata = pageMetadata({
+  title: "Client Reviews & Case Examples",
+  description: "Client reviews and anonymised examples of the visa and travel cases Ali Baba Travel Advisor supports. No guaranteed outcomes.",
+  path: "/success-stories",
+});
 
 export default async function SuccessStoriesPage() {
   const [sampleSuccessStories, sampleReviews] = await Promise.all([getSuccessStories(), getTestimonials()]);
@@ -20,12 +22,16 @@ export default async function SuccessStoriesPage() {
     <>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Success Stories" }]} />
       <PageHero
-        eyebrow="Client Outcomes"
-        title="Real Clients. Real Journeys."
+        eyebrow="Case Examples"
+        title="The Kinds of Cases We Handle"
         description="A look at the kinds of cases we support — from first-time applications to reapplications after a previous refusal."
       />
 
       <Container className="py-14">
+        <p className="mb-5 max-w-2xl text-xs leading-relaxed text-text-muted">
+          These are illustrative summaries of case types, not individual client testimonials, and they do not
+          imply that any application will be approved.
+        </p>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {sampleSuccessStories.map((story) => (
             <div key={story.id} className="card-hover rounded-[var(--radius-md)] border border-border bg-surface p-5">
@@ -61,7 +67,7 @@ export default async function SuccessStoriesPage() {
                       {review.name}
                       <BadgeCheck size={14} className="text-primary" />
                     </p>
-                    <p className="text-xs font-medium text-text-muted">{review.location} &middot; Verified Client</p>
+                    <p className="text-xs font-medium text-text-muted">{review.location} &middot; Client review</p>
                   </div>
                 </div>
               </div>

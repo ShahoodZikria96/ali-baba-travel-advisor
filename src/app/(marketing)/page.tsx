@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Hero } from "@/components/home/Hero";
 import { StatsBar } from "@/components/home/StatsBar";
 import { VisaFinder } from "@/components/home/VisaFinder";
@@ -14,6 +16,13 @@ import { Reviews } from "@/components/home/Reviews";
 import { OfficeLocations } from "@/components/home/OfficeLocations";
 import { FaqPreview } from "@/components/home/FaqPreview";
 import { FinalCTA } from "@/components/home/FinalCTA";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Visa Consultant & Travel Agency in Lahore, Pakistan",
+  description:
+    "Ali Baba Travel Advisor: visa consultancy, tour packages, airline tickets and hotel booking for travellers across Pakistan. Offices in Lahore, Islamabad, Wazirabad and Karachi.",
+  path: "/",
+});
 
 export default function Home() {
   return (

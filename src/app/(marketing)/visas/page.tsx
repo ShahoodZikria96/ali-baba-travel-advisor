@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
@@ -7,10 +8,11 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { getCountries } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Visa Countries from Pakistan",
   description: "Explore visa guidance for the UK, Canada, USA, Australia, Schengen Europe, Turkey, Japan, New Zealand and more.",
-};
+  path: "/visas",
+});
 
 export default async function VisasPage() {
   const all = await getCountries();

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
-import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess } from "@/components/forms/FormFields";
+import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess, Honeypot } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/lib/whatsapp";
 import { popularDestinations } from "@/data/countries";
 import { offices } from "@/data/offices";
@@ -69,6 +69,7 @@ export function VisaAssessmentForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <Honeypot />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FieldWrapper label="Full Name" htmlFor="fullName" error={errors.fullName?.message}>
           <TextInput id="fullName" placeholder="Your full name" error={!!errors.fullName} {...register("fullName")} />

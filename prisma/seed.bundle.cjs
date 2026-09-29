@@ -903,8 +903,8 @@ var siteConfig = {
 var prisma = new import_client.PrismaClient();
 async function main() {
   console.log("Seeding admin user...");
-  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD; if (!adminEmail || !adminPassword || adminPassword.length < 12) throw new Error("Set ADMIN_EMAIL and a strong ADMIN_PASSWORD (12+ chars) before seeding.");
   const passwordHash = await import_bcryptjs.default.hash(adminPassword, 10);
   await prisma.adminUser.upsert({
     where: { email: adminEmail },

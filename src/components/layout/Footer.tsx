@@ -46,9 +46,19 @@ const footerColumns = [
       { label: "Our Team", href: "/team" },
       { label: "Success Stories", href: "/success-stories" },
       { label: "Visa & Travel Guides", href: "/guides" },
+      { label: "Our Visa Process", href: "/visa-process" },
       { label: "Contact", href: "/contact" },
     ],
   },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Terms", href: "/terms" },
+  { label: "Refund Policy", href: "/refund-policy" },
+  { label: "Disclaimer", href: "/disclaimer" },
+  { label: "Visa Disclaimer", href: "/visa-disclaimer" },
+  { label: "Cookie Policy", href: "/cookie-policy" },
 ];
 
 export async function Footer() {
@@ -150,9 +160,19 @@ export async function Footer() {
             <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-1.5 hover:text-primary-light">
               <Mail size={14} /> {siteConfig.email}
             </a>
-            <Link href="/privacy-policy" className="hover:text-primary-light">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-primary-light">Terms</Link>
           </div>
+        </Container>
+        <Container className="pb-6">
+          <p className="mb-3 text-xs leading-relaxed text-white/50">
+            Ali Baba Travel Advisor is a private travel and visa consultancy and is not affiliated with any
+            government, embassy or consulate. Visa decisions are made solely by the relevant authority; approval
+            is never guaranteed.
+          </p>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/60">
+            {legalLinks.map((l) => (
+              <Link key={l.href} href={l.href} className="hover:text-primary-light">{l.label}</Link>
+            ))}
+          </nav>
         </Container>
       </div>
     </footer>

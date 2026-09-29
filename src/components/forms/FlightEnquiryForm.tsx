@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
-import { FieldWrapper, TextInput, SelectInput, FormSuccess } from "@/components/forms/FormFields";
+import { FieldWrapper, TextInput, SelectInput, FormSuccess, Honeypot } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/lib/whatsapp";
 import { submitLead } from "@/lib/leads";
 
@@ -56,6 +56,7 @@ export function FlightEnquiryForm({ whatsappNumber = "923111666076" }: { whatsap
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <Honeypot />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FieldWrapper label="From" htmlFor="ff-from" error={errors.from?.message}>
           <TextInput id="ff-from" placeholder="e.g. Lahore" error={!!errors.from} {...register("from")} />

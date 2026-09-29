@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -8,10 +9,11 @@ import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
 import { getOffices, getSiteSettings, getFaqs, telHref, whatsappHref } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact Us",
   description: "Contact Ali Baba Travel Advisor by phone, WhatsApp, email or in person at our Lahore, Islamabad, Wazirabad or Karachi offices.",
-};
+  path: "/contact",
+});
 
 export default async function ContactPage() {
   const [offices, siteConfig, generalFaqs] = await Promise.all([getOffices(), getSiteSettings(), getFaqs()]);

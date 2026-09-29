@@ -9,6 +9,11 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
+import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
+import { officialSources } from "@/data/officialSources";
+import { getGuides } from "@/lib/content";
 import { getCountries, getCountry, getRefusalPage, getOffices, getSiteSettings } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -20,10 +25,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const country = await getCountry(slug);
   if (!country) return {};
-  return {
+  return pageMetadata({
     title: country.metaTitle ?? `${country.name} Visa from Pakistan`,
     description: country.metaDescription ?? country.description,
-  };
+    path: `/visas/${slug}`,
+    image: country.heroImage ?? `/destinations/${slug}.jpg`,
+  });
 }
 
 export default async function CountryPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -48,21 +55,26 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const refusalReasons = country.refusalReasons as string[] | null;
   const faqs = country.faqs as { question: string; answer: string }[] | null;
 
-  const faqJsonLd = faqs && faqs.length > 0 ? {
+  const [allGuides] = await Promise.all([getGuides()]);
+  const relatedGuides = allGuides
+    .filter((g) => g.slug.includes(slug) || g.title.toLowerCase().includes(country.name.toLowerCase()))
+    .slice(0, 3);
+  const sources = officialSources[slug] ?? [];
+  const serviceJsonLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  } : null;
+    "@type": "Service",
+    name: `${country.name} visa consultancy for Pakistani applicants`,
+    serviceType: "Visa consultancy and application assistance",
+    description: country.description,
+    url: absoluteUrl(`/visas/${slug}`),
+    provider: { "@id": orgId },
+    areaServed: { "@type": "Country", name: "Pakistan" },
+  };
 
   return (
     <>
-      {faqJsonLd && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      )}
+      <FaqJsonLd faqs={faqs} />
+      <JsonLd data={serviceJsonLd} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas", href: "/visas" }, { label: country.name }]} />
       <div className="relative h-48 w-full overflow-hidden sm:h-64">
         <Image
@@ -162,7 +174,39 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
               <FAQAccordion items={faqs ?? []} />
             </div>
 
+            {sources.length > 0 && (
+              <>
+                <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Official Sources</h2>
+                <p className="mt-3 text-sm leading-relaxed text-text-muted">
+                  Requirements, fees and processing times change. Always confirm the current position on the
+                  official website before you apply.
+                </p>
+                <ul className="mt-3 space-y-1.5 text-sm">
+                  {sources.map((src) => (
+                    <li key={src.href}>
+                      <a href={src.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary hover:text-primary-dark">
+                        {src.label} ↗
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Related Help</h2>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              <li><Link href="/visa-consultancy/visit-visa" className="font-semibold text-primary hover:text-primary-dark">Visit visa consultancy</Link></li>
+              <li><Link href="/visa-consultancy/business-visa" className="font-semibold text-primary hover:text-primary-dark">Business visa consultancy</Link></li>
+              {hasRefusalPage && (
+                <li><Link href={`/visa-refusal/${slug}`} className="font-semibold text-primary hover:text-primary-dark">{country.name} visa refusal case review</Link></li>
+              )}
+              {relatedGuides.map((g) => (
+                <li key={g.slug}><Link href={`/guides/${g.slug}`} className="font-semibold text-primary hover:text-primary-dark">{g.title}</Link></li>
+              ))}
+            </ul>
+
             <p className="mt-8 text-xs leading-relaxed text-text-muted">
+              Information last reviewed {new Date(country.updatedAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}.
               Visa decisions are made solely by the relevant embassy, consulate or immigration authority. Ali Baba
               Travel Advisor provides consultancy and documentation assistance and does not guarantee visa approval.
             </p>

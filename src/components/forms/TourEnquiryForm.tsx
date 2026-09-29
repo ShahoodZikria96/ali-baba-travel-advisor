@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/Button";
-import { FieldWrapper, TextInput, TextArea, FormSuccess } from "@/components/forms/FormFields";
+import { FieldWrapper, TextInput, TextArea, FormSuccess, Honeypot } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/lib/whatsapp";
 import { submitLead } from "@/lib/leads";
 
@@ -64,6 +64,7 @@ export function TourEnquiryForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <Honeypot />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <FieldWrapper label="Full Name" htmlFor="tf-fullName" error={errors.fullName?.message}>
           <TextInput id="tf-fullName" error={!!errors.fullName} {...register("fullName")} />

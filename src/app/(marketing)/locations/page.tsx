@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
+import { remoteCities } from "@/data/locationExtras";
 import Link from "next/link";
 import { Clock, MapPin, Phone, Sparkles } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -9,10 +11,11 @@ import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { getOffices } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our Offices",
   description: "Visit an Ali Baba Travel Advisor office in Lahore, Islamabad, Wazirabad or Karachi for a face-to-face visa consultation.",
-};
+  path: "/locations",
+});
 
 function formatOpeningDate(date: Date) {
   return date.toLocaleDateString("en-GB", {
@@ -99,6 +102,25 @@ export default async function LocationsPage() {
             );
           })}
         </RevealGroup>
+
+        <section className="mt-16 max-w-3xl">
+          <h2 className="font-heading text-xl font-bold text-charcoal">Clients From Other Cities</h2>
+          <p className="mt-3 text-sm leading-relaxed text-text-muted">
+            We do not have offices in every city. If you are in Faisalabad, Multan, Peshawar, Quetta or elsewhere,
+            you can begin your visa or travel enquiry by phone or WhatsApp and visit your nearest office only when
+            in-person document review is needed.
+          </p>
+          <ul className="mt-4 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
+            {remoteCities.map((c) => (
+              <li key={c.city} className="rounded-[var(--radius-sm)] border border-border bg-surface px-4 py-2.5 text-text-muted">
+                <span className="font-semibold text-charcoal">{c.city}</span> — nearest office:{" "}
+                <Link href={`/locations/${c.nearestSlug}`} className="font-semibold text-primary hover:text-primary-dark">
+                  {c.nearestOffice}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       </Container>
     </>
   );

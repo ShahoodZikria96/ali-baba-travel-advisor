@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { TourCard } from "@/components/tours/TourCard";
+import { pageMetadata } from "@/lib/seo";
 import { getTours, getTour, getSiteSettings, whatsappHref } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) return {};
-  return { title: `${tour.destination} Group Tour`, description: tour.summary };
+  return pageMetadata({ title: `${tour.destination} Group Tour from Pakistan`, description: tour.summary.slice(0, 158), path: `/tour-packages/${slug}`, image: tour.image });
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {

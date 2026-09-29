@@ -12,9 +12,9 @@ export async function SuccessStories() {
     <section className="py-16 lg:py-20">
       <Container>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <SectionHeading eyebrow="Client Outcomes" title="Real Clients. Real Journeys." />
+          <SectionHeading eyebrow="Case Examples" title="The Kinds of Cases We Handle" />
           <Button href="/success-stories" variant="outline" size="sm">
-            View More Success Stories
+            View Case Examples & Reviews
           </Button>
         </div>
 
