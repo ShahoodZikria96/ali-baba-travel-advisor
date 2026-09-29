@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { fontHeading, fontBody } from "@/lib/fonts";
+import { SITE_URL } from "@/lib/seo";
+import { Analytics } from "@/components/analytics/Analytics";
 
-const baseUrl = "https://alibabatraveladvisor.com";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Ali Baba Travel Advisor | Pakistan's Trusted Visa & Travel Consultancy",
     template: "%s | Ali Baba Travel Advisor",
@@ -21,7 +22,12 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
+  // Google Search Console HTML-tag verification (set GOOGLE_SITE_VERIFICATION in the environment).
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+  formatDetection: { telephone: false },
 };
+
+export const viewport = { width: "device-width", initialScale: 1, themeColor: "#9e1b26" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -29,7 +35,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       lang="en"
       className={`${fontHeading.variable} ${fontBody.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }

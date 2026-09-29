@@ -7,6 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { TourCard } from "@/components/tours/TourCard";
+import { pageMetadata } from "@/lib/seo";
+import { tourPosters, priceSuffix } from "@/data/tourPosters";
 import { getTours, getTour, getSiteSettings, whatsappHref } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -18,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) return {};
-  return { title: `${tour.destination} Group Tour`, description: tour.summary };
+  return pageMetadata({ title: `${tour.destination} Group Tour from Pakistan`, description: tour.summary.slice(0, 158), path: `/tour-packages/${slug}`, image: tour.image });
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,6 +28,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
   const [tour, settings, allTours] = await Promise.all([getTour(slug), getSiteSettings(), getTours()]);
   if (!tour) notFound();
 
+  const poster = tourPosters[slug];
   const otherTours = allTours.filter((t) => t.slug !== slug);
   const highlights = tour.highlights as string[];
   const included = tour.included as string[];
@@ -64,7 +67,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
                 <ShieldCheck size={16} /> Visa Assistance Included
               </span>
             )}
-            <span className="ml-auto font-heading text-lg font-extrabold text-primary">{tour.price} / person</span>
+            <span className="ml-auto font-heading text-lg font-extrabold text-primary">{tour.price}{priceSuffix(tour.price)}</span>
           </div>
 
           <p className="mt-6 text-[1.02rem] leading-relaxed text-text-muted">{tour.summary}</p>
@@ -101,15 +104,25 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             </div>
           </div>
 
-          <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Day-by-Day Itinerary</h2>
-          <ol className="mt-4 space-y-4">
-            {itinerary.map((day) => (
-              <li key={day.day} className="flex gap-4">
-                <span className="w-16 shrink-0 font-heading text-sm font-bold text-primary">{day.day}</span>
-                <span className="text-sm leading-relaxed text-text-muted">{day.description}</span>
-              </li>
-            ))}
-          </ol>
+          {itinerary.length > 0 && (
+            <>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Day-by-Day Itinerary</h2>
+              <ol className="mt-4 space-y-4">
+                {itinerary.map((day) => (
+                  <li key={day.day} className="flex gap-4">
+                    <span className="w-16 shrink-0 font-heading text-sm font-bold text-primary">{day.day}</span>
+                    <span className="text-sm leading-relaxed text-text-muted">{day.description}</span>
+                  </li>
+                ))}
+              </ol>
+            </>
+          )}
+          {poster && (
+            <>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Tour Poster</h2>
+              <Image src={poster} alt={`${tour.destination} group tour poster with package details`} width={1080} height={1080} sizes="(max-width: 1024px) 100vw, 560px" className="mt-4 h-auto w-full max-w-md rounded-[var(--radius-md)] border border-border" />
+            </>
+          )}
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Important Notes</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
@@ -122,7 +135,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
         </div>
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6 lg:sticky lg:top-24">
-          <p className="font-heading text-lg font-bold text-charcoal">{tour.price} <span className="text-sm font-normal text-text-muted">/ person</span></p>
+          <p className="font-heading text-lg font-bold text-charcoal">{tour.price} <span className="text-sm font-normal text-text-muted">{priceSuffix(tour.price)}</span></p>
           <div className="mt-4 flex flex-col gap-2.5">
             <Button
               href={whatsappHref(`Hi, I would like details about the ${tour.destination} group tour.`, settings.whatsappNumber)}

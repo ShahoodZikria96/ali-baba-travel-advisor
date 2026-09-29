@@ -1,4 +1,5 @@
 /**
+ * Google reviews (googleReviews) were supplied by the owner from the public Google Business Profile.
  * Real testimonials, tour pricing and video links pulled from
  * alibabatraveladvisor.com / the client's YouTube channel.
  * Departure dates were not carried over (the source site listed months that
@@ -28,6 +29,30 @@ export const sampleReviews = [
     rating: 5,
     text: "I recently booked a trip to the UK through Alibaba Travel, and I can't praise their service enough! From start to finish, the team was incredibly professional and attentive.",
     photo: "/testimonials/zeeshan-shah.webp",
+  },
+];
+
+export const googleReviews = [
+  {
+    name: "Ahmad Nasir",
+    location: "Google Review",
+    rating: 5,
+    text: "Not like other consultants who just ask for payments. They provide solutions for every issue in Visa process and most importantly they have grip on all countries. I have applied Australia, France, UK and New Zealand visas through them and all of the visas were approved. I was not expecting such good services but when I visited them I found that they are professional and they know the process entirely.",
+    photo: null as string | null,
+  },
+  {
+    name: "Mubashar Iqbal",
+    location: "Google Review",
+    rating: 5,
+    text: "I have received my Japan visa through their services. I have never visited any other consultant afterwards.",
+    photo: null as string | null,
+  },
+  {
+    name: "Umair Ahmad",
+    location: "Google Review",
+    rating: 5,
+    text: "Ali Baba always reliable and very efficient personality.",
+    photo: null as string | null,
   },
 ];
 

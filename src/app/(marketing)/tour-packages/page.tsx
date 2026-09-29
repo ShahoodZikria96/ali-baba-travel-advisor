@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { TourCard } from "@/components/tours/TourCard";
 import { getTours } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "International Tour Packages from Pakistan",
   description: "International group tour packages from Pakistan with visa assistance included — UK, France, Azerbaijan and more.",
-};
+  path: "/tour-packages",
+});
 
 export default async function TourPackagesPage() {
   const tours = await getTours();

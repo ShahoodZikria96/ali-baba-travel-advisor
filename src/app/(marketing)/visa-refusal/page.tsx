@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -7,10 +8,11 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getRefusalPages } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Visa Refusal Assistance",
   description: "Case review and reapplication guidance for applicants who have received a previous visa refusal — UK, Canada, Schengen, Australia and USA.",
-};
+  path: "/visa-refusal",
+});
 
 const commonFactors = [
   "Financial evidence that doesn't match declared income",
@@ -66,9 +68,9 @@ export default async function VisaRefusalHubPage() {
         </div>
 
         <p className="mt-10 max-w-2xl text-xs leading-relaxed text-text-muted">
-          Ali Baba Travel Advisor provides visa consultancy and documentation assistance. Where formal legal
-          representation is required, such as judicial review proceedings, we coordinate with qualified legal
-          counsel — this is distinct from regulated legal representation.
+          Ali Baba Travel Advisor provides visa consultancy and documentation assistance. Judicial review and
+          Pre-Action Protocol matters are handled by our in-house legal team, separately from standard consultancy.
+          No outcome is ever guaranteed.
         </p>
       </Container>
     </>

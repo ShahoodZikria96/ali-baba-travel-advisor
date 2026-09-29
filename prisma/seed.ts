@@ -9,7 +9,7 @@ import { refusalPages } from "../src/data/refusalPages";
 import { servicePages } from "../src/data/servicePages";
 import { tours } from "../src/data/tours";
 import { guides } from "../src/data/guides";
-import { sampleReviews, sampleSuccessStories, sampleVideos } from "../src/data/placeholders";
+import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "../src/data/placeholders";
 import { generalFaqs } from "../src/data/faqs";
 import { siteConfig } from "../src/data/site";
 
@@ -17,8 +17,11 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding admin user...");
-  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminEmail || !adminPassword || adminPassword.length < 12) {
+    throw new Error("Set ADMIN_EMAIL and a strong ADMIN_PASSWORD (12+ chars) before seeding.");
+  }
   const passwordHash = await bcrypt.hash(adminPassword, 10);
   await prisma.adminUser.upsert({
     where: { email: adminEmail },
@@ -39,7 +42,7 @@ async function main() {
       facebookUrl: siteConfig.socials.facebook,
       instagramUrl: siteConfig.socials.instagram,
       youtubeUrl: siteConfig.socials.youtube,
-      announcementText: "Our new Karachi office opens Monday, 7 September 2026.",
+      announcementText: "Now open in Karachi — visit our DHA Phase 2 Extension office.",
       announcementHref: "/locations/karachi",
       announcementActive: true,
     },
@@ -180,7 +183,7 @@ async function main() {
   }
 
   console.log("Seeding testimonials...");
-  for (const [i, t] of sampleReviews.entries()) {
+  for (const [i, t] of [...sampleReviews, ...googleReviews].entries()) {
     const existing = await prisma.testimonial.findFirst({ where: { name: t.name, text: t.text } });
     if (!existing) {
       await prisma.testimonial.create({

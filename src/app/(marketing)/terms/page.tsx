@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Terms & Conditions",
   description: "Terms and conditions for using Ali Baba Travel Advisor's visa consultancy and travel services.",
-};
+  path: "/terms",
+});
 
 export default async function TermsPage() {
   const siteConfig = await getSiteSettings();
@@ -35,17 +37,14 @@ export default async function TermsPage() {
           </p>
           <h2 className="font-heading text-lg font-bold text-charcoal">Payments & Cancellations</h2>
           <p>
-            Payment terms and cancellation policies for visa consultancy fees, tour packages and bookings will be
-            communicated in writing at the time of booking.
+            Refunds and cancellations are governed by our{" "}
+            <a href="/refund-policy" className="font-semibold text-primary">Refund &amp; Cancellation Policy</a>.
+            Payment terms for a specific service or booking are confirmed in writing at the time of booking.
           </p>
           <h2 className="font-heading text-lg font-bold text-charcoal">Contact</h2>
           <p>
             Questions about these terms can be sent to{" "}
             <a href={`mailto:${siteConfig.email}`} className="font-semibold text-primary">{siteConfig.email}</a>.
-          </p>
-          <p className="text-xs italic">
-            This is a general template and should be reviewed by legal counsel before publication to reflect your
-            actual business terms and comply with applicable law.
           </p>
         </div>
       </Container>

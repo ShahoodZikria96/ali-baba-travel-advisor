@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall, Star, PlaneTakeoff } from "lucide-react";
+import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall, PlaneTakeoff } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TiltCard } from "@/components/ui/TiltCard";
@@ -27,13 +27,13 @@ export async function Hero() {
             Pakistan&rsquo;s Trusted Visa &amp; Travel Consultancy
           </span>
           <h1 className="mt-5 text-[2.1rem] font-extrabold leading-[1.12] text-charcoal sm:text-[2.6rem] lg:text-[3.15rem]">
-            Visa &amp; Travel Solutions for Your{" "}
-            <span className="text-gradient">Next International Journey</span>
+            Visa Consultant &amp; Travel Agency in Lahore,{" "}
+            <span className="text-gradient">Serving All of Pakistan</span>
           </h1>
           <p className="mt-5 max-w-xl text-[1.05rem] leading-relaxed text-text-muted">
-            Professional visa assistance, international tours, flight booking
-            and travel consultancy for individuals, families and businesses
-            across Pakistan.
+            Visa consultancy, international tours, airline tickets and hotel
+            booking for individuals, families and businesses — with offices in
+            Lahore, Islamabad, Wazirabad and Karachi.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -95,22 +95,6 @@ export async function Hero() {
             </div>
           </TiltCard>
 
-          <div
-            className="animate-float-slow absolute -left-4 top-6 hidden w-52 rounded-[var(--radius-md)] border border-border bg-surface p-4 shadow-[0_16px_40px_rgba(29,26,25,0.14)] sm:block lg:-left-8"
-            style={{ transform: "translateZ(60px)" }}
-          >
-            <div className="flex items-center gap-1 text-primary">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={13} fill="currentColor" strokeWidth={0} />
-              ))}
-            </div>
-            <p className="mt-2 text-[0.8rem] font-semibold leading-snug text-charcoal">
-              &ldquo;Transparent guidance from day one — highly recommended.&rdquo;
-            </p>
-            <p className="mt-1.5 text-[0.7rem] font-semibold uppercase tracking-wide text-text-muted">
-              Verified Client
-            </p>
-          </div>
         </div>
       </Container>
     </section>

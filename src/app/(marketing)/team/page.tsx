@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Avatar } from "@/components/ui/Avatar";
 import { getTeamMembers } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Our Team",
   description: "Meet the leadership behind Ali Baba Travel Advisor's visa consultancy and travel advisory services.",
-};
+  path: "/team",
+});
 
 export default async function TeamPage() {
   const team = await getTeamMembers();

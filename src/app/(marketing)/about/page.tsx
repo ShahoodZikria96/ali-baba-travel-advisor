@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getOffices, getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About Us",
   description: "Ali Baba Travel Advisor is Pakistan's visa consultancy and travel advisory, serving clients from Lahore, Islamabad, Wazirabad and Karachi.",
-};
+  path: "/about",
+});
 
 const differentiators = [
   "Experienced visa consultants focused specifically on documentation and case guidance",
@@ -16,7 +18,7 @@ const differentiators = [
   "Personalized case assessment for every applicant",
   "International travel expertise alongside visa consultancy",
   "Transparent process with no guaranteed-outcome claims",
-  "An active YouTube channel with 58,000+ subscribers sharing visa guidance",
+  "An active YouTube channel with 58,500+ subscribers sharing visa guidance",
 ];
 
 export default async function AboutPage() {
@@ -44,7 +46,7 @@ export default async function AboutPage() {
             </p>
             <p className="mt-4 text-sm leading-relaxed text-text-muted">
               Alongside visa consultancy, we plan group and customized tours, book flights and hotels, and share
-              visa guidance publicly through our YouTube channel, which has grown to over 58,000 subscribers.
+              visa guidance publicly through our YouTube channel, which has grown to over 58,500 subscribers.
             </p>
 
             <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Mission</h2>

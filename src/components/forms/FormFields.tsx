@@ -77,3 +77,15 @@ export function FormSuccess({ message }: { message: string }) {
     </div>
   );
 }
+
+/** Spam trap: invisible to people, tempting to bots. Read by submitLead(). */
+export function Honeypot() {
+  return (
+    <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <label>
+        Leave this field empty
+        <input type="text" name="hp_website" tabIndex={-1} autoComplete="off" defaultValue="" />
+      </label>
+    </div>
+  );
+}

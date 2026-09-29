@@ -95,14 +95,6 @@ var popularDestinations = [
 ];
 var moreDestinations = [
   {
-    slug: "uae",
-    name: "UAE",
-    flag: "\u{1F1E6}\u{1F1EA}",
-    flagImage: "/flags/uae.webp",
-    visaType: "Visit Visa",
-    description: "Short and long-term visit visa assistance for the UAE."
-  },
-  {
     slug: "malaysia",
     name: "Malaysia",
     flag: "\u{1F1F2}\u{1F1FE}",
@@ -226,7 +218,7 @@ var countryPages = [
     faqs: [
       { question: "Can a previously refused Canada applicant reapply?", answer: "Yes \u2014 we assess the refusal letter (procedural fairness or refusal reasons) and help strengthen the reapplication, particularly around financial evidence and ties to Pakistan." },
       { question: "What is a Canada reconsideration request?", answer: "It's a request asking IRCC to review a decision without a new application, used in limited circumstances such as an officer error. We can advise whether this route is appropriate for your case." },
-      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and coordinate with qualified legal counsel for judicial review proceedings, since that is a formal legal process." }
+      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and our in-house legal team handles judicial review proceedings, since that is a formal legal process." }
     ]
   },
   {
@@ -426,7 +418,7 @@ var offices = [
   {
     slug: "lahore",
     city: "Lahore",
-    address: "Office No. 1 & 2, Mezzanine Floor, Siddique Trade Center, Gulberg II, Lahore",
+    address: "Office No. 1 & 2, Mezzanine Floor, Siddiq Trade Center, Gulberg II, Lahore",
     phone: "+92 311 1666076",
     hours: "Mon \u2013 Sat: 10:00 AM \u2013 6:00 PM",
     mapUrl: "https://www.google.com/maps/place/Ali+Baba+Travel+Advisor/@31.5314837,74.3526375,17z/data=!3m1!4b1!4m6!3m5!1s0x39190545cf1e5eab:0x7b86c4a6068a7238!8m2!3d31.5314837!4d74.3526375!16s%2Fg%2F11vwmyf0pr"
@@ -434,7 +426,7 @@ var offices = [
   {
     slug: "islamabad",
     city: "Islamabad",
-    address: "Office No. 33 & 34, First Floor, Al-Anayat Mall, G-11 Markaz, Islamabad",
+    address: "Office No. 33\u201334, Al-Anayat Mall, G-11 Markaz, Islamabad",
     phone: "+92 311 1666076",
     hours: "Mon \u2013 Sat: 10:00 AM \u2013 6:00 PM",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=Al-Anayat+Mall+G-11+Markaz+Islamabad"
@@ -464,7 +456,7 @@ var offices = [
 var locationContent = [
   {
     slug: "lahore",
-    intro: "Our Lahore office, located at Siddique Trade Center in Gulberg II, is Ali Baba Travel Advisor's main branch \u2014 serving families, students and business travelers across the city with visa consultancy, tour packages and flight bookings.",
+    intro: "Our Lahore office, located at Siddiq Trade Center in Gulberg II, is Ali Baba Travel Advisor's main branch \u2014 serving families, students and business travelers across the city with visa consultancy, tour packages and flight bookings.",
     localContext: "Gulberg II is one of Lahore's central commercial areas, making our office an easy walk-in stop for clients from Model Town, Garden Town, DHA and the wider Gulberg corridor. Our Lahore consultants handle the highest volume of UK, Canada, USA and Schengen visit visa cases in our network.",
     servicesOffered: ["Visit, business and family visit visa consultancy", "Visa refusal case review", "Group and customized tour bookings", "Air ticketing and hotel booking"]
   },
@@ -482,8 +474,8 @@ var locationContent = [
   },
   {
     slug: "karachi",
-    intro: "Our newest office opens on Monday, 7 September 2026 at Office No. 3, Mezzanine Floor, 10C Building, 12 Commercial Street, near Cafe Musa, DHA Phase 2 Extension, Karachi \u2014 bringing Ali Baba Travel Advisor's visa consultancy and travel services to Pakistan's largest city.",
-    localContext: "DHA Phase 2 Extension is a fast-growing commercial and residential area of Karachi. Our Karachi office is being set up to serve clients across the city with the same consultancy standards as our Lahore, Islamabad and Wazirabad branches.",
+    intro: "Our newest office is at Office No. 3, Mezzanine Floor, 10C Building, 12 Commercial Street, near Cafe Musa, DHA Phase 2 Extension, Karachi \u2014 bringing Ali Baba Travel Advisor's visa consultancy and travel services to Pakistan's largest city.",
+    localContext: "DHA Phase 2 Extension is a fast-growing commercial and residential area of Karachi. Our Karachi office serves clients across the city with the same consultancy standards as our Lahore, Islamabad and Wazirabad branches.",
     servicesOffered: ["Visit, business and family visit visa consultancy", "Visa refusal case review", "Group and customized tour bookings", "Air ticketing and hotel booking"]
   }
 ];
@@ -509,7 +501,7 @@ var refusalPages = [
       "Evidence of ties to Pakistan (employment, property, family)",
       "Consistency between the application form and supporting documents"
     ],
-    specialNote: "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process \u2014 where PAP or judicial review is appropriate, we coordinate with qualified legal counsel; our own role is case assessment, documentation and consultancy.",
+    specialNote: "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process \u2014 where PAP or judicial review is appropriate, our in-house legal team handles these matters; our consultants' role is case assessment, documentation and consultancy.",
     faqs: [
       { question: "How soon can I reapply after a UK visa refusal?", answer: "There's no mandatory waiting period, but we recommend addressing the refusal reasons thoroughly before reapplying rather than resubmitting the same evidence." },
       { question: "What is the Pre-Action Protocol?", answer: "It's a formal letter sent before a judicial review claim, used in cases where there are arguable grounds that the refusal decision was legally flawed. It requires legal assessment on a case-by-case basis." }
@@ -534,10 +526,10 @@ var refusalPages = [
       "Ties to Pakistan and travel history",
       "Whether a reconsideration request or fresh application is more appropriate"
     ],
-    specialNote: "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and coordinate with qualified legal counsel where formal legal representation is required.",
+    specialNote: "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and our in-house legal team handles judicial review where formal legal action is required.",
     faqs: [
       { question: "What is a Canada reconsideration request?", answer: "It asks IRCC to review a decision without submitting a brand new application \u2014 generally used where there's a clear officer error, and it isn't appropriate for every refusal." },
-      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and coordinate with qualified legal counsel for the judicial review process itself, since that requires formal legal representation." }
+      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and our in-house legal team handles the judicial review process itself, since that requires formal legal action." }
     ]
   },
   {
@@ -699,6 +691,30 @@ var servicePages = [
 // src/data/tours.ts
 var tours = [
   {
+    slug: "travel-history-group-tour",
+    destination: "Thailand, Indonesia, Malaysia & Sri Lanka",
+    image: "/destinations/malaysia.jpg",
+    duration: "10 Days",
+    departure: "Departure: November 2026 \xB7 Last date to book: 5 October 2026",
+    price: "PKR 560,000",
+    visaAssistance: true,
+    summary: "A 10-day organised group tour across Thailand, Indonesia, Malaysia and Sri Lanka, designed for travellers who want to build international travel history. Hotel, return ticket, all visa fees, airport pickup and drop-off and breakfast are included.",
+    highlights: [
+      "Four countries in one 10-day group trip: Thailand, Indonesia, Malaysia and Sri Lanka",
+      "All visa fees included in the package price",
+      "Organised, guided group travel",
+      "Airport pickup and drop-off"
+    ],
+    included: ["Hotel accommodation (service hotel)", "Return airline ticket", "All visa fees", "Airport pickup and drop-off", "Breakfast only"],
+    excluded: ["Lunch and dinner", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
+    itinerary: [],
+    notes: [
+      "Departure is in November 2026 and booking closes on 5 October 2026. Contact us to confirm seat availability and the exact departure date.",
+      "The price is per person.",
+      "Visa decisions are made by each country's immigration authority; a group tour and its price do not guarantee visa approval, and a tour does not guarantee a future visa outcome elsewhere."
+    ]
+  },
+  {
     slug: "uk-group-tour",
     destination: "United Kingdom",
     image: "/destinations/uk.jpg",
@@ -778,6 +794,78 @@ var tours = [
 // src/data/guides.ts
 var guides = [
   {
+    slug: "schengen-visa-requirements-from-pakistan",
+    title: "Schengen Visa Requirements from Pakistan: A Practical Guide",
+    image: "/destinations/schengen.jpg",
+    category: "Visa Guides",
+    publishedDate: "2026-09-29",
+    readingTime: "6 min read",
+    excerpt: "Which country to apply through, what documents Pakistani applicants usually prepare, and the mistakes that most often lead to refusals.",
+    content: [
+      "A Schengen visa lets you travel across the Schengen area for a short stay. Pakistani applicants do not apply to 'Europe' as a whole: you apply to the embassy or consulate (or its authorised visa application centre) of one member country, and the rules of that country's process apply to you.",
+      "Which country should you apply through? In general it is the country where you will spend the most nights. If your nights are split equally, it is usually the country you enter first. Choosing the wrong country is a common reason applications are returned or delayed, so decide this before you book anything non-refundable.",
+      "Timing matters. Applications are generally accepted up to six months before travel and should be submitted well ahead of your departure \u2014 the authority's own recommended lead time is on its website. Appointment availability at visa centres varies by season and is outside anyone's control, so start early.",
+      "The core documents most applicants prepare are a valid passport with enough remaining validity and blank pages, the completed application form, recent photographs, travel medical insurance that meets the Schengen minimum cover, a clear itinerary with accommodation and transport plans, proof of employment or business, and bank statements that match your declared income and travel budget. Each country adds its own extras, so always check the consulate's checklist.",
+      "Financial evidence is judged on consistency and credibility, not on one magic number. Large deposits made just before applying, salary slips that do not match bank credits, or an itinerary that costs more than your funds can support all raise questions.",
+      "Ties to Pakistan \u2014 a job, a business, family, property \u2014 help show that you intend to return. Explain your situation honestly and support it with documents rather than long personal letters.",
+      "If you have been refused before, read the refusal form carefully. It lists the grounds for refusal, and a reapplication should address those specific points. A previous refusal does not permanently bar you, but repeating the same application rarely helps.",
+      "Requirements, fees and appointment systems change. Confirm everything on the official website of the country you are applying through and on the European Commission's Schengen pages before you submit. Ali Baba Travel Advisor can review your documents and guide the process, but visa decisions are made only by the consulate, and approval is never guaranteed."
+    ]
+  },
+  {
+    slug: "canada-visitor-visa-from-pakistan",
+    title: "How to Apply for a Canada Visitor Visa from Pakistan",
+    image: "/destinations/canada.jpg",
+    category: "Visa Guides",
+    publishedDate: "2026-09-29",
+    readingTime: "6 min read",
+    excerpt: "The Canada visitor visa process for Pakistani applicants: online application, biometrics, supporting documents and what to do after a refusal.",
+    content: [
+      "Most Pakistani citizens need a visitor visa (temporary resident visa) to visit Canada for tourism, to see family, or for short business activities. Applications are made to Immigration, Refugees and Citizenship Canada (IRCC), mostly through its online portal.",
+      "The process usually has three parts: create an IRCC account and complete the online application with your documents uploaded, pay the fees, and give biometrics (fingerprints and a photo) at a designated visa application centre when IRCC asks for them. Fees and processing times are published by IRCC and change, so check the official site rather than relying on old figures.",
+      "Officers must be satisfied about two things: that your purpose of visit is genuine and temporary, and that you will leave Canada at the end of your stay. Your documents should therefore show your travel plan, your funds, and your reasons to return to Pakistan \u2014 employment, business, family and other commitments.",
+      "Commonly submitted documents include your passport and previous visas, a travel itinerary, proof of funds such as bank statements, employment or business documents, and, for family visits, an invitation letter and proof of your host's status in Canada. A sensible, consistent set of documents is better than a very large one.",
+      "Travel history helps but is not a requirement for every applicant. If you have none, a clear purpose, strong ties and consistent finances become even more important.",
+      "If your application is refused, the letter explains the reason in general terms. You may apply again with new or better evidence; applicants can also request the officer's notes from IRCC through the formal access-to-information process to understand the decision. Court review options exist but need a licensed lawyer or regulated immigration consultant.",
+      "Ali Baba Travel Advisor can help you plan the application, prepare a document checklist and review your case, including after a previous refusal. We are not a law firm, we do not represent you before the Canadian authorities, and the decision rests solely with IRCC. Approval is never guaranteed."
+    ]
+  },
+  {
+    slug: "business-visa-guide-for-pakistani-travellers",
+    title: "Business Visa Guide for Pakistani Travellers",
+    image: "/destinations/airliner.jpg",
+    category: "Visa Guides",
+    publishedDate: "2026-09-29",
+    readingTime: "5 min read",
+    excerpt: "What a business visit visa allows, what it does not, and the documents Pakistani business travellers commonly prepare.",
+    content: [
+      "A business visa or business-visitor category is meant for short trips such as attending meetings, trade fairs, conferences or negotiating contracts. It is generally not a work permit: you usually cannot take up employment or be paid by a local employer in the country you visit.",
+      "Rules differ sharply by country. Some countries have a dedicated business visa; others, like the UK, cover permitted business activities inside a broader visitor category. Always check what your planned activities are allowed under before applying.",
+      "The strongest applications tell a clear story: who you are, what your business does, who you are meeting and why, how long you will stay, and who pays for the trip. Vague purposes are a frequent cause of refusals.",
+      "Documents commonly prepared include your passport, an invitation letter from the host company or event organiser, proof of your own business (registration, tax documents, company bank statements) or employment (letter from your employer), a detailed itinerary, and personal and business financial records that are consistent with each other.",
+      "Trade-fair and conference invitations should come from a genuine organiser and match the dates of your trip. Do not accept invitation letters from people you cannot verify \u2014 a fake or misleading invitation can lead to refusal and harm future applications.",
+      "Plan timing carefully. Business trips are often date-sensitive, but embassies do not guarantee processing times, and appointment slots can be limited. Apply as early as the authority allows.",
+      "Ali Baba Travel Advisor can assess your case, prepare a document checklist and guide the application. Visa decisions are made only by the relevant embassy or immigration authority, and no outcome is guaranteed."
+    ]
+  },
+  {
+    slug: "how-to-build-travel-history-for-visa-applications",
+    title: "Travel History and Visa Applications: What It Does and Doesn't Do",
+    image: "/destinations/malaysia.jpg",
+    category: "Travel Guides",
+    publishedDate: "2026-09-29",
+    readingTime: "4 min read",
+    excerpt: "Many Pakistani applicants ask whether travel history helps a visa application. A realistic look at how it is viewed and how group tours fit in.",
+    content: [
+      "Travel history means the countries you have visited before and the fact that you followed the rules there \u2014 entered legally, stayed within your permitted time and returned home. Visa officers can see it as evidence that you are a genuine, compliant traveller.",
+      "It helps, but it is not decisive. Officers look at the whole application: your purpose of travel, your finances, your employment or business, your family and other ties to Pakistan, and your history. Travel history cannot fix weak finances or an unclear purpose, and no trip can guarantee a future visa.",
+      "Which trips count? Trips that are properly documented \u2014 with passport stamps or entry records, valid visas and consistent dates \u2014 are the most useful. Places that are easier to enter are often chosen by first-time travellers to start a record.",
+      "Organised group tours are one way to travel for the first time with logistics handled: visa, hotel, flights and transfers arranged together. Our Travel History Group Tour, for example, is a 10-day trip across Thailand, Indonesia, Malaysia and Sri Lanka. It is a travel package, not a visa strategy, and it does not promise any result on later applications.",
+      "Whatever you choose, keep your records: passport pages, tickets, hotel bookings and any entry stamps. Be honest about every trip when a later application asks for your travel history.",
+      "If you are unsure whether a trip is the right next step for your plans, message us with your destination goals and we will give you a realistic view."
+    ]
+  },
+  {
     slug: "uk-visit-visa-from-pakistan-easy-guide",
     title: "UK Visit Visa from Pakistan: Easy Guide",
     image: "/destinations/uk.jpg",
@@ -849,6 +937,29 @@ var sampleReviews = [
     photo: "/testimonials/zeeshan-shah.webp"
   }
 ];
+var googleReviews = [
+  {
+    name: "Ahmad Nasir",
+    location: "Google Review",
+    rating: 5,
+    text: "Not like other consultants who just ask for payments. They provide solutions for every issue in Visa process and most importantly they have grip on all countries. I have applied Australia, France, UK and New Zealand visas through them and all of the visas were approved. I was not expecting such good services but when I visited them I found that they are professional and they know the process entirely.",
+    photo: null
+  },
+  {
+    name: "Mubashar Iqbal",
+    location: "Google Review",
+    rating: 5,
+    text: "I have received my Japan visa through their services. I have never visited any other consultant afterwards.",
+    photo: null
+  },
+  {
+    name: "Umair Ahmad",
+    location: "Google Review",
+    rating: 5,
+    text: "Ali Baba always reliable and very efficient personality.",
+    photo: null
+  }
+];
 var sampleVideos = [
   {
     title: "How to Apply for a Spain Visa from Pakistan? | Complete Application Process 2026",
@@ -880,7 +991,7 @@ var generalFaqs = [
   { question: "Can a previously refused applicant apply again?", answer: "Yes. Most refusals cite specific, addressable concerns. We review the refusal letter, identify what needs to be strengthened, and help you prepare a stronger reapplication." },
   { question: "Do you guarantee visa approval?", answer: "No \u2014 visa decisions are made solely by the relevant embassy, consulate or immigration authority. We provide professional documentation and case assessment, not guaranteed outcomes." },
   { question: "Can you prepare my visa documents?", answer: "Yes, document preparation and checklist guidance is a core part of our visa consultancy service, for both first-time and previously refused applicants." },
-  { question: "Where are your offices?", answer: "We have offices in Lahore, Islamabad and Wazirabad, with a new Karachi office opening 7 September 2026. See our Locations pages for full addresses and directions." },
+  { question: "Where are your offices?", answer: "We have offices in Lahore, Islamabad and Wazirabad, and a Karachi office in DHA Phase 2 Extension. See our Locations pages for full addresses and directions." },
   { question: "Can I book tickets through Ali Baba Travel Advisor?", answer: "Yes, we offer international and domestic air ticketing alongside our visa consultancy and tour packages." },
   { question: "How do I start a consultation?", answer: "You can book a consultation online, call or WhatsApp us directly, or visit any of our offices for a face-to-face discussion." }
 ];
@@ -888,23 +999,37 @@ var generalFaqs = [
 // src/data/site.ts
 var siteConfig = {
   name: "Ali Baba Travel Advisor",
+  // TODO: confirm the registered legal entity name (shown in policies + schema legalName).
+  legalName: "Ali Baba Travel Advisor",
+  tagline: "Visa consultancy, tours, flights & hotel booking from Lahore, Pakistan",
   whatsappNumber: "923111666076",
   phone: "+92 311 1666076",
-  phoneSecondary: "+92 337 6027555",
-  email: "alibabaadvisor@gmail.com",
+  phoneSecondary: "+92 309 6611955",
+  // Additional office / consultant lines (shown on the contact page only).
+  otherPhones: ["+92 321 4419469", "+92 300 3567312", "+92 300 4044443", "+92 323 8814614"],
+  email: "info@alibabatraveladvisor.com",
   socials: {
     facebook: "https://www.facebook.com/share/19K6oKut5R/",
     instagram: "https://www.instagram.com/alibabatraveladvisor/",
     youtube: "https://www.youtube.com/@AliBabaTravelAdvisor"
-  }
+  },
+  // TODO: add LinkedIn / TikTok / Google Business Profile URLs when they exist.
+  // Set as soon as the Google Business Profile is verified — it feeds `sameAs` and the "Leave a review" link.
+  googleBusinessProfileUrl: "https://www.google.com/maps/place/Ali+Baba+Travel+Advisor/@31.5314837,74.3526375,17z/data=!3m1!4b1!4m6!3m5!1s0x39190545cf1e5eab:0x7b86c4a6068a7238!8m2!3d31.5314837!4d74.3526375!16s%2Fg%2F11vwmyf0pr",
+  // Lahore head-office coordinates (from the Google Maps listing).
+  geo: { latitude: 31.5314837, longitude: 74.3526375 },
+  openingHours: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "10:00", closes: "18:00" }
 };
 
 // prisma/seed.ts
 var prisma = new import_client.PrismaClient();
 async function main() {
   console.log("Seeding admin user...");
-  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@example.com";
-  const adminPassword = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
+  const adminEmail = process.env.ADMIN_EMAIL;
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminEmail || !adminPassword || adminPassword.length < 12) {
+    throw new Error("Set ADMIN_EMAIL and a strong ADMIN_PASSWORD (12+ chars) before seeding.");
+  }
   const passwordHash = await import_bcryptjs.default.hash(adminPassword, 10);
   await prisma.adminUser.upsert({
     where: { email: adminEmail },
@@ -924,7 +1049,7 @@ async function main() {
       facebookUrl: siteConfig.socials.facebook,
       instagramUrl: siteConfig.socials.instagram,
       youtubeUrl: siteConfig.socials.youtube,
-      announcementText: "Our new Karachi office opens Monday, 7 September 2026.",
+      announcementText: "Now open in Karachi \u2014 visit our DHA Phase 2 Extension office.",
       announcementHref: "/locations/karachi",
       announcementActive: true
     }
@@ -1058,7 +1183,7 @@ async function main() {
     });
   }
   console.log("Seeding testimonials...");
-  for (const [i, t] of sampleReviews.entries()) {
+  for (const [i, t] of [...sampleReviews, ...googleReviews].entries()) {
     const existing = await prisma.testimonial.findFirst({ where: { name: t.name, text: t.text } });
     if (!existing) {
       await prisma.testimonial.create({

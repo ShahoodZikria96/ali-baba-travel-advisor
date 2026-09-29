@@ -57,7 +57,7 @@ export async function Reviews() {
                           {review.name}
                           <BadgeCheck size={14} className="text-primary" />
                         </p>
-                        <p className="text-xs font-medium text-text-muted">{review.location} &middot; Verified Client</p>
+                        <p className="text-xs font-medium text-text-muted">{review.location} &middot; Client review</p>
                       </div>
                     </div>
                   </div>

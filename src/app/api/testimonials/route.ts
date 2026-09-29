@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { clientIp, isSameOrigin, rateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
+  if (!isSameOrigin(req)) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  if (!rateLimit(`review:${clientIp(req)}`, 3, 60 * 60_000)) {
+    return NextResponse.json({ error: "Too many submissions. Please try again later." }, { status: 429 });
+  }
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });

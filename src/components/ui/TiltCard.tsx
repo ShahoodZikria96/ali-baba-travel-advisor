@@ -32,6 +32,11 @@ export function TiltCard({
     y.set((e.clientY - rect.top) / rect.height);
   }
 
+  const glareBackground = useTransform(
+    [glareX, glareY],
+    ([gx, gy]) => `radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,0.35), transparent 55%)`
+  );
+
   function handleMouseLeave() {
     x.set(0.5);
     y.set(0.5);
@@ -51,10 +56,7 @@ export function TiltCard({
           aria-hidden
           className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
-            background: useTransform(
-              [glareX, glareY],
-              ([gx, gy]) => `radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,0.35), transparent 55%)`
-            ),
+            background: glareBackground,
           }}
         />
       )}

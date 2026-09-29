@@ -12,7 +12,7 @@ export const offices: Office[] = [
   {
     slug: "lahore",
     city: "Lahore",
-    address: "Office No. 1 & 2, Mezzanine Floor, Siddique Trade Center, Gulberg II, Lahore",
+    address: "Office No. 1 & 2, Mezzanine Floor, Siddiq Trade Center, Gulberg II, Lahore",
     phone: "+92 311 1666076",
     hours: "Mon – Sat: 10:00 AM – 6:00 PM",
     mapUrl:
@@ -21,7 +21,7 @@ export const offices: Office[] = [
   {
     slug: "islamabad",
     city: "Islamabad",
-    address: "Office No. 33 & 34, First Floor, Al-Anayat Mall, G-11 Markaz, Islamabad",
+    address: "Office No. 33–34, Al-Anayat Mall, G-11 Markaz, Islamabad",
     phone: "+92 311 1666076",
     hours: "Mon – Sat: 10:00 AM – 6:00 PM",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=Al-Anayat+Mall+G-11+Markaz+Islamabad",

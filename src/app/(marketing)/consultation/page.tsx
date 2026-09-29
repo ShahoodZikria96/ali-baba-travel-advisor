@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { CheckCircle2 } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -6,10 +7,11 @@ import { Container } from "@/components/ui/Container";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
 import { getSiteSettings } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Book a Consultation",
   description: "Book a free visa consultation with Ali Baba Travel Advisor — share your travel plan and get a case assessment.",
-};
+  path: "/consultation",
+});
 
 const points = [
   "Personalized review of your travel goal and visa category",

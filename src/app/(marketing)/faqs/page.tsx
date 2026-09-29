@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { getFaqs } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "FAQs",
   description: "Frequently asked questions about visa consultancy, documentation, processing times and travel services.",
-};
+  path: "/faqs",
+});
 
 export default async function FAQsPage() {
   const generalFaqs = await getFaqs();

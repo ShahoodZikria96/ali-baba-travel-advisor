@@ -7,6 +7,9 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { RefusalCaseForm } from "@/components/forms/RefusalCaseForm";
+import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { getRefusalPages, getRefusalPage, getCountry, getSiteSettings } from "@/lib/content";
 
 export async function generateStaticParams() {
@@ -18,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const r = await getRefusalPage(slug);
   if (!r) return {};
-  return { title: r.metaTitle ?? undefined, description: r.metaDescription ?? undefined };
+  return pageMetadata({ title: r.metaTitle ?? `${r.country} Visa Refusal Assistance`, description: r.metaDescription ?? r.intro.slice(0, 155), path: `/visa-refusal/${slug}` });
 }
 
 export default async function RefusalCountryPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -30,21 +33,21 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
   const whatWeReview = r.whatWeReview as string[];
   const faqs = r.faqs as { question: string; answer: string }[];
 
-  const faqJsonLd = faqs.length > 0 ? {
+  const serviceJsonLd = {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  } : null;
+    "@type": "Service",
+    name: `${r.country} visa refusal case review`,
+    serviceType: "Consultancy and document review; judicial review handled by in-house legal team",
+    description: r.intro,
+    url: absoluteUrl(`/visa-refusal/${slug}`),
+    provider: { "@id": orgId },
+    areaServed: { "@type": "Country", name: "Pakistan" },
+  };
 
   return (
     <>
-      {faqJsonLd && (
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      )}
+      <FaqJsonLd faqs={faqs} />
+      <JsonLd data={serviceJsonLd} />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

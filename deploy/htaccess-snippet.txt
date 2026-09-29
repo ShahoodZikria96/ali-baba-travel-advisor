@@ -1,0 +1,15 @@
+# Add ABOVE the "PASSENGER" block that cPanel's Node.js selector generates in
+# the app's .htaccess (do not edit inside the generated block).
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://alibabatraveladvisor.com/$1 [L,R=301]
+
+# Canonical host: www -> non-www
+RewriteCond %{HTTP_HOST} ^www\.alibabatraveladvisor\.com$ [NC]
+RewriteRule ^(.*)$ https://alibabatraveladvisor.com/$1 [L,R=301]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>

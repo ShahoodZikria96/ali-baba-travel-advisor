@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { TourCard } from "@/components/tours/TourCard";
 import { getTours } from "@/lib/content";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Upcoming Tours",
   description: "Upcoming group tour departures from Pakistan with visa assistance included.",
-};
+  path: "/tour-packages/upcoming",
+});
 
 export default async function UpcomingToursPage() {
   const tours = await getTours();

@@ -28,6 +28,7 @@ export const primaryNav: NavItem[] = [
           { label: "Business Visa", href: "/visa-consultancy/business-visa" },
           { label: "Family Visit Visa", href: "/visa-consultancy/family-visit-visa" },
           { label: "Study Visa Assistance", href: "/visa-consultancy/study-visa" },
+          { label: "Our Visa Process", href: "/visa-process" },
         ],
       },
       {
@@ -75,11 +76,12 @@ export const primaryNav: NavItem[] = [
           { label: "International Packages", href: "/tour-packages" },
           { label: "Upcoming Departures", href: "/tour-packages/upcoming" },
           { label: "Customized Tours", href: "/tour-packages/customized" },
+          { label: "Hotel Booking", href: "/hotel-booking" },
         ],
       },
     ],
   },
-  { label: "Flights", href: "/flights" },
+  { label: "Flights & Hotels", href: "/flights" },
   { label: "Success Stories", href: "/success-stories" },
   {
     label: "Resources",
@@ -103,7 +105,7 @@ export const mobileQuickLinks = [
   { label: "Visa Consultancy", href: "/visa-consultancy" },
   { label: "Visa Refusal Help", href: "/visa-refusal" },
   { label: "Tour Packages", href: "/tour-packages" },
-  { label: "Flights", href: "/flights" },
+  { label: "Flights & Hotels", href: "/flights" },
   { label: "Success Stories", href: "/success-stories" },
   { label: "Office Locations", href: "/locations" },
 ];
