@@ -13,7 +13,7 @@ const variantClasses: Record<Variant, string> = {
   outline:
     "border border-border bg-surface text-text hover:border-primary hover:text-primary",
   ghost: "text-text hover:bg-surface-muted",
-  whatsapp: "bg-[#25D366] text-white hover:bg-[#1ebc59]",
+  whatsapp: "bg-[#14803f] text-white hover:bg-[#0f6a33]",
 };
 
 const sizeClasses: Record<Size, string> = {

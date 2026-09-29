@@ -4,7 +4,7 @@ Nothing below was invented. Each item is a placeholder or an assumption carried 
 
 | # | Item | Current value / status | Where to change |
 |---|------|------------------------|-----------------|
-| 1 | Registered legal company name | "Ali Baba Travel Advisor" (assumed) | `src/data/site.ts` → `legalName` |
+| 1 | Legal company name | Confirmed by owner: "Ali Baba Travel Advisor" | `src/data/site.ts` |
 | 2 | Registration / SECP / NTN / IATA or other licence details | **Missing.** Add to About + footer only if real | About page |
 | 3 | Public email | `info@alibabatraveladvisor.com` (you supplied it; the old site used a Gmail address). Confirm the mailbox exists | Admin → Settings, `site.ts` |
 | 4 | Phone numbers | 0311-1666076 (primary/WhatsApp) and 0309-6611955 (secondary) are used. The other four you supplied (0321-4419469, 0300-3567312, 0300-4044443, 0323-8814614) are stored in `site.ts` `otherPhones` but not displayed. Tell us which office or person each belongs to | Admin → Settings |
@@ -12,7 +12,7 @@ Nothing below was invented. Each item is a placeholder or an assumption carried 
 | 6 | Islamabad floor detail | "First Floor" removed to match the address you supplied. Confirm | Admin → Offices |
 | 7 | Google Business Profile URL per office | Only the Lahore link exists | `site.ts`, Admin → Offices |
 | 8 | Social profiles | Facebook, Instagram, YouTube present. No LinkedIn, TikTok or WhatsApp Channel | Admin → Settings |
-| 9 | "7,000+ happy customers" and "58,000+ YouTube subscribers" | Carried over from the old site. **Verify or remove.** Shown on the home page | Admin → Settings |
+| 9 | Public stats | Updated to 7,500+ customers and 58,500+ subscribers (migration updates the live DB on `prisma migrate deploy`; later edits via Admin → Settings) | Admin → Settings |
 | 10 | Genuine testimonials | 2 real ones from the old site. Add only real, consented reviews | Admin → Testimonials |
 | 11 | Success stories | Currently **illustrative samples** (now labelled as such). Replace with real consented case studies or unpublish | Admin → Success Stories |
 | 12 | Tour pricing and departures | Prices from the old site; departure dates were dropped as stale. Add current departures | Admin → Tours |

@@ -15,7 +15,7 @@ export function AnnouncementBar({ text, href }: { text: string; href: string }) 
         <p>
           {text}{" "}
           <Link href={href} className="font-semibold underline underline-offset-2 hover:text-primary-light">
-            Learn more
+            View details
           </Link>
         </p>
       </div>

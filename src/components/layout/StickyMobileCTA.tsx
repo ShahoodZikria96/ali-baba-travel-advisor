@@ -17,7 +17,7 @@ export function StickyMobileCTA({ phone, whatsappNumber }: { phone: string; what
           href={whatsappHref("Hello I want details.", whatsappNumber)}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex flex-col items-center gap-0.5 bg-[#25D366] py-2.5 text-[0.7rem] font-semibold text-white"
+          className="flex flex-col items-center gap-0.5 bg-[#14803f] py-2.5 text-[0.7rem] font-semibold text-white"
         >
           <MessageCircle size={18} />
           WhatsApp
