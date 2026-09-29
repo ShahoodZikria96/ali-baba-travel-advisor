@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
+import { siteConfig as bizConfig } from "@/data/site";
 import { getOffices, getSiteSettings, getFaqs, telHref, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
@@ -35,7 +36,20 @@ export default async function ContactPage() {
 
       <Container className="grid grid-cols-1 gap-12 py-14 lg:grid-cols-[1fr_1fr]">
         <div>
-          <h2 className="font-heading text-xl font-bold text-charcoal">Our Offices</h2>
+          <h2 className="font-heading text-xl font-bold text-charcoal">Booking &amp; Enquiry Lines</h2>
+          <ul className="mt-4 flex flex-wrap gap-2.5">
+            {[siteConfig.phone, ...(siteConfig.phoneSecondary ? [siteConfig.phoneSecondary] : []), ...bizConfig.otherPhones]
+              .filter((p, i, a) => a.findIndex((x) => x.replace(/\D/g, "") === p.replace(/\D/g, "")) === i)
+              .map((p) => (
+                <li key={p}>
+                  <a href={telHref(p)} className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-charcoal hover:border-primary hover:text-primary" translate="no">
+                    <Phone size={14} /> {p}
+                  </a>
+                </li>
+              ))}
+          </ul>
+
+          <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Our Offices</h2>
           <div className="mt-5 space-y-4">
             {offices.map((o) => (
               <div key={o.slug} className="rounded-[var(--radius-md)] border border-border bg-surface p-5">

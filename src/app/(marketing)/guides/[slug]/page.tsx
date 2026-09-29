@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { AdSlot } from "@/components/monetization/AdSlot";
 import { getGuides, getGuide, getCountries } from "@/lib/content";
 import Link from "next/link";
+import { officialSources } from "@/data/officialSources";
 
 export async function generateStaticParams() {
   const guides = await getGuides();
@@ -90,6 +91,15 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
             {new Date(guide.updatedAt).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}. See our{" "}
             <Link href="/visa-disclaimer" className="text-primary underline">visa disclaimer</Link>.
           </p>
+
+          {relatedCountry && (officialSources[relatedCountry.slug] ?? []).length > 0 && (
+            <p className="mt-4 text-sm text-text-muted">
+              Official source:{" "}
+              {(officialSources[relatedCountry.slug] ?? []).map((src) => (
+                <a key={src.href} href={src.href} target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline">{src.label}</a>
+              ))}
+            </p>
+          )}
 
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
             {relatedCountry && (

@@ -190,3 +190,8 @@ body {
 .animate-float-slow {
   animation: float-slow 5s ease-in-out infinite;
 }
+
+/* Google Translate (Urdu switch): hide its banner/tooltips so the layout is unchanged. */
+.goog-te-banner-frame, .skiptranslate > iframe, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame { display: none !important; }
+body { top: 0 !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }

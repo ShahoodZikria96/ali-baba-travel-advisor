@@ -10,6 +10,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { primaryNav, type NavItem } from "@/data/navigation";
 import { cn } from "@/lib/utils";
+import { LanguageToggle } from "@/components/layout/LanguageToggle";
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { telHref, whatsappHref } from "@/lib/whatsapp";
 
@@ -186,6 +187,7 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
           </nav>
 
           <div className="flex items-center gap-2">
+            <LanguageToggle />
             <a
               href={telHref(phone)}
               className="hidden items-center gap-1.5 rounded-full border border-border p-2.5 text-charcoal transition-colors hover:border-primary hover:text-primary 2xl:inline-flex"

@@ -17,6 +17,7 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Entry["ch
   { path: "/flights", priority: 0.7, changeFrequency: "monthly" },
   { path: "/hotel-booking", priority: 0.7, changeFrequency: "monthly" },
   { path: "/travel-documentation", priority: 0.6, changeFrequency: "monthly" },
+  { path: "/urdu", priority: 0.6, changeFrequency: "monthly" },
   { path: "/visa-process", priority: 0.7, changeFrequency: "monthly" },
   { path: "/locations", priority: 0.8, changeFrequency: "monthly" },
   { path: "/guides", priority: 0.7, changeFrequency: "weekly" },

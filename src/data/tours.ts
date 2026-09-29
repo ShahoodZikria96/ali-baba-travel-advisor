@@ -16,6 +16,31 @@ export interface TourPackage {
 
 export const tours: TourPackage[] = [
   {
+    slug: "travel-history-group-tour",
+    destination: "Thailand, Indonesia, Malaysia & Sri Lanka",
+    image: "/destinations/malaysia.jpg",
+    duration: "10 Days",
+    departure: "Last date to book: 5 October 2026 — confirm the departure date with us",
+    price: "PKR 560,000 (package price)",
+    visaAssistance: true,
+    summary:
+      "A 10-day organised group tour across Thailand, Indonesia, Malaysia and Sri Lanka, designed for travellers who want to build international travel history. Hotel, return ticket, all visa fees, airport pickup and drop-off and breakfast are included.",
+    highlights: [
+      "Four countries in one 10-day group trip: Thailand, Indonesia, Malaysia and Sri Lanka",
+      "All visa fees included in the package price",
+      "Organised, guided group travel",
+      "Airport pickup and drop-off",
+    ],
+    included: ["Hotel accommodation (service hotel)", "Return airline ticket", "All visa fees", "Airport pickup and drop-off", "Breakfast only"],
+    excluded: ["Lunch and dinner", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
+    itinerary: [],
+    notes: [
+      "Booking closes on 5 October 2026. Contact us to confirm seat availability and the exact departure date.",
+      "Confirm with our team what the package price covers per traveller before you pay.",
+      "Visa decisions are made by each country's immigration authority; a group tour and its price do not guarantee visa approval, and a tour does not guarantee a future visa outcome elsewhere.",
+    ],
+  },
+  {
     slug: "uk-group-tour",
     destination: "United Kingdom",
     image: "/destinations/uk.jpg",

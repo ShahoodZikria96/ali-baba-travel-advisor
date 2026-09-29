@@ -47,6 +47,7 @@ const footerColumns = [
       { label: "Success Stories", href: "/success-stories" },
       { label: "Visa & Travel Guides", href: "/guides" },
       { label: "Our Visa Process", href: "/visa-process" },
+      { label: "اردو میں معلومات", href: "/urdu" },
       { label: "Contact", href: "/contact" },
     ],
   },

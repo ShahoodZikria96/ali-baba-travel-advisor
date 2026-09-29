@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Button } from "@/components/ui/Button";
 import { FieldWrapper, TextInput, SelectInput, TextArea, FormSuccess, Honeypot } from "@/components/forms/FormFields";
 import { whatsappHref } from "@/lib/whatsapp";
-import { popularDestinations } from "@/data/countries";
+import { allDestinationNames } from "@/data/otherDestinations";
 import { offices } from "@/data/offices";
 import { submitLead } from "@/lib/leads";
 
@@ -86,9 +86,9 @@ export function VisaAssessmentForm({
         <FieldWrapper label="Country Interested In" htmlFor="country" error={errors.country?.message}>
           <SelectInput id="country" error={!!errors.country} {...register("country")}>
             <option value="">Select country</option>
-            {popularDestinations.map((c) => (
-              <option key={c.slug} value={c.name}>
-                {c.name}
+            {allDestinationNames.map((name) => (
+              <option key={name} value={name}>
+                {name}
               </option>
             ))}
           </SelectInput>
