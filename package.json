@@ -23,7 +23,9 @@
     "extract-build": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('unzip -o -q next-build.zip').toString());}catch(e){}console.log('extracted');\"",
     "clean-deploy-artifacts": "node -e \"const fs=require('fs');for(const f of fs.readdirSync('.')){if(f==='next-build.zip'||/^next-build\\\\.part\\\\d+$/.test(f)){fs.unlinkSync(f);console.log('removed',f);}}\"",
     "db:studio": "prisma studio",
-    "db:generate": "prisma generate"
+    "db:generate": "prisma generate",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:backup": "node -e \"const {execSync}=require('child_process');const u=new URL(process.env.DATABASE_URL);const ts=new Date().toISOString().replace(/[:.]/g,'-');const file=`backup-${ts}.sql`;execSync(`mysqldump -h ${u.hostname} -u ${u.username} -p'${u.password}' ${u.pathname.slice(1)} > ${file}`,{shell:'/bin/bash'});console.log('backup written to', file);\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
