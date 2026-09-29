@@ -32,7 +32,7 @@ export default function VisaDisclaimerPage() {
       <h2>What we cannot do</h2>
       <ul>
         <li>Guarantee approval or an appointment date.</li>
-        <li>Provide legal representation. We are not a law firm; where a case needs a licensed lawyer or regulated adviser, we will tell you so.</li>
+        <li>Give legal advice as part of standard consultancy. Consultancy and document review are separate from legal work. Judicial review and Pre-Action Protocol matters are handled by our in-house legal team, and no legal outcome is guaranteed.</li>
         <li>Create, alter or backdate documents, or submit information that is not true. Applications must be honest and accurate.</li>
       </ul>
       <h2>Requirements change</h2>

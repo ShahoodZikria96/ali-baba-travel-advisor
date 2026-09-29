@@ -76,14 +76,6 @@ export const popularDestinations: CountryDestination[] = [
 
 export const moreDestinations: CountryDestination[] = [
   {
-    slug: "uae",
-    name: "UAE",
-    flag: "🇦🇪",
-    flagImage: "/flags/uae.webp",
-    visaType: "Visit Visa",
-    description: "Short and long-term visit visa assistance for the UAE.",
-  },
-  {
     slug: "malaysia",
     name: "Malaysia",
     flag: "🇲🇾",

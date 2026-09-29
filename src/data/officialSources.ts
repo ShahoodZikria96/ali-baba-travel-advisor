@@ -20,7 +20,6 @@ export const officialSources: Record<string, OfficialSource[]> = {
   turkey: [{ label: "Republic of Türkiye — official e-Visa portal", href: "https://www.evisa.gov.tr/en/" }],
   japan: [{ label: "Ministry of Foreign Affairs of Japan — Visas", href: "https://www.mofa.go.jp/j_info/visit/visa/index.html" }],
   "new-zealand": [{ label: "Immigration New Zealand", href: "https://www.immigration.govt.nz/" }],
-  uae: [{ label: "UAE Federal Authority for Identity, Citizenship, Customs & Port Security", href: "https://icp.gov.ae/" }],
   malaysia: [{ label: "Immigration Department of Malaysia", href: "https://www.imi.gov.my/" }],
   azerbaijan: [{ label: "Azerbaijan official e-Visa portal (ASAN Visa)", href: "https://evisa.gov.az/en/" }],
   "south-africa": [{ label: "South African Department of Home Affairs", href: "https://www.dha.gov.za/" }],

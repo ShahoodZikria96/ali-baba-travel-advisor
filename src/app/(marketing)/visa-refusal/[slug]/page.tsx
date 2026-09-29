@@ -37,7 +37,7 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
     "@context": "https://schema.org",
     "@type": "Service",
     name: `${r.country} visa refusal case review`,
-    serviceType: "Consultancy and document review (not legal representation)",
+    serviceType: "Consultancy and document review; judicial review handled by in-house legal team",
     description: r.intro,
     url: absoluteUrl(`/visa-refusal/${slug}`),
     provider: { "@id": orgId },

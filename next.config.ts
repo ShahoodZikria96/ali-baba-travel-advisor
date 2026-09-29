@@ -30,6 +30,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/visa", destination: "/visas", permanent: true },
+      // UAE is no longer offered.
+      { source: "/visas/uae", destination: "/visas", permanent: true },
       { source: "/countries", destination: "/visas", permanent: true },
       { source: "/countries/:slug", destination: "/visas/:slug", permanent: true },
       { source: "/services", destination: "/visa-consultancy", permanent: true },

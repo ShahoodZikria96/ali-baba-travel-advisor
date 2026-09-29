@@ -56,7 +56,7 @@ export const refusalServices: ServiceItem[] = [
   {
     slug: "canada-judicial-review",
     title: "Canada Judicial Review Consultancy",
-    description: "Guidance on the judicial review pathway, in coordination with qualified legal counsel where required.",
+    description: "Guidance on the judicial review pathway, with judicial review handled by our in-house legal team where required.",
   },
   {
     slug: "schengen-refusal",

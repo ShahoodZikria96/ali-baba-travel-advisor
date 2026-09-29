@@ -32,7 +32,7 @@ export const refusalPages: RefusalPageContent[] = [
       "Consistency between the application form and supporting documents",
     ],
     specialNote:
-      "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process — where PAP or judicial review is appropriate, we coordinate with qualified legal counsel; our own role is case assessment, documentation and consultancy.",
+      "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process — where PAP or judicial review is appropriate, our in-house legal team handles these matters; our consultants' role is case assessment, documentation and consultancy.",
     faqs: [
       { question: "How soon can I reapply after a UK visa refusal?", answer: "There's no mandatory waiting period, but we recommend addressing the refusal reasons thoroughly before reapplying rather than resubmitting the same evidence." },
       { question: "What is the Pre-Action Protocol?", answer: "It's a formal letter sent before a judicial review claim, used in cases where there are arguable grounds that the refusal decision was legally flawed. It requires legal assessment on a case-by-case basis." },
@@ -59,10 +59,10 @@ export const refusalPages: RefusalPageContent[] = [
       "Whether a reconsideration request or fresh application is more appropriate",
     ],
     specialNote:
-      "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and coordinate with qualified legal counsel where formal legal representation is required.",
+      "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and our in-house legal team handles judicial review where formal legal action is required.",
     faqs: [
       { question: "What is a Canada reconsideration request?", answer: "It asks IRCC to review a decision without submitting a brand new application — generally used where there's a clear officer error, and it isn't appropriate for every refusal." },
-      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and coordinate with qualified legal counsel for the judicial review process itself, since that requires formal legal representation." },
+      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and our in-house legal team handles the judicial review process itself, since that requires formal legal action." },
     ],
   },
   {

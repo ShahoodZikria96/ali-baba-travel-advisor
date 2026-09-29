@@ -9,7 +9,7 @@ import { refusalPages } from "../src/data/refusalPages";
 import { servicePages } from "../src/data/servicePages";
 import { tours } from "../src/data/tours";
 import { guides } from "../src/data/guides";
-import { sampleReviews, sampleSuccessStories, sampleVideos } from "../src/data/placeholders";
+import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "../src/data/placeholders";
 import { generalFaqs } from "../src/data/faqs";
 import { siteConfig } from "../src/data/site";
 
@@ -183,7 +183,7 @@ async function main() {
   }
 
   console.log("Seeding testimonials...");
-  for (const [i, t] of sampleReviews.entries()) {
+  for (const [i, t] of [...sampleReviews, ...googleReviews].entries()) {
     const existing = await prisma.testimonial.findFirst({ where: { name: t.name, text: t.text } });
     if (!existing) {
       await prisma.testimonial.create({

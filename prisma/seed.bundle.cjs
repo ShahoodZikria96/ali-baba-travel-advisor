@@ -95,14 +95,6 @@ var popularDestinations = [
 ];
 var moreDestinations = [
   {
-    slug: "uae",
-    name: "UAE",
-    flag: "\u{1F1E6}\u{1F1EA}",
-    flagImage: "/flags/uae.webp",
-    visaType: "Visit Visa",
-    description: "Short and long-term visit visa assistance for the UAE."
-  },
-  {
     slug: "malaysia",
     name: "Malaysia",
     flag: "\u{1F1F2}\u{1F1FE}",
@@ -226,7 +218,7 @@ var countryPages = [
     faqs: [
       { question: "Can a previously refused Canada applicant reapply?", answer: "Yes \u2014 we assess the refusal letter (procedural fairness or refusal reasons) and help strengthen the reapplication, particularly around financial evidence and ties to Pakistan." },
       { question: "What is a Canada reconsideration request?", answer: "It's a request asking IRCC to review a decision without a new application, used in limited circumstances such as an officer error. We can advise whether this route is appropriate for your case." },
-      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and coordinate with qualified legal counsel for judicial review proceedings, since that is a formal legal process." }
+      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and our in-house legal team handles judicial review proceedings, since that is a formal legal process." }
     ]
   },
   {
@@ -509,7 +501,7 @@ var refusalPages = [
       "Evidence of ties to Pakistan (employment, property, family)",
       "Consistency between the application form and supporting documents"
     ],
-    specialNote: "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process \u2014 where PAP or judicial review is appropriate, we coordinate with qualified legal counsel; our own role is case assessment, documentation and consultancy.",
+    specialNote: "For eligible cases, a UK Pre-Action Protocol (PAP) letter can be sent to the Home Office ahead of a judicial review claim, where there are grounds to argue the original decision was unlawful. This is a formal legal process \u2014 where PAP or judicial review is appropriate, our in-house legal team handles these matters; our consultants' role is case assessment, documentation and consultancy.",
     faqs: [
       { question: "How soon can I reapply after a UK visa refusal?", answer: "There's no mandatory waiting period, but we recommend addressing the refusal reasons thoroughly before reapplying rather than resubmitting the same evidence." },
       { question: "What is the Pre-Action Protocol?", answer: "It's a formal letter sent before a judicial review claim, used in cases where there are arguable grounds that the refusal decision was legally flawed. It requires legal assessment on a case-by-case basis." }
@@ -534,10 +526,10 @@ var refusalPages = [
       "Ties to Pakistan and travel history",
       "Whether a reconsideration request or fresh application is more appropriate"
     ],
-    specialNote: "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and coordinate with qualified legal counsel where formal legal representation is required.",
+    specialNote: "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and our in-house legal team handles judicial review where formal legal action is required.",
     faqs: [
       { question: "What is a Canada reconsideration request?", answer: "It asks IRCC to review a decision without submitting a brand new application \u2014 generally used where there's a clear officer error, and it isn't appropriate for every refusal." },
-      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and coordinate with qualified legal counsel for the judicial review process itself, since that requires formal legal representation." }
+      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and our in-house legal team handles the judicial review process itself, since that requires formal legal action." }
     ]
   },
   {
@@ -703,8 +695,8 @@ var tours = [
     destination: "Thailand, Indonesia, Malaysia & Sri Lanka",
     image: "/destinations/malaysia.jpg",
     duration: "10 Days",
-    departure: "Last date to book: 5 October 2026 \u2014 confirm the departure date with us",
-    price: "PKR 560,000 (package price)",
+    departure: "Departure: November 2026 \xB7 Last date to book: 5 October 2026",
+    price: "PKR 560,000",
     visaAssistance: true,
     summary: "A 10-day organised group tour across Thailand, Indonesia, Malaysia and Sri Lanka, designed for travellers who want to build international travel history. Hotel, return ticket, all visa fees, airport pickup and drop-off and breakfast are included.",
     highlights: [
@@ -717,8 +709,8 @@ var tours = [
     excluded: ["Lunch and dinner", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
     itinerary: [],
     notes: [
-      "Booking closes on 5 October 2026. Contact us to confirm seat availability and the exact departure date.",
-      "Confirm with our team what the package price covers per traveller before you pay.",
+      "Departure is in November 2026 and booking closes on 5 October 2026. Contact us to confirm seat availability and the exact departure date.",
+      "The price is per person.",
       "Visa decisions are made by each country's immigration authority; a group tour and its price do not guarantee visa approval, and a tour does not guarantee a future visa outcome elsewhere."
     ]
   },
@@ -945,6 +937,29 @@ var sampleReviews = [
     photo: "/testimonials/zeeshan-shah.webp"
   }
 ];
+var googleReviews = [
+  {
+    name: "Ahmad Nasir",
+    location: "Google Review",
+    rating: 5,
+    text: "Not like other consultants who just ask for payments. They provide solutions for every issue in Visa process and most importantly they have grip on all countries. I have applied Australia, France, UK and New Zealand visas through them and all of the visas were approved. I was not expecting such good services but when I visited them I found that they are professional and they know the process entirely.",
+    photo: null
+  },
+  {
+    name: "Mubashar Iqbal",
+    location: "Google Review",
+    rating: 5,
+    text: "I have received my Japan visa through their services. I have never visited any other consultant afterwards.",
+    photo: null
+  },
+  {
+    name: "Umair Ahmad",
+    location: "Google Review",
+    rating: 5,
+    text: "Ali Baba always reliable and very efficient personality.",
+    photo: null
+  }
+];
 var sampleVideos = [
   {
     title: "How to Apply for a Spain Visa from Pakistan? | Complete Application Process 2026",
@@ -1168,7 +1183,7 @@ async function main() {
     });
   }
   console.log("Seeding testimonials...");
-  for (const [i, t] of sampleReviews.entries()) {
+  for (const [i, t] of [...sampleReviews, ...googleReviews].entries()) {
     const existing = await prisma.testimonial.findFirst({ where: { name: t.name, text: t.text } });
     if (!existing) {
       await prisma.testimonial.create({

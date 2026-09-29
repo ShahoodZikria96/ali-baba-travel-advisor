@@ -68,9 +68,9 @@ export default async function VisaRefusalHubPage() {
         </div>
 
         <p className="mt-10 max-w-2xl text-xs leading-relaxed text-text-muted">
-          Ali Baba Travel Advisor provides visa consultancy and documentation assistance. Where formal legal
-          representation is required, such as judicial review proceedings, we coordinate with qualified legal
-          counsel — this is distinct from regulated legal representation.
+          Ali Baba Travel Advisor provides visa consultancy and documentation assistance. Judicial review and
+          Pre-Action Protocol matters are handled by our in-house legal team, separately from standard consultancy.
+          No outcome is ever guaranteed.
         </p>
       </Container>
     </>

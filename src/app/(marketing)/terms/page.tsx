@@ -37,8 +37,9 @@ export default async function TermsPage() {
           </p>
           <h2 className="font-heading text-lg font-bold text-charcoal">Payments & Cancellations</h2>
           <p>
-            Payment terms and cancellation policies for visa consultancy fees, tour packages and bookings will be
-            communicated in writing at the time of booking.
+            Refunds and cancellations are governed by our{" "}
+            <a href="/refund-policy" className="font-semibold text-primary">Refund &amp; Cancellation Policy</a>.
+            Payment terms for a specific service or booking are confirmed in writing at the time of booking.
           </p>
           <h2 className="font-heading text-lg font-bold text-charcoal">Contact</h2>
           <p>

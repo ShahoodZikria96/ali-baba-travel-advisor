@@ -118,7 +118,7 @@ export const countryPages: CountryPageContent[] = [
     faqs: [
       { question: "Can a previously refused Canada applicant reapply?", answer: "Yes — we assess the refusal letter (procedural fairness or refusal reasons) and help strengthen the reapplication, particularly around financial evidence and ties to Pakistan." },
       { question: "What is a Canada reconsideration request?", answer: "It's a request asking IRCC to review a decision without a new application, used in limited circumstances such as an officer error. We can advise whether this route is appropriate for your case." },
-      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and coordinate with qualified legal counsel for judicial review proceedings, since that is a formal legal process." },
+      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and our in-house legal team handles judicial review proceedings, since that is a formal legal process." },
     ],
   },
   {
