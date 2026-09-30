@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
+    "build": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.NEXT_IGNORE_INCORRECT_LOCKFILE='1';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
     "start": "next start",
     "start:cpanel": "node server.js",
     "lint": "eslint",
@@ -27,18 +27,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "git-status": "node -e \"const {execSync}=require('child_process');console.log('--- git status ---');console.log(execSync('git status --porcelain').toString()||'(clean)');console.log('--- git diff (stat) ---');console.log(execSync('git diff --stat').toString()||'(no diff)');\"",
     "diag-prisma": "node -e \"const fs=require('fs');const {execSync}=require('child_process');const p=(f)=>{try{return fs.existsSync(f)}catch(e){return 'err:'+e.message}};console.log('local node_modules/prisma:', p('node_modules/prisma'));console.log('local .bin/prisma:', p('node_modules/.bin/prisma'));console.log('local @prisma/client:', p('node_modules/@prisma/client'));console.log('which prisma:');try{console.log(execSync('which prisma').toString())}catch(e){console.log('not found:', e.message)}console.log('node version:', process.version);try{console.log('local prisma pkg version:', require('./node_modules/prisma/package.json').version)}catch(e){console.log('cannot read local prisma package.json:', e.message)}\"",
-    "db:backup": "node -e \"const {execSync}=require('child_process');const u=new URL(process.env.DATABASE_URL);const ts=new Date().toISOString().replace(/[:.]/g,'-');const file=`backup-${ts}.sql`;execSync(`mysqldump -h ${u.hostname} -u ${u.username} -p'${u.password}' ${u.pathname.slice(1)} > ${file}`,{shell:'/bin/bash'});console.log('backup written to', file);\"",
-    "postinstall": "node -e \"const fs=require('fs');for(const p of ['node_modules/@next/swc-wasm-nodejs','node_modules/@next/swc-wasm-web']){fs.rmSync(p,{recursive:true,force:true});}console.log('stripped unusable swc-wasm fallback packages');\"",
-    "strip-swc-wasm": "node -e \"const fs=require('fs');console.log('before:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));for(const p of ['node_modules/@next/swc-wasm-nodejs','node_modules/@next/swc-wasm-web']){fs.rmSync(p,{recursive:true,force:true});}console.log('after:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));\"",
-    "find-swc-wasm": "node -e \"try{console.log('resolved to:', require.resolve('@next/swc-wasm-nodejs'))}catch(e){console.log('resolve failed:', e.message)}\"",
-    "test-swc-load": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';const swc=require('next/dist/build/swc');swc.loadBindings().then(()=>console.log('bindings loaded OK')).catch(e=>console.log('load failed (expected, not a crash):', e.message))\"",
-    "test-oxide-load": "node -e \"const fs=require('fs');console.log('wasi pkg present:', fs.existsSync('node_modules/@tailwindcss/oxide-wasm32-wasi'));try{const oxide=require('@tailwindcss/oxide');console.log('oxide loaded OK:', typeof oxide.Scanner)}catch(e){console.log('oxide load failed:', e.message)}\"",
-    "find-oxide": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('find node_modules -maxdepth 5 -iname \\\"*oxide*\\\"').toString())}catch(e){console.log('find failed:', e.message, e.stdout&&e.stdout.toString())}\"",
-    "test-minimal-wasm": "node -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK')).catch(e=>console.log('minimal wasm instantiate FAILED:', e.message))\"",
-    "test-minimal-wasm-notrap": "node --no-wasm-trap-handler -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK (no-trap-handler)')).catch(e=>console.log('minimal wasm instantiate FAILED (no-trap-handler):', e.message))\"",
-    "build-debug2": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
-    "build-nofetch": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';process.env.NODE_OPTIONS='--no-experimental-fetch';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
-    "build-stub-test": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';process.env.NODE_OPTIONS='--no-experimental-fetch --require '+require('path').resolve('scripts/build-fetch-stub.cjs');require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\""
+    "db:backup": "node -e \"const {execSync}=require('child_process');const u=new URL(process.env.DATABASE_URL);const ts=new Date().toISOString().replace(/[:.]/g,'-');const file=`backup-${ts}.sql`;execSync(`mysqldump -h ${u.hostname} -u ${u.username} -p'${u.password}' ${u.pathname.slice(1)} > ${file}`,{shell:'/bin/bash'});console.log('backup written to', file);\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
