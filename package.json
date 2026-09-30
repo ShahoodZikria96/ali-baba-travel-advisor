@@ -37,7 +37,8 @@
     "test-minimal-wasm": "node -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK')).catch(e=>console.log('minimal wasm instantiate FAILED:', e.message))\"",
     "test-minimal-wasm-notrap": "node --no-wasm-trap-handler -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK (no-trap-handler)')).catch(e=>console.log('minimal wasm instantiate FAILED (no-trap-handler):', e.message))\"",
     "build-debug2": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
-    "build-nofetch": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';process.env.NODE_OPTIONS='--no-experimental-fetch';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\""
+    "build-nofetch": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';process.env.NODE_OPTIONS='--no-experimental-fetch';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
+    "build-stub-test": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';process.env.NODE_OPTIONS='--no-experimental-fetch --require '+require('path').resolve('scripts/build-fetch-stub.cjs');require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
