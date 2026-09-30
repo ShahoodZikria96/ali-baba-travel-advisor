@@ -1,3 +1,8 @@
+// The cPanel host's wasm SWC fallback OOMs under its LVE memory cap, crashing
+// the build. Babel already replaces SWC for page compilation; this flag stops
+// Next.js from even probing for a wasm binding elsewhere in its startup path.
+process.env.NEXT_DISABLE_SWC_WASM = "1";
+
 const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
