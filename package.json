@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';require('child_process').execSync('next build --webpack',{stdio:'inherit'})\"",
     "start": "next start",
     "start:cpanel": "node server.js",
     "lint": "eslint",
