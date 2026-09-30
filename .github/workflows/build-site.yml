@@ -12,6 +12,14 @@ on:
     - cron: "*/20 * * * *"
   workflow_dispatch:
 
+# Two overlapping FTP deploys race against the same server-side sync-state
+# cache and can corrupt each other mid-sync (seen in practice: one run's
+# cleanup step failed to find a directory the other run had already removed).
+# Queue runs instead of letting them run in parallel.
+concurrency:
+  group: production-ftp-deploy
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
