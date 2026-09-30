@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { fontHeading, fontBody } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/seo";
 import { Analytics } from "@/components/analytics/Analytics";
 
@@ -31,10 +30,7 @@ export const viewport = { width: "device-width", initialScale: 1, themeColor: "#
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${fontHeading.variable} ${fontBody.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         {children}
         <Analytics />

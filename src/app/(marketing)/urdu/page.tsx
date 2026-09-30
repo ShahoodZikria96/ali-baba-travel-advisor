@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Noto_Naskh_Arabic } from "next/font/google";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
@@ -10,8 +9,6 @@ import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { getOffices, getSiteSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/whatsapp";
 import { siteConfig } from "@/data/site";
-
-const urduFont = Noto_Naskh_Arabic({ subsets: ["arabic"], weight: ["400", "600", "700"], display: "swap" });
 
 export const metadata: Metadata = pageMetadata({
   title: "اردو میں ویزا اور ٹریول معلومات",
@@ -68,7 +65,7 @@ export default async function UrduPage() {
     <>
       <FaqJsonLd faqs={faqs} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "اردو" }]} />
-      <div lang="ur" dir="rtl" className={urduFont.className}>
+      <div lang="ur" dir="rtl" className="font-urdu">
         <section className="border-b border-border bg-surface-muted/50 py-12">
           <Container>
             <h1 className="max-w-3xl text-3xl font-bold leading-snug text-charcoal sm:text-4xl">
