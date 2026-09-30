@@ -34,6 +34,19 @@ export const siteConfig = {
   openingHours: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "10:00", closes: "18:00" },
 };
 
+/**
+ * Public numbers and the announcement bar. Edit here, rebuild, re-upload.
+ * (Analytics IDs and ads are NOT here: they live in site-config.json on the
+ * server so they can be changed without a rebuild.)
+ */
+export const publicSettings = {
+  happyCustomersStat: "7,500+",
+  youtubeSubscribers: "58,500+",
+  announcement: { text: "Now open in Karachi — visit our DHA Phase 2 Extension office.", href: "/locations/karachi", active: true },
+  /** Shown as "last reviewed" on country pages and in the sitemap. Update when content is re-checked. */
+  contentReviewed: "2026-09-30",
+};
+
 export function whatsappHref(message: string) {
   return `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }

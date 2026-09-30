@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { fontHeading, fontBody } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/seo";
 import { Analytics } from "@/components/analytics/Analytics";
 
@@ -17,9 +18,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Ali Baba Travel Advisor",
     locale: "en_PK",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Ali Baba Travel Advisor" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og-default.png"],
   },
   // Google Search Console HTML-tag verification (set GOOGLE_SITE_VERIFICATION in the environment).
   verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
@@ -30,7 +33,10 @@ export const viewport = { width: "device-width", initialScale: 1, themeColor: "#
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html
+      lang="en"
+      className={`${fontHeading.variable} ${fontBody.variable} h-full antialiased`}
+    >
       <body className="flex min-h-full flex-col">
         {children}
         <Analytics />

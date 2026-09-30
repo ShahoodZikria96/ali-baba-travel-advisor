@@ -1,0 +1,28 @@
+name: Build site package
+
+# Builds the static website + PHP backend into a ready-to-upload zip.
+# Download it from: Actions -> latest run -> Artifacts -> alibaba-site
+on:
+  push:
+    branches: [master, "claude/**"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build:site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: alibaba-site
+          path: |
+            dist/alibaba-site.zip
+            dist/alibaba-config.sample.php
+          retention-days: 30

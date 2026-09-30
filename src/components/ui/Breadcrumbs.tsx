@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { absoluteUrl } from "@/lib/seo";
 import { Container } from "@/components/ui/Container";
 
 export interface Crumb {
@@ -7,7 +8,6 @@ export interface Crumb {
   href?: string;
 }
 
-const baseUrl = "https://alibabatraveladvisor.com";
 
 export function Breadcrumbs({ items }: { items: Crumb[] }) {
   const jsonLd = {
@@ -17,7 +17,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
       "@type": "ListItem",
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `${baseUrl}${item.href}` } : {}),
+      ...(item.href ? { item: absoluteUrl(item.href) } : {}),
     })),
   };
 

@@ -15,7 +15,7 @@ export function submitLead(type: LeadType, data: Record<string, unknown>) {
   const hp = (document.querySelector('input[name="hp_website"]') as HTMLInputElement | null)?.value ?? "";
   trackEvent("generate_lead", { lead_type: type });
   trackEvent(EVENT_BY_TYPE[type]);
-  fetch("/api/leads", {
+  fetch("/api/leads.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ type, data, source, hp }),

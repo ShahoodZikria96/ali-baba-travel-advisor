@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CalendarDays, ShieldCheck } from "lucide-react";
-import type { Tour } from "@prisma/client";
+import type { Tour } from "@/lib/types";
 import { TiltCard } from "@/components/ui/TiltCard";
 
 export function TourCard({ tour }: { tour: Tour }) {

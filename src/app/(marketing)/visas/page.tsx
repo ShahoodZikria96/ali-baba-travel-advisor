@@ -38,7 +38,7 @@ export default async function VisasPage() {
             >
               <div className="relative h-24 w-full">
                 <Image
-                  src={`/destinations/${country.slug}.jpg`}
+                  src={`/destinations/${country.slug}.webp`}
                   alt={`${country.name} landmark`}
                   fill
                   sizes="(max-width: 640px) 50vw, 25vw"

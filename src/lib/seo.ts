@@ -4,8 +4,11 @@ import { siteConfig } from "@/data/site";
 /** Canonical origin. Override with NEXT_PUBLIC_SITE_URL (no trailing slash). Non-www is canonical. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://alibabatraveladvisor.com").replace(/\/$/, "");
 
+/** Absolute URL matching the static export's trailing-slash routes (files keep their extension). */
 export function absoluteUrl(path: string) {
-  return `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+  const p = path.startsWith("/") ? path : `/${path}`;
+  const withSlash = p === "/" || p.endsWith("/") || /\.[a-z0-9]+$/i.test(p) ? p : `${p}/`;
+  return `${SITE_URL}${withSlash}`;
 }
 
 interface PageMetaInput {
@@ -26,7 +29,7 @@ interface PageMetaInput {
  */
 export function pageMetadata({ title, description, path, image, type = "website", publishedTime, modifiedTime, noindex }: PageMetaInput): Metadata {
   const url = absoluteUrl(path);
-  const images = image ? [{ url: absoluteUrl(image), alt: title }] : undefined;
+  const images = [{ url: absoluteUrl(image ?? "/og-default.png"), alt: title }];
   return {
     title,
     description,
@@ -42,7 +45,7 @@ export function pageMetadata({ title, description, path, image, type = "website"
       images,
       ...(type === "article" ? { publishedTime, modifiedTime } : {}),
     },
-    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: images?.map((i) => i.url) },
+    twitter: { card: "summary_large_image", title: `${title} | ${siteConfig.name}`, description, images: images.map((i) => i.url) },
   };
 }
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Clock } from "lucide-react";
-import type { Guide } from "@prisma/client";
+import type { Guide } from "@/lib/types";
 import { TiltCard } from "@/components/ui/TiltCard";
 
 export function GuideCard({ guide }: { guide: Guide }) {

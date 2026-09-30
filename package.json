@@ -4,46 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.NEXT_IGNORE_INCORRECT_LOCKFILE='1';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
-    "start": "next start",
-    "start:cpanel": "node server.js",
+    "build": "next build",
     "lint": "eslint",
-    "db:migrate": "prisma migrate dev",
-    "db:seed": "prisma db seed",
-    "db:seed:direct": "npx tsx prisma/seed.ts",
-    "db:seed:bundled": "node prisma/seed.bundle.cjs",
-    "fix-perms": "node -e \"const fs=require('fs'),path=require('path');function walk(d){for(const e of fs.readdirSync(d,{withFileTypes:true})){const p=path.join(d,e.name);if(e.isDirectory()){fs.chmodSync(p,0o755);walk(p);}else{fs.chmodSync(p,0o644);}}}walk('.next');console.log('done');\"",
-    "fix-prisma-shim": "node -e \"const fs=require('fs'),path=require('path');const dir=path.join('.next','node_modules','@prisma','client-2c3a283f134fdcb6');fs.mkdirSync(dir,{recursive:true});fs.writeFileSync(path.join(dir,'package.json'),JSON.stringify({name:'@prisma/client-2c3a283f134fdcb6',version:'1.0.0',main:'index.js'}));fs.writeFileSync(path.join(dir,'index.js'),'module.exports = require(\\\"@prisma/client\\\");');console.log('shim created');\"",
-    "reassemble-build": "node -e \"const fs=require('fs');const parts=fs.readdirSync('.').filter(f=>/^next-build\\\\.part\\\\d+$/.test(f)).sort();const out=fs.createWriteStream('next-build.zip');for(const p of parts){out.write(fs.readFileSync(p));console.log('appended',p);}out.end(()=>console.log('done, parts:',parts.length));\"",
-    "check-build-id": "node -e \"console.log('BUILD_ID:', require('fs').readFileSync('.next/BUILD_ID', 'utf8'));\"",
-    "backup-next": "node -e \"const fs=require('fs');fs.rmSync('.next.bak',{recursive:true,force:true});fs.renameSync('.next','.next.bak');console.log('moved .next to .next.bak');\"",
-    "restore-next-bak": "node -e \"const fs=require('fs');fs.rmSync('.next',{recursive:true,force:true});fs.renameSync('.next.bak','.next');console.log('restored .next from .next.bak');\"",
-    "drop-next-bak": "node -e \"require('fs').rmSync('.next.bak',{recursive:true,force:true});console.log('removed .next.bak');\"",
-    "check-unzip": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('which unzip').toString());}catch(e){console.log('no unzip:', e.message);}\"",
-    "extract-build": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('unzip -o -q next-build.zip').toString());}catch(e){}console.log('extracted');\"",
-    "clean-deploy-artifacts": "node -e \"const fs=require('fs');for(const f of fs.readdirSync('.')){if(f==='next-build.zip'||/^next-build\\\\.part\\\\d+$/.test(f)){fs.unlinkSync(f);console.log('removed',f);}}\"",
-    "db:studio": "prisma studio",
-    "db:generate": "prisma generate",
-    "db:migrate:deploy": "prisma migrate deploy",
-    "git-status": "node -e \"const {execSync}=require('child_process');console.log('--- git status ---');console.log(execSync('git status --porcelain').toString()||'(clean)');console.log('--- git diff (stat) ---');console.log(execSync('git diff --stat').toString()||'(no diff)');\"",
-    "diag-prisma": "node -e \"const fs=require('fs');const {execSync}=require('child_process');const p=(f)=>{try{return fs.existsSync(f)}catch(e){return 'err:'+e.message}};console.log('local node_modules/prisma:', p('node_modules/prisma'));console.log('local .bin/prisma:', p('node_modules/.bin/prisma'));console.log('local @prisma/client:', p('node_modules/@prisma/client'));console.log('which prisma:');try{console.log(execSync('which prisma').toString())}catch(e){console.log('not found:', e.message)}console.log('node version:', process.version);try{console.log('local prisma pkg version:', require('./node_modules/prisma/package.json').version)}catch(e){console.log('cannot read local prisma package.json:', e.message)}\"",
-    "db:backup": "node -e \"const {execSync}=require('child_process');const u=new URL(process.env.DATABASE_URL);const ts=new Date().toISOString().replace(/[:.]/g,'-');const file=`backup-${ts}.sql`;execSync(`mysqldump -h ${u.hostname} -u ${u.username} -p'${u.password}' ${u.pathname.slice(1)} > ${file}`,{shell:'/bin/bash'});console.log('backup written to', file);\"",
-    "build-debug3": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.NEXT_IGNORE_INCORRECT_LOCKFILE='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
-    "build-notrap": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.NEXT_IGNORE_INCORRECT_LOCKFILE='1';const bin=require('path').resolve('node_modules/next/dist/bin/next');require('child_process').execSync('node --no-wasm-trap-handler '+bin+' build --webpack',{stdio:'inherit',env:process.env})\""
-  },
-  "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "package:site": "node scripts/package.mjs",
+    "build:site": "next build && node scripts/package.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
-    "@prisma/client": "^6.19.3",
-    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "framer-motion": "^13.4.0",
-    "jose": "^6.2.12",
     "lucide-react": "^1.41.0",
     "next": "16.3.4",
-    "prisma": "6.19.3",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-hook-form": "^7.87.0",
@@ -52,20 +23,13 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "dotenv": "^17.4.2",
+    "adm-zip": "^0.6.1",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
-    "tsx": "^4.23.13",
     "typescript": "^5"
-  },
-  "allowScripts": {
-    "@prisma/client@6.19.3": true,
-    "@prisma/engines@6.19.3": true,
-    "prisma@6.19.3": true
   }
 }

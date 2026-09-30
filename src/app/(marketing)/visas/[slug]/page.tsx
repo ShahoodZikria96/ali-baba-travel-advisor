@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: country.metaTitle ?? `${country.name} Visa from Pakistan`,
     description: country.metaDescription ?? country.description,
     path: `/visas/${slug}`,
-    image: country.heroImage ?? `/destinations/${slug}.jpg`,
+    image: country.heroImage ?? `/destinations/${slug}.webp`,
   });
 }
 
@@ -78,7 +78,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas", href: "/visas" }, { label: country.name }]} />
       <div className="relative h-48 w-full overflow-hidden sm:h-64">
         <Image
-          src={country.heroImage ?? `/destinations/${slug}.jpg`}
+          src={country.heroImage ?? `/destinations/${slug}.webp`}
           alt={`${country.name} landmark`}
           fill
           priority

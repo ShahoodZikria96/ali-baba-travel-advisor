@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getCountries, getRefusalPages, getServicePages, getTours, getOffices, getGuides } from "@/lib/content";
-import { SITE_URL } from "@/lib/seo";
+import { absoluteUrl } from "@/lib/seo";
+
+export const dynamic = "force-static";
 
 type Entry = MetadataRoute.Sitemap[number];
 
@@ -49,17 +51,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // lastModified comes from each record's updatedAt so it only changes when content does.
   const dynamic: Entry[] = [
-    ...servicePages.map((s) => ({ url: `${SITE_URL}/visa-consultancy/${s.slug}`, lastModified: s.updatedAt, changeFrequency: "monthly" as const, priority: 0.8 })),
-    ...countries.map((c) => ({ url: `${SITE_URL}/visas/${c.slug}`, lastModified: c.updatedAt, changeFrequency: "monthly" as const, priority: 0.8 })),
-    ...refusalPages.map((r) => ({ url: `${SITE_URL}/visa-refusal/${r.slug}`, lastModified: r.updatedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...tours.map((t) => ({ url: `${SITE_URL}/tour-packages/${t.slug}`, lastModified: t.updatedAt, changeFrequency: "weekly" as const, priority: 0.6 })),
-    ...offices.map((o) => ({ url: `${SITE_URL}/locations/${o.slug}`, lastModified: o.updatedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
-    ...guides.map((g) => ({ url: `${SITE_URL}/guides/${g.slug}`, lastModified: g.updatedAt, changeFrequency: "monthly" as const, priority: 0.6 })),
+    ...servicePages.map((s) => ({ url: absoluteUrl(`/visa-consultancy/${s.slug}`), lastModified: s.updatedAt, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...countries.map((c) => ({ url: absoluteUrl(`/visas/${c.slug}`), lastModified: c.updatedAt, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...refusalPages.map((r) => ({ url: absoluteUrl(`/visa-refusal/${r.slug}`), lastModified: r.updatedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...tours.map((t) => ({ url: absoluteUrl(`/tour-packages/${t.slug}`), lastModified: t.updatedAt, changeFrequency: "weekly" as const, priority: 0.6 })),
+    ...offices.map((o) => ({ url: absoluteUrl(`/locations/${o.slug}`), lastModified: o.updatedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...guides.map((g) => ({ url: absoluteUrl(`/guides/${g.slug}`), lastModified: g.updatedAt, changeFrequency: "monthly" as const, priority: 0.6 })),
   ];
 
   const latest = [...dynamic].sort((a, b) => +new Date(b.lastModified ?? 0) - +new Date(a.lastModified ?? 0))[0]?.lastModified;
   const stat: Entry[] = staticRoutes.map((r) => ({
-    url: `${SITE_URL}${r.path}`,
+    url: absoluteUrl(r.path || "/"),
     // Omit fabricated dates for static pages; only the home page borrows the newest content date.
     ...(r.path === "" && latest ? { lastModified: latest } : {}),
     changeFrequency: r.changeFrequency,

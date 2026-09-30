@@ -33,7 +33,7 @@ export function WriteReviewForm({ onDone }: { onDone?: () => void }) {
   const onSubmit = async (data: FormValues) => {
     setServerError(null);
     try {
-      const res = await fetch("/api/testimonials", {
+      const res = await fetch("/api/testimonials.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
