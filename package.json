@@ -30,7 +30,8 @@
     "db:backup": "node -e \"const {execSync}=require('child_process');const u=new URL(process.env.DATABASE_URL);const ts=new Date().toISOString().replace(/[:.]/g,'-');const file=`backup-${ts}.sql`;execSync(`mysqldump -h ${u.hostname} -u ${u.username} -p'${u.password}' ${u.pathname.slice(1)} > ${file}`,{shell:'/bin/bash'});console.log('backup written to', file);\"",
     "postinstall": "node -e \"const fs=require('fs');for(const p of ['node_modules/@next/swc-wasm-nodejs','node_modules/@next/swc-wasm-web']){fs.rmSync(p,{recursive:true,force:true});}console.log('stripped unusable swc-wasm fallback packages');\"",
     "strip-swc-wasm": "node -e \"const fs=require('fs');console.log('before:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));for(const p of ['node_modules/@next/swc-wasm-nodejs','node_modules/@next/swc-wasm-web']){fs.rmSync(p,{recursive:true,force:true});}console.log('after:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));\"",
-    "find-swc-wasm": "node -e \"try{console.log('resolved to:', require.resolve('@next/swc-wasm-nodejs'))}catch(e){console.log('resolve failed:', e.message)}\""
+    "find-swc-wasm": "node -e \"try{console.log('resolved to:', require.resolve('@next/swc-wasm-nodejs'))}catch(e){console.log('resolve failed:', e.message)}\"",
+    "test-swc-load": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';const swc=require('next/dist/build/swc');swc.loadBindings().then(()=>console.log('bindings loaded OK')).catch(e=>console.log('load failed (expected, not a crash):', e.message))\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
