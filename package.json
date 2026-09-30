@@ -32,7 +32,8 @@
     "strip-swc-wasm": "node -e \"const fs=require('fs');console.log('before:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));for(const p of ['node_modules/@next/swc-wasm-nodejs','node_modules/@next/swc-wasm-web']){fs.rmSync(p,{recursive:true,force:true});}console.log('after:', fs.existsSync('node_modules/@next/swc-wasm-nodejs'));\"",
     "find-swc-wasm": "node -e \"try{console.log('resolved to:', require.resolve('@next/swc-wasm-nodejs'))}catch(e){console.log('resolve failed:', e.message)}\"",
     "test-swc-load": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';const swc=require('next/dist/build/swc');swc.loadBindings().then(()=>console.log('bindings loaded OK')).catch(e=>console.log('load failed (expected, not a crash):', e.message))\"",
-    "test-oxide-load": "node -e \"const fs=require('fs');console.log('wasi pkg present:', fs.existsSync('node_modules/@tailwindcss/oxide-wasm32-wasi'));try{const oxide=require('@tailwindcss/oxide');console.log('oxide loaded OK:', typeof oxide.Scanner)}catch(e){console.log('oxide load failed:', e.message)}\""
+    "test-oxide-load": "node -e \"const fs=require('fs');console.log('wasi pkg present:', fs.existsSync('node_modules/@tailwindcss/oxide-wasm32-wasi'));try{const oxide=require('@tailwindcss/oxide');console.log('oxide loaded OK:', typeof oxide.Scanner)}catch(e){console.log('oxide load failed:', e.message)}\"",
+    "find-oxide": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('find node_modules -maxdepth 5 -iname \\\"*oxide*\\\"').toString())}catch(e){console.log('find failed:', e.message, e.stdout&&e.stdout.toString())}\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
