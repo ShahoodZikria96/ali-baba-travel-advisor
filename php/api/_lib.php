@@ -239,6 +239,72 @@ function ab_schema(PDO $pdo): void
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 }
 
+/**
+ * One-time content seed: on a brand-new database, populates the CMS tables
+ * from _seed-data.json (the site's content as of the last build) so the
+ * admin panel and live site aren't empty on first deploy. Skipped entirely
+ * once ab_offices has any row, so it's safe to run this check on every
+ * request and to leave the seed file in place indefinitely.
+ */
+function ab_maybe_seed(PDO $pdo): void
+{
+    static $checked = false;
+    if ($checked) {
+        return;
+    }
+    $checked = true;
+    if ((int)$pdo->query('SELECT COUNT(*) FROM ab_offices')->fetchColumn() > 0) {
+        return;
+    }
+    $file = __DIR__ . '/_seed-data.json';
+    if (!is_file($file)) {
+        return;
+    }
+    $seed = json_decode((string)file_get_contents($file), true);
+    if (!is_array($seed)) {
+        return;
+    }
+    $tableFor = [
+        'offices' => 'ab_offices', 'countries' => 'ab_countries', 'refusal_pages' => 'ab_refusal_pages',
+        'service_pages' => 'ab_service_pages', 'tours' => 'ab_tours', 'guides' => 'ab_guides',
+        'success_stories' => 'ab_success_stories', 'videos' => 'ab_videos', 'faqs' => 'ab_faqs',
+        'team_members' => 'ab_team_members',
+    ];
+    $pdo->beginTransaction();
+    try {
+        foreach ($tableFor as $key => $table) {
+            foreach ((array)($seed[$key] ?? []) as $row) {
+                $cols = [];
+                foreach ($row as $col => $val) {
+                    if (is_array($val)) {
+                        $cols[$col] = json_encode($val, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+                    } elseif (is_bool($val)) {
+                        $cols[$col] = $val ? 1 : 0; // PDO can bind `false` as '' with some drivers
+                    } else {
+                        $cols[$col] = $val;
+                    }
+                }
+                $placeholders = implode(', ', array_map(fn($c) => ":$c", array_keys($cols)));
+                $pdo->prepare('INSERT INTO ' . $table . ' (' . implode(', ', array_keys($cols)) . ") VALUES ($placeholders)")->execute($cols);
+            }
+        }
+        if (!empty($seed['site_settings']) && is_array($seed['site_settings'])) {
+            $s = $seed['site_settings'];
+            $cols = array_keys($s);
+            $set = implode(', ', array_map(fn($c) => "$c = VALUES($c)", $cols));
+            $placeholders = implode(', ', array_map(fn($c) => ":$c", $cols));
+            $pdo->prepare(
+                'INSERT INTO ab_site_settings (id, ' . implode(', ', $cols) . ") VALUES ('main', $placeholders) "
+                . "ON DUPLICATE KEY UPDATE $set"
+            )->execute($s);
+        }
+        $pdo->commit();
+    } catch (Throwable $e) {
+        $pdo->rollBack();
+        error_log('alibaba seed error: ' . $e->getMessage());
+    }
+}
+
 function ab_db(): PDO
 {
     static $pdo = null;
@@ -254,6 +320,7 @@ function ab_db(): PDO
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false]
         );
         ab_schema($pdo); // idempotent CREATE TABLE IF NOT EXISTS: no manual SQL import needed
+        ab_maybe_seed($pdo); // one-time: only inserts if the content tables are still empty
     } catch (Throwable $e) {
         error_log('alibaba db error: ' . $e->getMessage());
         ab_json(['error' => 'Service temporarily unavailable.'], 503);
