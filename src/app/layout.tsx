@@ -18,9 +18,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Ali Baba Travel Advisor",
     locale: "en_PK",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Ali Baba Travel Advisor" }],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/og-default.png"],
   },
   // Google Search Console HTML-tag verification (set GOOGLE_SITE_VERIFICATION in the environment).
   verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,

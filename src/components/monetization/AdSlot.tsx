@@ -1,15 +1,20 @@
+"use client";
+
+import { useRuntimeConfig } from "@/lib/site-config";
+
 /**
  * Monetization-ready placeholder for informational pages ONLY (guides/blog).
  * Never render on service, country, contact or consultation pages — those stay
  * lead-generation focused.
  *
- * Disabled by default. To go live, set NEXT_PUBLIC_ADS_ENABLED=true and
- * NEXT_PUBLIC_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX (after AdSense approval),
+ * Disabled by default. To go live, set "adsEnabled": true and "adsenseClient" in
+ * /site-config.json on the server (after AdSense approval),
  * then render the network's slot markup inside the reserved box below.
  * The box has a fixed min-height so ads can never cause layout shift (CLS).
  */
 export function AdSlot({ placement }: { placement: "in-article" | "end-of-article" }) {
-  if (process.env.NEXT_PUBLIC_ADS_ENABLED !== "true") return null;
+  const cfg = useRuntimeConfig();
+  if (!cfg?.adsEnabled) return null;
   return (
     <aside
       aria-label="Advertisement"

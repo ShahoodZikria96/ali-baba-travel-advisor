@@ -16,7 +16,7 @@ No ranking is promised. This is a technically sound, white-hat foundation plus a
 | Guides | `/guides`, `/guides/{slug}` | BlogPosting schema, monetization slot, disclaimer |
 | Locations | `/locations/{lahore,islamabad,wazirabad,karachi}` | Only real offices get pages |
 
-301 map (in `next.config.ts`): `/visa`, `/countries[/x]`, `/services[/x]`, `/blog[/x]`, `/about-us`, `/contact-us`, `/privacy`, `/terms-and-conditions`, `/tours`, `/hotels`, `/offices`.
+301 map (in `deploy/htaccess`): `/visa`, `/countries[/x]`, `/services[/x]`, `/blog[/x]`, `/about-us`, `/contact-us`, `/privacy`, `/terms-and-conditions`, `/tours`, `/hotels`, `/offices`.
 
 **Why no /countries/uk or /services/... rewrite:** the live URLs (`/visas/*`, `/visa-consultancy/*`) already exist and may be indexed; renaming them costs rankings for no gain. The alternate names redirect instead.
 
@@ -49,8 +49,8 @@ Secondary and long-tail examples: "visit visa requirements for Pakistani citizen
 - [x] Canonical URL, OG and Twitter tags on every page (`pageMetadata`).
 - [x] `robots.txt` (blocks `/admin`, `/api`, tracking parameters) and a dynamic `sitemap.xml` with real `lastModified`.
 - [x] One H1 per page, breadcrumbs, custom 404.
-- [x] 301 map, HSTS, `nosniff`, frame-ancestors, Referrer-Policy, Permissions-Policy, `X-Powered-By` removed.
-- [x] next/image with AVIF/WebP, lazy loading, 30-day static image cache.
+- [x] 301 map (Apache), trailing-slash canonical URLs, HSTS, `nosniff`, frame-ancestors, Referrer-Policy, Permissions-Policy, `X-Powered-By` removed.
+- [x] WebP images (pre-compressed), lazy loading, 30-day image cache, 1-year cache for hashed JS/CSS.
 - [x] Analytics scripts load after hydration; the click tracker is one delegated listener.
 - [x] Skip link, semantic landmarks, mobile sticky call/WhatsApp/consultation bar.
 - [ ] Compress the destination JPEGs at the source (`public/destinations/*.jpg`) to below 150 KB each.
@@ -73,20 +73,21 @@ Forum rule: answer the question fully first, disclose affiliation, and link only
 Outreach targets to research: Pakistan travel bloggers, university international offices, chambers of commerce (Lahore, Islamabad, Karachi, Sialkot), airline and hotel partners, expat community groups, local news travel sections, Tourism Dept Punjab events.
 
 ## 8. Monetization readiness
-- `AdSlot` (guide pages only) is off by default, has a reserved height so there is no layout shift, and renders a visible "Advertisement" label. Enable with `NEXT_PUBLIC_ADS_ENABLED=true` after AdSense approval.
+- `AdSlot` (guide pages only) is off by default, has a reserved height so there is no layout shift, and renders a visible "Advertisement" label. Enable with `"adsEnabled": true` in `site-config.json` after AdSense approval.
 - `AffiliateNotice` renders only entries added to `src/data/partners.ts`, always `rel="sponsored"` with a disclosure line.
 - Service, country, contact and consultation pages never render ads. Lead generation stays separate.
 - Apply for AdSense once there are ~20 quality guides and steady traffic. Candidate affiliates: hotel booking platforms, flight search, travel insurance (must be compliant for Pakistani users).
 
 ## 9. Analytics
-GA4 or GTM loads only when the env var is set. Events: see DEPLOYMENT-CPANEL.md. Naming is snake_case and consistent.
+GA4 or GTM loads only when an ID is set in `site-config.json`. Events: see DEPLOYMENT-CPANEL.md. Naming is snake_case and consistent.
 
 ## 10. Security summary
-- Lead API: Zod schema, payload cap (10 KB), same-origin check, honeypot, IP rate limit (8 per 10 min).
-- Admin login: rate-limited (8 per 15 min), same-origin check, bcrypt, httpOnly SameSite cookie, JWT secret from env.
-- The seed script refuses weak or missing admin credentials (no default password).
-- `.env*` is git-ignored. The rate limiter is in-memory, which suits a single cPanel Node process.
-- Recommended next: a CAPTCHA (Cloudflare Turnstile) if spam appears; an audit log for admin changes.
+- The public site is static files: no server code, database or secrets are exposed by the website itself.
+- PHP endpoints: prepared statements (PDO), 10 KB body cap, same-origin check, hidden honeypot field, MySQL-backed IP rate limits (8 enquiries / 10 min, 3 reviews / hour, 8 logins / 15 min), reviews are stored unpublished until approved.
+- Admin panel: session cookie (httponly, SameSite, secure on HTTPS), CSRF token on every action, output escaping, noindex + no-store headers, CSV export guarded against spreadsheet formula injection.
+- Database credentials and the admin password live in a config file above `public_html` (or blocked by `.htaccess`), never in the repo.
+- `.htaccess`: forced HTTPS, one canonical host, HSTS, nosniff, frame-ancestors, referrer/permissions policies, blocked access to config/SQL/log files.
+- Recommended next: Cloudflare Turnstile if spam appears; keep PHP on a supported version.
 
 ## 11. Post-launch roadmap
 **Months 0–3 (foundation):** Fix every item in REQUIRED-BUSINESS-INFO.md; verify GSC/GA4/GBP; compress images and pass Core Web Vitals; publish 8–10 guides from real questions (UK visit visa from Pakistan, Schengen from Pakistan, Canada visitor visa, Japan tourist visa, France tourist visa, Dubai visit visa, business visa guide, refusal-reason guides); collect first 15–25 genuine reviews; GBP for every office; register in 10–15 reputable directories.

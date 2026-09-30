@@ -1,31 +1,45 @@
-import Script from "next/script";
+"use client";
+
+import { useEffect } from "react";
+import { loadRuntimeConfig } from "@/lib/site-config";
 import { ClickTracker } from "@/components/analytics/ClickTracker";
 
+const ID_PATTERN = /^(GTM-[A-Z0-9]+|G-[A-Z0-9]+)$/;
+
 /**
- * Loads Google Tag Manager (NEXT_PUBLIC_GTM_ID) or, if only a GA4 id is set,
- * gtag.js directly (NEXT_PUBLIC_GA_ID). Renders nothing when neither is set.
- * Scripts load after hydration so they never block first paint.
+ * Loads Google Tag Manager or GA4 using the IDs in /site-config.json, after
+ * the page is interactive. Does nothing when both IDs are empty.
  */
 export function Analytics() {
-  const gtm = process.env.NEXT_PUBLIC_GTM_ID;
-  const ga = process.env.NEXT_PUBLIC_GA_ID;
-  if (!gtm && !ga) return null;
+  useEffect(() => {
+    let cancelled = false;
+    loadRuntimeConfig().then(({ gtmId, gaId }) => {
+      if (cancelled) return;
+      const w = window as unknown as { dataLayer?: unknown[]; gtag?: (...a: unknown[]) => void };
+      w.dataLayer = w.dataLayer || [];
+      if (gtmId && ID_PATTERN.test(gtmId)) {
+        w.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
+        document.head.appendChild(s);
+      } else if (gaId && ID_PATTERN.test(gaId)) {
+        w.gtag = function () {
+          // eslint-disable-next-line prefer-rest-params
+          w.dataLayer!.push(arguments);
+        };
+        w.gtag("js", new Date());
+        w.gtag("config", gaId);
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(s);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  return (
-    <>
-      {gtm ? (
-        <Script id="gtm" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=document.getElementsByTagName('script')[0],j=document.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id=${gtm}';f.parentNode.insertBefore(j,f);`}
-        </Script>
-      ) : (
-        <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga}`} strategy="afterInteractive" />
-          <Script id="ga4" strategy="afterInteractive">
-            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${ga}');`}
-          </Script>
-        </>
-      )}
-      <ClickTracker />
-    </>
-  );
+  return <ClickTracker />;
 }

@@ -4,6 +4,8 @@ export interface Guide {
   image: string;
   category: "Visa Guides" | "Travel Guides" | "Latest Updates";
   publishedDate: string;
+  /** Set when a guide is materially updated (drives dateModified). */
+  updatedDate?: string;
   readingTime: string;
   excerpt: string;
   content: string[];
@@ -13,7 +15,7 @@ export const guides: Guide[] = [
   {
     slug: "schengen-visa-requirements-from-pakistan",
     title: "Schengen Visa Requirements from Pakistan: A Practical Guide",
-    image: "/destinations/schengen.jpg",
+    image: "/destinations/schengen.webp",
     category: "Visa Guides",
     publishedDate: "2026-09-29",
     readingTime: "6 min read",
@@ -32,7 +34,7 @@ export const guides: Guide[] = [
   {
     slug: "canada-visitor-visa-from-pakistan",
     title: "How to Apply for a Canada Visitor Visa from Pakistan",
-    image: "/destinations/canada.jpg",
+    image: "/destinations/canada.webp",
     category: "Visa Guides",
     publishedDate: "2026-09-29",
     readingTime: "6 min read",
@@ -50,7 +52,7 @@ export const guides: Guide[] = [
   {
     slug: "business-visa-guide-for-pakistani-travellers",
     title: "Business Visa Guide for Pakistani Travellers",
-    image: "/destinations/airliner.jpg",
+    image: "/destinations/airliner.webp",
     category: "Visa Guides",
     publishedDate: "2026-09-29",
     readingTime: "5 min read",
@@ -68,7 +70,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-build-travel-history-for-visa-applications",
     title: "Travel History and Visa Applications: What It Does and Doesn't Do",
-    image: "/destinations/malaysia.jpg",
+    image: "/destinations/malaysia.webp",
     category: "Travel Guides",
     publishedDate: "2026-09-29",
     readingTime: "4 min read",
@@ -85,7 +87,7 @@ export const guides: Guide[] = [
   {
     slug: "uk-visit-visa-from-pakistan-easy-guide",
     title: "UK Visit Visa from Pakistan: Easy Guide",
-    image: "/destinations/uk.jpg",
+    image: "/destinations/uk.webp",
     category: "Visa Guides",
     publishedDate: "2026-06-23",
     readingTime: "6 min read",
@@ -101,7 +103,7 @@ export const guides: Guide[] = [
   {
     slug: "how-to-travel-europe-on-a-budget-from-lahore",
     title: "How to Travel Europe on Budget from Travel Agency in Lahore",
-    image: "/destinations/schengen.jpg",
+    image: "/destinations/schengen.webp",
     category: "Travel Guides",
     publishedDate: "2026-06-16",
     readingTime: "5 min read",
@@ -117,7 +119,7 @@ export const guides: Guide[] = [
   {
     slug: "why-book-air-blue-ticket-in-lahore-with-ali-baba",
     title: "Why Book Your Air Blue Ticket in Lahore with Ali Baba?",
-    image: "/destinations/airliner.jpg",
+    image: "/destinations/airliner.webp",
     category: "Latest Updates",
     publishedDate: "2026-06-27",
     readingTime: "4 min read",

@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import { Star, Quote, BadgeCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Avatar } from "@/components/ui/Avatar";
+import { ReviewsGrid } from "@/components/reviews/ReviewsGrid";
 import { WriteReviewCTA } from "@/components/home/WriteReviewCTA";
 import { getSuccessStories, getTestimonials } from "@/lib/content";
 
@@ -46,34 +45,7 @@ export default async function SuccessStoriesPage() {
         </div>
 
         <h2 className="mt-16 font-heading text-xl font-bold text-charcoal">What Our Clients Say</h2>
-        {sampleReviews.length > 0 && (
-          <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:max-w-2xl">
-            {sampleReviews.map((review) => (
-              <div
-                key={review.id}
-                className="card-hover relative overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface p-6"
-              >
-                <Quote size={64} className="pointer-events-none absolute -right-2 -top-3 text-primary-tint" strokeWidth={0} fill="currentColor" />
-                <div className="relative flex items-center gap-0.5 text-primary">
-                  {Array.from({ length: review.rating }).map((_, idx) => (
-                    <Star key={idx} size={14} fill="currentColor" strokeWidth={0} />
-                  ))}
-                </div>
-                <p className="relative mt-3 text-sm leading-relaxed text-text">&ldquo;{review.text}&rdquo;</p>
-                <div className="relative mt-5 flex items-center gap-3 border-t border-border pt-4">
-                  <Avatar src={review.photo} name={review.name} size={38} />
-                  <div>
-                    <p className="flex items-center gap-1 text-sm font-bold text-charcoal">
-                      {review.name}
-                      <BadgeCheck size={14} className="text-primary" />
-                    </p>
-                    <p className="text-xs font-medium text-text-muted">{review.location} &middot; Client review</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        <ReviewsGrid initial={sampleReviews} />
         <WriteReviewCTA />
 
         <div className="mt-10">

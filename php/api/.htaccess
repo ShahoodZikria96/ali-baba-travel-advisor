@@ -1,0 +1,5 @@
+# Helper files are includes, not endpoints.
+<FilesMatch "^_">
+  Require all denied
+</FilesMatch>
+Options -Indexes
