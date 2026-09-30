@@ -61,6 +61,182 @@ function ab_schema(PDO $pdo): void
         t INT UNSIGNED NOT NULL,
         INDEX (k, t)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    // ---------- Content management tables (offices, tours, guides, etc.) ----------
+    // Full parity with the previous Node.js/Prisma CMS, so the admin panel can add
+    // or edit any of this content without ever needing a rebuild: the live site
+    // pages fetch published rows from these tables at runtime (see api/content.php).
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_offices (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        city VARCHAR(120) NOT NULL,
+        address TEXT NOT NULL,
+        phone VARCHAR(40) NOT NULL,
+        hours VARCHAR(120) NOT NULL,
+        map_url TEXT NOT NULL,
+        opening_date DATE NULL,
+        intro TEXT NULL,
+        local_context TEXT NULL,
+        services_offered JSON NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_countries (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        name VARCHAR(120) NOT NULL,
+        flag_emoji VARCHAR(20) NULL,
+        flag_image VARCHAR(255) NULL,
+        hero_image VARCHAR(255) NULL,
+        visa_type VARCHAR(120) NOT NULL,
+        description TEXT NOT NULL,
+        featured TINYINT(1) NOT NULL DEFAULT 0,
+        meta_title VARCHAR(255) NULL,
+        meta_description TEXT NULL,
+        intro TEXT NULL,
+        who_can_apply JSON NULL,
+        visa_types JSON NULL,
+        documents JSON NULL,
+        financial_note TEXT NULL,
+        processing_time TEXT NULL,
+        steps JSON NULL,
+        refusal_reasons JSON NULL,
+        faqs JSON NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published), INDEX (featured)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_refusal_pages (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        country VARCHAR(120) NOT NULL,
+        meta_title VARCHAR(255) NULL,
+        meta_description TEXT NULL,
+        intro TEXT NOT NULL,
+        common_reasons JSON NOT NULL,
+        what_we_review JSON NOT NULL,
+        special_note TEXT NULL,
+        faqs JSON NOT NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_service_pages (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        title VARCHAR(160) NOT NULL,
+        meta_description TEXT NULL,
+        intro TEXT NOT NULL,
+        highlights JSON NOT NULL,
+        process JSON NOT NULL,
+        faqs JSON NOT NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_tours (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        destination VARCHAR(160) NOT NULL,
+        image VARCHAR(255) NOT NULL,
+        duration VARCHAR(80) NOT NULL,
+        departure VARCHAR(120) NOT NULL,
+        price VARCHAR(60) NOT NULL,
+        visa_assistance TINYINT(1) NOT NULL DEFAULT 1,
+        summary TEXT NOT NULL,
+        highlights JSON NOT NULL,
+        included JSON NOT NULL,
+        excluded JSON NOT NULL,
+        itinerary JSON NOT NULL,
+        notes JSON NOT NULL,
+        category VARCHAR(20) NOT NULL DEFAULT 'group',
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published), INDEX (category)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_guides (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        slug VARCHAR(80) NOT NULL UNIQUE,
+        title VARCHAR(200) NOT NULL,
+        image VARCHAR(255) NOT NULL,
+        category VARCHAR(40) NOT NULL,
+        published_date DATE NOT NULL,
+        reading_time VARCHAR(40) NULL,
+        excerpt TEXT NOT NULL,
+        content JSON NOT NULL,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        INDEX (published), INDEX (category)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_success_stories (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        country VARCHAR(120) NOT NULL,
+        category VARCHAR(120) NOT NULL,
+        period VARCHAR(40) NOT NULL,
+        summary TEXT NOT NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_videos (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(200) NOT NULL,
+        category VARCHAR(80) NOT NULL,
+        duration VARCHAR(20) NULL,
+        youtube_url VARCHAR(255) NULL,
+        thumbnail VARCHAR(255) NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_faqs (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        question VARCHAR(255) NOT NULL,
+        answer TEXT NOT NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_team_members (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(120) NOT NULL,
+        role VARCHAR(120) NOT NULL,
+        photo VARCHAR(255) NULL,
+        bio TEXT NULL,
+        sort_order INT NOT NULL DEFAULT 0,
+        published TINYINT(1) NOT NULL DEFAULT 1,
+        INDEX (published)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_site_settings (
+        id VARCHAR(20) NOT NULL PRIMARY KEY DEFAULT 'main',
+        phone VARCHAR(40) NOT NULL,
+        phone_secondary VARCHAR(40) NULL,
+        whatsapp_number VARCHAR(40) NOT NULL,
+        email VARCHAR(160) NOT NULL,
+        facebook_url VARCHAR(255) NULL,
+        instagram_url VARCHAR(255) NULL,
+        youtube_url VARCHAR(255) NULL,
+        announcement_text VARCHAR(255) NULL,
+        announcement_href VARCHAR(255) NULL,
+        announcement_active TINYINT(1) NOT NULL DEFAULT 1,
+        youtube_subscribers VARCHAR(20) NOT NULL DEFAULT '0',
+        happy_customers_stat VARCHAR(20) NOT NULL DEFAULT '0',
+        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 }
 
 function ab_db(): PDO
