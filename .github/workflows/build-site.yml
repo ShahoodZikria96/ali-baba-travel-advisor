@@ -1,10 +1,15 @@
 name: Build site package
 
-# Builds the static website + PHP backend into a ready-to-upload zip.
-# Download it from: Actions -> latest run -> Artifacts -> alibaba-site
+# Builds the static website + PHP backend and deploys it straight to
+# public_html via FTP (no manual zip download/upload needed). Also runs on a
+# schedule so admin-panel content additions go live automatically without
+# anyone needing to trigger a rebuild by hand.
+# Manual zip is still attached as an artifact as a fallback / for local testing.
 on:
   push:
     branches: [master, "claude/**"]
+  schedule:
+    - cron: "*/20 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -26,3 +31,18 @@ jobs:
             dist/alibaba-site.zip
             dist/alibaba-config.sample.php
           retention-days: 30
+      - name: Deploy to public_html via FTP
+        if: ${{ vars.FTP_DEPLOY_ENABLED == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/public_html/
+          server-dir: ./
+          # .well-known holds AutoSSL/SSL domain-validation files the host manages;
+          # config.php (if placed inside public_html) and .htaccess-managed dirs are
+          # left alone too so a sync never wipes something it didn't build.
+          exclude: |
+            .well-known/**
+            config.php
