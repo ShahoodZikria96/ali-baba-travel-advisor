@@ -28,6 +28,14 @@ fs.writeFileSync(
   '<IfModule mod_headers.c>\n  Header set Cache-Control "public, max-age=31536000, immutable"\n</IfModule>\n'
 );
 fs.copyFileSync(path.join(root, "php", "config.sample.php"), path.join(dist, "alibaba-config.sample.php"));
+// One-time seed data (site content as of this build) for the CMS tables to
+// insert themselves with on first run, if they're still empty. Named with a
+// leading underscore so the existing api/.htaccess rule already blocks direct
+// web access to it, same as the other internal-only PHP includes.
+const seedDataFile = path.join(root, ".seed-cache", "seed-data.json");
+if (fs.existsSync(seedDataFile)) {
+  fs.copyFileSync(seedDataFile, path.join(site, "api", "_seed-data.json"));
+}
 
 const zip = new AdmZip();
 zip.addLocalFolder(site);

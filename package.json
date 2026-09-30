@@ -7,7 +7,8 @@
     "build": "next build",
     "lint": "eslint",
     "package:site": "node scripts/package.mjs",
-    "build:site": "next build && node scripts/package.mjs"
+    "export-seed-data": "node --experimental-loader ./scripts/alias-loader.mjs scripts/export-seed-data.mjs",
+    "build:site": "next build && npm run export-seed-data && node scripts/package.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

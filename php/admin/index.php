@@ -1,7 +1,9 @@
 <?php
-// Small admin panel: enquiries (leads) and reviews. Single file, PHP 7.4+.
+// Small admin panel: enquiries (leads), reviews, and the full content CMS
+// (offices, tours, guides, etc.) Single file, PHP 7.4+.
 declare(strict_types=1);
 require __DIR__ . '/../api/_lib.php';
+require __DIR__ . '/../api/_resources.php';
 
 header('X-Robots-Tag: noindex, nofollow');
 header('Cache-Control: no-store');
@@ -33,6 +35,8 @@ function page(string $title, string $body): void
         . 'button.g,.btn.g{background:#5b524b}button.r{background:#b3261e}.tag{padding:2px 8px;border-radius:99px;background:#eee;font-size:12px}'
         . '.new{background:#fde8ea;color:#9e1b26}.small{font-size:12px;color:#6b625b}pre{white-space:pre-wrap;margin:0;font:13px/1.4 ui-monospace,monospace}'
         . '.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}@media(max-width:700px){th,td{font-size:13px;padding:6px}}'
+        . '.navsep{width:1px;align-self:stretch;background:rgba(255,255,255,.15);margin:0 2px}'
+        . 'textarea.mono{font:13px/1.4 ui-monospace,monospace}'
         . '</style></head><body>' . $body . '</body></html>';
     exit;
 }
@@ -44,8 +48,138 @@ function nav(string $active): string
     foreach ($items as $k => $label) {
         $out .= '<a href="/admin/?a=' . $k . '"' . ($active === $k ? ' class="on"' : '') . '>' . $label . '</a>';
     }
+    $out .= '<span class="navsep"></span>';
+    foreach (ab_resources() as $key => $cfg) {
+        $out .= '<a href="/admin/?a=res&r=' . urlencode($key) . '"' . ($active === $key ? ' class="on"' : '') . '>' . h($cfg['label']) . '</a>';
+    }
     return $out . '<span style="flex:1"></span><a href="/" target="_blank" rel="noopener">View site</a>'
         . '<form method="post" action="/admin/?a=logout" style="margin:0"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><button class="g" type="submit">Log out</button></form></header>';
+}
+
+/** Render one form field's input control for a resource's add/edit form. */
+function res_field_input(array $f, $value): string
+{
+    $name = h($f['name']);
+    $req = !empty($f['required']) ? ' required' : '';
+    switch ($f['type']) {
+        case 'textarea':
+            return '<textarea name="' . $name . '" rows="4"' . $req . '>' . h((string)$value) . '</textarea>';
+        case 'json':
+            $text = is_string($value) ? $value : json_encode($value, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            return '<textarea name="' . $name . '" rows="5" class="mono">' . h((string)$text) . '</textarea>';
+        case 'boolean':
+            return '<input type="checkbox" name="' . $name . '" value="1"' . ($value ? ' checked' : '') . ' style="width:auto">';
+        case 'date':
+            return '<input type="date" name="' . $name . '" value="' . h((string)$value) . '"' . $req . '>';
+        case 'number':
+            return '<input type="number" name="' . $name . '" value="' . h((string)$value) . '"' . $req . '>';
+        case 'select':
+            $out = '<select name="' . $name . '"' . $req . '>';
+            foreach ($f['options'] as $opt) {
+                $out .= '<option value="' . h($opt) . '"' . ((string)$value === $opt ? ' selected' : '') . '>' . h($opt) . '</option>';
+            }
+            return $out . '</select>';
+        default:
+            return '<input type="text" name="' . $name . '" value="' . h((string)$value) . '"' . $req . '>';
+    }
+}
+
+/** Parse $_POST into a column => value map ready for a prepared INSERT/UPDATE, validating JSON fields. */
+function res_parse_post(array $resource, ?string &$error): ?array
+{
+    $row = [];
+    foreach ($resource['fields'] as $f) {
+        $name = $f['name'];
+        if ($f['type'] === 'boolean') {
+            $row[$name] = isset($_POST[$name]) ? 1 : 0;
+            continue;
+        }
+        $raw = (string)($_POST[$name] ?? '');
+        if ($f['type'] === 'json') {
+            $trimmed = trim($raw);
+            if ($trimmed === '') {
+                if (!empty($f['required'])) { $error = h($f['label']) . ' is required.'; return null; }
+                $row[$name] = null;
+                continue;
+            }
+            $decoded = json_decode($trimmed, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                $error = h($f['label']) . ': invalid JSON (' . json_last_error_msg() . ')';
+                return null;
+            }
+            $row[$name] = json_encode($decoded, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+            continue;
+        }
+        if ($f['type'] === 'date') {
+            $row[$name] = $raw !== '' ? $raw : null;
+            continue;
+        }
+        if ($f['type'] === 'number') {
+            $row[$name] = $raw !== '' ? (int)$raw : 0;
+            continue;
+        }
+        if (!empty($f['required']) && trim($raw) === '') {
+            $error = h($f['label']) . ' is required.';
+            return null;
+        }
+        $row[$name] = $raw;
+    }
+    return $row;
+}
+
+/** Render the add/edit form for one resource row (empty $row = new). */
+function res_form(string $key, array $resource, array $row, string $error = ''): string
+{
+    $isNew = empty($row['id']);
+    $b = nav($key) . '<main><div class="card"><h2>' . ($isNew ? 'Add ' : 'Edit ') . h($resource['singular']) . '</h2>';
+    if ($error !== '') {
+        $b .= '<p style="color:#b3261e">' . $error . '</p>';
+    }
+    $b .= '<form method="post" action="/admin/?a=res_save&r=' . urlencode($key) . '">'
+        . '<input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)($row['id'] ?? 0) . '">';
+    foreach ($resource['fields'] as $f) {
+        $b .= '<p><label>' . h($f['label']) . '<br>' . res_field_input($f, $row[$f['name']] ?? '') . '</label>';
+        if (!empty($f['helpText'])) {
+            $b .= '<span class="small">' . h($f['helpText']) . '</span>';
+        }
+        $b .= '</p>';
+    }
+    $b .= '<div class="row"><button type="submit">Save</button><a class="btn g" href="/admin/?a=res&r=' . urlencode($key) . '">Cancel</a></div></form></div></main>';
+    return $b;
+}
+
+/** Render the list view for one resource. */
+function res_list(string $key, array $resource, PDO $pdo): string
+{
+    $rows = $pdo->query('SELECT * FROM ' . $resource['table'] . ' ORDER BY ' . (in_array('sort_order', array_column($resource['fields'], 'name'), true) ? 'sort_order ASC, id DESC' : 'id DESC'))->fetchAll();
+    $b = nav($key) . '<main><div class="row" style="justify-content:space-between"><h2>' . h($resource['label']) . '</h2>'
+        . '<a class="btn" href="/admin/?a=res&r=' . urlencode($key) . '&new=1">+ Add ' . h($resource['singular']) . '</a></div><table><tr>';
+    foreach ($resource['listColumns'] as $col) {
+        $b .= '<th>' . h(str_replace('_', ' ', ucfirst($col))) . '</th>';
+    }
+    $b .= '<th></th></tr>';
+    foreach ($rows as $r) {
+        $b .= '<tr>';
+        foreach ($resource['listColumns'] as $col) {
+            $v = $r[$col] ?? '';
+            if ($col === 'published' || $col === 'featured') {
+                $b .= '<td>' . ((int)$v ? '<span class="tag">' . ($col === 'featured' ? 'Featured' : 'Published') . '</span>' : '<span class="tag new">' . ($col === 'featured' ? '—' : 'Draft') . '</span>') . '</td>';
+            } else {
+                $b .= '<td>' . h((string)$v) . '</td>';
+            }
+        }
+        $b .= '<td><div class="row">'
+            . '<a class="btn g" href="/admin/?a=res&r=' . urlencode($key) . '&edit=' . (int)$r['id'] . '">Edit</a>';
+        if (array_key_exists('published', $r)) {
+            $b .= '<form method="post" action="/admin/?a=res_toggle&r=' . urlencode($key) . '"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$r['id'] . '"><button class="g" type="submit">' . ((int)$r['published'] ? 'Unpublish' : 'Publish') . '</button></form>';
+        }
+        $b .= '<form method="post" action="/admin/?a=res_delete&r=' . urlencode($key) . '" onsubmit="return confirm(\'Delete this ' . h(strtolower($resource['singular'])) . '?\')"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$r['id'] . '"><button class="r" type="submit">Delete</button></form>'
+            . '</div></td></tr>';
+    }
+    if (!$rows) {
+        $b .= '<tr><td colspan="' . (count($resource['listColumns']) + 1) . '">No ' . h(strtolower($resource['label'])) . ' yet.</td></tr>';
+    }
+    return $b . '</table></main>';
 }
 
 $c = ab_config();
@@ -119,6 +253,54 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                     ->execute([$name, $loc, $rating, $text]);
             }
             go('?a=reviews');
+        case 'res_toggle':
+        case 'res_delete':
+        case 'res_save':
+            $rKey = (string)($_GET['r'] ?? '');
+            $resources = ab_resources();
+            if (!isset($resources[$rKey])) {
+                go();
+            }
+            $resource = $resources[$rKey];
+            $table = $resource['table'];
+            if ($action === 'res_toggle') {
+                $pdo->prepare("UPDATE $table SET published = 1 - published WHERE id = ?")->execute([$id]);
+                go('?a=res&r=' . urlencode($rKey));
+            }
+            if ($action === 'res_delete') {
+                $pdo->prepare("DELETE FROM $table WHERE id = ?")->execute([$id]);
+                go('?a=res&r=' . urlencode($rKey));
+            }
+            // res_save
+            $resError = null;
+            $data = res_parse_post($resource, $resError);
+            if ($data === null) {
+                $row = $_POST;
+                $row['id'] = $id;
+                page('Error', res_form($rKey, $resource, $row, $resError ?? 'Invalid input.'));
+            }
+            if ($resource['hasSlug'] && isset($data['slug'])) {
+                $data['slug'] = preg_replace('/[^a-z0-9-]+/', '-', strtolower(trim((string)$data['slug'])));
+                $data['slug'] = trim($data['slug'], '-');
+            }
+            $cols = array_keys($data);
+            if ($id > 0) {
+                $set = implode(', ', array_map(fn($c) => "$c = :$c", $cols));
+                try {
+                    $st = $pdo->prepare("UPDATE $table SET $set WHERE id = :__id");
+                    $st->execute([...$data, '__id' => $id]);
+                } catch (Throwable $e) {
+                    page('Error', res_form($rKey, $resource, array_merge($data, ['id' => $id]), 'Could not save: ' . h($e->getMessage())));
+                }
+            } else {
+                $placeholders = implode(', ', array_map(fn($c) => ":$c", $cols));
+                try {
+                    $pdo->prepare('INSERT INTO ' . $table . ' (' . implode(', ', $cols) . ") VALUES ($placeholders)")->execute($data);
+                } catch (Throwable $e) {
+                    page('Error', res_form($rKey, $resource, $data, 'Could not save: ' . h($e->getMessage())));
+                }
+            }
+            go('?a=res&r=' . urlencode($rKey));
     }
     go();
 }
@@ -156,6 +338,29 @@ if ($action === 'reviews') {
             . '<form method="post" action="/admin/?a=review_delete" onsubmit="return confirm(\'Delete this review?\')"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$r['id'] . '"><button class="r" type="submit">Delete</button></form></div></td></tr>';
     }
     page('Reviews', $b . ($rows ? '' : '<tr><td colspan="3">No reviews yet.</td></tr>') . '</table></main>');
+}
+
+// ---------- Generic content resources (offices, tours, guides, etc.) ----------
+if ($action === 'res') {
+    $rKey = (string)($_GET['r'] ?? '');
+    $resources = ab_resources();
+    if (!isset($resources[$rKey])) {
+        go();
+    }
+    $resource = $resources[$rKey];
+    if (isset($_GET['new'])) {
+        page($resource['singular'], res_form($rKey, $resource, []));
+    }
+    if (isset($_GET['edit'])) {
+        $st = $pdo->prepare('SELECT * FROM ' . $resource['table'] . ' WHERE id = ?');
+        $st->execute([(int)$_GET['edit']]);
+        $row = $st->fetch();
+        if (!$row) {
+            go('?a=res&r=' . urlencode($rKey));
+        }
+        page($resource['singular'], res_form($rKey, $resource, $row));
+    }
+    page($resource['label'], res_list($rKey, $resource, $pdo));
 }
 
 // ---------- Leads (default) ----------

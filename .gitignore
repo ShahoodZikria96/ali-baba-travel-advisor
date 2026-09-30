@@ -49,3 +49,4 @@ next-env.d.ts
 /out/
 /dist/
 php/config.php
+.seed-cache/
