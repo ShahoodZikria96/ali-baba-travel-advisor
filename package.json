@@ -35,7 +35,8 @@
     "test-oxide-load": "node -e \"const fs=require('fs');console.log('wasi pkg present:', fs.existsSync('node_modules/@tailwindcss/oxide-wasm32-wasi'));try{const oxide=require('@tailwindcss/oxide');console.log('oxide loaded OK:', typeof oxide.Scanner)}catch(e){console.log('oxide load failed:', e.message)}\"",
     "find-oxide": "node -e \"const {execSync}=require('child_process');try{console.log(execSync('find node_modules -maxdepth 5 -iname \\\"*oxide*\\\"').toString())}catch(e){console.log('find failed:', e.message, e.stdout&&e.stdout.toString())}\"",
     "test-minimal-wasm": "node -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK')).catch(e=>console.log('minimal wasm instantiate FAILED:', e.message))\"",
-    "test-minimal-wasm-notrap": "node --no-wasm-trap-handler -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK (no-trap-handler)')).catch(e=>console.log('minimal wasm instantiate FAILED (no-trap-handler):', e.message))\""
+    "test-minimal-wasm-notrap": "node --no-wasm-trap-handler -e \"const bytes=new Uint8Array([0,97,115,109,1,0,0,0]);WebAssembly.instantiate(bytes).then(()=>console.log('minimal wasm instantiate OK (no-trap-handler)')).catch(e=>console.log('minimal wasm instantiate FAILED (no-trap-handler):', e.message))\"",
+    "build-debug2": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_TELEMETRY_DISABLED='1';process.env.__NEXT_SHOW_IGNORE_LISTED='true';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\""
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
