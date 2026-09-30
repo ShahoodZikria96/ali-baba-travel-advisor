@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';console.error('[build wrapper] NEXT_DISABLE_SWC_WASM=',process.env.NEXT_DISABLE_SWC_WASM);require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
+    "build-debug": "node -e \"process.env.NEXT_DISABLE_SWC_WASM='1';process.env.NEXT_DEBUG_UNHANDLED_REJECTION='1';require('child_process').execSync('next build --webpack',{stdio:'inherit',env:process.env})\"",
     "start": "next start",
     "start:cpanel": "node server.js",
     "lint": "eslint",

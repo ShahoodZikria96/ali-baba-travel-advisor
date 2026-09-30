@@ -3,6 +3,12 @@
 // Next.js from even probing for a wasm binding elsewhere in its startup path.
 process.env.NEXT_DISABLE_SWC_WASM = "1";
 
+if (process.env.NEXT_DEBUG_UNHANDLED_REJECTION) {
+  process.on("unhandledRejection", (reason) => {
+    console.error("[RAW unhandledRejection]", reason && reason.stack ? reason.stack : reason);
+  });
+}
+
 const securityHeaders = [
   { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
   { key: "X-Content-Type-Options", value: "nosniff" },
