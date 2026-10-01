@@ -393,6 +393,51 @@ function ab_clean(string $s, int $max): string
     return function_exists('mb_substr') ? mb_substr(trim($s), 0, $max) : substr(trim($s), 0, $max);
 }
 
+/**
+ * Validates and saves an uploaded image (from $_FILES[$key]) into
+ * public_html/uploads/<year>/, returning its public web path (e.g.
+ * "/uploads/2026/4f9a2c1b.jpg"), or null if no file was uploaded or it failed
+ * validation. Used by the admin panel's image-type fields (team photos,
+ * tour/guide images, country flags, etc.) so content can be uploaded directly
+ * instead of requiring a path to an already-hosted image.
+ */
+function ab_upload_image(string $key): ?string
+{
+    $f = $_FILES[$key] ?? null;
+    if (!$f || ($f['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    if ($f['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
+    if ($f['size'] > 8 * 1024 * 1024) {
+        return null; // 8MB cap
+    }
+    $allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'];
+    $mime = function_exists('mime_content_type') ? mime_content_type($f['tmp_name']) : null;
+    if ($mime === null || !isset($allowed[$mime])) {
+        // Fall back to getimagesize() if fileinfo isn't available, still rejecting non-images.
+        $info = @getimagesize($f['tmp_name']);
+        $byType = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_WEBP => 'webp', IMAGETYPE_GIF => 'gif'];
+        if (!$info || !isset($byType[$info[2]])) {
+            return null;
+        }
+        $ext = $byType[$info[2]];
+    } else {
+        $ext = $allowed[$mime];
+    }
+    $year = date('Y');
+    $dir = dirname(__DIR__) . "/uploads/$year";
+    if (!is_dir($dir) && !mkdir($dir, 0755, true) && !is_dir($dir)) {
+        return null;
+    }
+    $name = bin2hex(random_bytes(8)) . '.' . $ext;
+    if (!move_uploaded_file($f['tmp_name'], "$dir/$name")) {
+        return null;
+    }
+    return "/uploads/$year/$name";
+}
+
 function ab_notify(string $subject, string $body): void
 {
     $c = ab_config();

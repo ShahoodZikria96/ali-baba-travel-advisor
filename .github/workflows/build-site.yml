@@ -49,8 +49,12 @@ jobs:
           local-dir: ./dist/public_html/
           server-dir: ./
           # .well-known holds AutoSSL/SSL domain-validation files the host manages;
-          # config.php (if placed inside public_html) and .htaccess-managed dirs are
-          # left alone too so a sync never wipes something it didn't build.
+          # config.php (if placed inside public_html) is left alone too; uploads/
+          # holds images uploaded through the admin panel, which only ever exist
+          # on the server, never in this build output - without excluding it the
+          # default mirror-delete sync would wipe every uploaded image on each
+          # scheduled deploy.
           exclude: |
             .well-known/**
             config.php
+            uploads/**
