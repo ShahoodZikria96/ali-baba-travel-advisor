@@ -54,10 +54,7 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
   };
 
   useEffect(() => {
-    if (!openMenu) {
-      setDropdownPos(null);
-      return;
-    }
+    if (!openMenu) return;
     const update = () => {
       const el = triggerRefs.current[openMenu];
       if (!el) return;
