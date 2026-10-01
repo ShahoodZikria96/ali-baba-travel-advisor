@@ -80,7 +80,7 @@ const countryIso2 = {
 
 // tour slug -> representative landmark Wikipedia article title
 const tourLandmarks = {
-  "travel-history-group-tour": "Railay Beach",
+  "travel-history-group-tour": "Wat Arun",
   "turkey-south-africa-morocco-group-tour": "Cappadocia",
   "japan-south-korea-group-tour": "N Seoul Tower",
   "japan-hong-kong-south-korea-group-tour": "Tokyo Tower",
