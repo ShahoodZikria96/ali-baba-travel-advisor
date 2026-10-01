@@ -7,8 +7,11 @@ import { TiltCard } from "@/components/ui/TiltCard";
 import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { getFeaturedCountries } from "@/lib/content";
 
+const VISIBLE_COUNT = 8; // 2 rows at the lg:grid-cols-4 breakpoint
+
 export async function VisaFinder() {
-  const popularDestinations = await getFeaturedCountries();
+  const featured = await getFeaturedCountries();
+  const popularDestinations = featured.slice(0, VISIBLE_COUNT);
 
   return (
     <section className="py-16 lg:py-20">
