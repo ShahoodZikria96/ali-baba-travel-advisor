@@ -364,7 +364,9 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 $set = implode(', ', array_map(fn($c) => "$c = :$c", $cols));
                 try {
                     $st = $pdo->prepare("UPDATE $table SET $set WHERE id = :__id");
-                    $st->execute([...$data, '__id' => $id]);
+                    $params = $data;
+                    $params['__id'] = $id;
+                    $st->execute($params);
                 } catch (Throwable $e) {
                     page('Error', res_form($rKey, $resource, array_merge($data, ['id' => $id]), 'Could not save: ' . h($e->getMessage())));
                 }

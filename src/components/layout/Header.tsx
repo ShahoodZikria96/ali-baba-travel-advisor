@@ -30,7 +30,11 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number } | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const DROPDOWN_WIDTH = 520;
+  const EDGE_MARGIN = 16;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -48,6 +52,29 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
   const handleLeave = () => {
     closeTimer.current = setTimeout(() => setOpenMenu(null), 120);
   };
+
+  useEffect(() => {
+    if (!openMenu) {
+      setDropdownPos(null);
+      return;
+    }
+    const update = () => {
+      const el = triggerRefs.current[openMenu];
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const idealLeft = rect.left + rect.width / 2 - DROPDOWN_WIDTH / 2;
+      const maxLeft = window.innerWidth - DROPDOWN_WIDTH - EDGE_MARGIN;
+      const left = Math.max(EDGE_MARGIN, Math.min(idealLeft, Math.max(EDGE_MARGIN, maxLeft)));
+      setDropdownPos({ top: rect.bottom, left });
+    };
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
+  }, [openMenu]);
 
   return (
     <>
@@ -95,6 +122,9 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
               return (
                 <div
                   key={item.label}
+                  ref={(el) => {
+                    triggerRefs.current[item.label] = el;
+                  }}
                   className="relative"
                   onMouseEnter={() => (item.columns ? handleEnter(item.label) : setHovered(item.label))}
                   onMouseLeave={() => item.columns && handleLeave()}
@@ -135,13 +165,14 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
                   )}
 
                   <AnimatePresence>
-                    {item.columns && openMenu === item.label && (
+                    {item.columns && openMenu === item.label && dropdownPos && (
                       <motion.div
                         initial={{ opacity: 0, y: 8, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute left-1/2 top-full z-50 w-[520px] -translate-x-1/2 pt-3"
+                        style={{ top: dropdownPos.top, left: dropdownPos.left, width: DROPDOWN_WIDTH }}
+                        className="fixed z-50 pt-3"
                         onMouseEnter={() => handleEnter(item.label)}
                         onMouseLeave={handleLeave}
                       >

@@ -2,12 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Button } from "@/components/ui/Button";
 import { TiltCard } from "@/components/ui/TiltCard";
 import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { getCountries } from "@/lib/content";
 
+const VISIBLE_COUNT = 12; // 2 rows at the lg:grid-cols-6 breakpoint
+
 export async function DestinationsGrid() {
   const all = await getCountries();
+  const visible = all.slice(0, VISIBLE_COUNT);
+  const remaining = all.length - visible.length;
 
   return (
     <section className="border-y border-border bg-surface-muted/60 py-16 lg:py-20">
@@ -18,7 +23,7 @@ export async function DestinationsGrid() {
         />
 
         <RevealGroup className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-          {all.map((country) => (
+          {visible.map((country) => (
             <RevealItem key={country.slug}>
               <TiltCard strength={8} className="rounded-[var(--radius-md)]">
                 <Link
@@ -44,6 +49,14 @@ export async function DestinationsGrid() {
             </RevealItem>
           ))}
         </RevealGroup>
+
+        {remaining > 0 && (
+          <div className="mt-8 flex justify-center">
+            <Button href="/visas" variant="outline">
+              See More Countries ({remaining}+)
+            </Button>
+          </div>
+        )}
       </Container>
     </section>
   );
