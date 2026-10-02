@@ -170,8 +170,13 @@ export function Header({ phone, whatsappNumber, nav }: { phone: string; whatsapp
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ top: dropdownPos.top, left: dropdownPos.left, width: dropdownPos.width }}
-                        className="fixed z-50 pt-3"
+                        style={{
+                          top: dropdownPos.top,
+                          left: dropdownPos.left,
+                          width: dropdownPos.width,
+                          maxHeight: `calc(100vh - ${dropdownPos.top}px - 12px)`,
+                        }}
+                        className="fixed z-50 overflow-y-auto pt-3"
                         onMouseEnter={() => handleEnter(item.label)}
                         onMouseLeave={handleLeave}
                       >

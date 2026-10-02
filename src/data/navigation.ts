@@ -27,13 +27,14 @@ const VISA_CATEGORY_SLUGS = ["visit-visa", "business-visa", "family-visit-visa",
 const POPULAR_COUNTRIES = ["uk", "usa", "canada", "australia", "schengen", "new-zealand", "turkey", "japan"];
 const EUROPE_COUNTRIES = [
   "france", "germany", "italy", "spain", "netherlands", "belgium", "austria",
-  "switzerland", "sweden", "norway", "denmark", "finland", "greece", "ireland",
+  "switzerland", "sweden", "norway", "denmark",
 ];
-const MORE_EUROPE_COUNTRIES = ["hungary", "czech-republic", "luxembourg", "albania", "bulgaria", "romania", "serbia"];
-const ASIA_AND_BEYOND_COUNTRIES = [
-  "south-korea", "hong-kong", "singapore", "thailand", "malaysia", "indonesia", "cambodia",
-  "azerbaijan", "egypt", "morocco", "south-africa", "brazil", "colombia",
+const MORE_EUROPE_COUNTRIES = [
+  "finland", "greece", "ireland", "hungary", "czech-republic", "luxembourg",
+  "albania", "bulgaria", "romania", "serbia",
 ];
+const ASIA_COUNTRIES = ["south-korea", "hong-kong", "singapore", "thailand", "malaysia", "indonesia", "cambodia"];
+const MIDDLE_EAST_AFRICA_AMERICAS_COUNTRIES = ["azerbaijan", "egypt", "morocco", "south-africa", "brazil", "colombia"];
 
 function pick(countries: NavCountry[], slugs: string[]): NavLink[] {
   return slugs
@@ -56,7 +57,8 @@ export function buildPrimaryNav(
     .map((s) => ({ label: s.title, href: `/visa-consultancy/${s.slug}` }));
 
   const known = new Set([
-    ...POPULAR_COUNTRIES, ...EUROPE_COUNTRIES, ...MORE_EUROPE_COUNTRIES, ...ASIA_AND_BEYOND_COUNTRIES,
+    ...POPULAR_COUNTRIES, ...EUROPE_COUNTRIES, ...MORE_EUROPE_COUNTRIES,
+    ...ASIA_COUNTRIES, ...MIDDLE_EAST_AFRICA_AMERICAS_COUNTRIES,
   ]);
   // Countries added later through the admin panel land here automatically.
   const otherLinks = countries
@@ -67,7 +69,11 @@ export function buildPrimaryNav(
     { heading: "Popular Destinations", links: pick(countries, POPULAR_COUNTRIES) },
     { heading: "Europe", links: pick(countries, EUROPE_COUNTRIES) },
     { heading: "More Europe", links: pick(countries, MORE_EUROPE_COUNTRIES) },
-    { heading: "Asia, Middle East & More", links: [...pick(countries, ASIA_AND_BEYOND_COUNTRIES), ...otherLinks] },
+    { heading: "Asia & Pacific", links: pick(countries, ASIA_COUNTRIES) },
+    {
+      heading: "Middle East, Africa & Americas",
+      links: [...pick(countries, MIDDLE_EAST_AFRICA_AMERICAS_COUNTRIES), ...otherLinks],
+    },
   ].filter((col) => col.links.length > 0);
 
   const tourColumns: NavColumn[] = [
@@ -113,7 +119,7 @@ export function buildPrimaryNav(
     },
     {
       label: "Countries",
-      width: countryColumns.length >= 4 ? 860 : 640,
+      width: countryColumns.length >= 5 ? 1020 : countryColumns.length === 4 ? 860 : 640,
       columns: countryColumns,
       viewAll: { label: "View All Countries", href: "/visas" },
     },
