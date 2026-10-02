@@ -2,34 +2,27 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { getOffices, getSiteSettings, telHref } from "@/lib/content";
+import { getOffices, getServicePages, getSiteSettings, telHref } from "@/lib/content";
 import {
   FacebookIcon,
   InstagramIcon,
   YouTubeIcon,
 } from "@/components/ui/SocialIcons";
 
-const footerColumns = [
-  {
-    heading: "Visa Services",
-    links: [
-      { label: "Visit Visa", href: "/visa-consultancy/visit-visa" },
-      { label: "Business Visa", href: "/visa-consultancy/business-visa" },
-      { label: "Family Visit Visa", href: "/visa-consultancy/family-visit-visa" },
-      { label: "Study Visa Assistance", href: "/visa-consultancy/study-visa" },
-      { label: "Visa Refusal Assistance", href: "/visa-refusal" },
-    ],
-  },
-  {
-    heading: "Popular Countries",
-    links: [
-      { label: "UK Visa", href: "/visas/uk" },
-      { label: "Canada Visa", href: "/visas/canada" },
-      { label: "USA Visa", href: "/visas/usa" },
-      { label: "Schengen Visa", href: "/visas/schengen" },
-      { label: "View All Countries", href: "/visas" },
-    ],
-  },
+const popularCountriesColumn = {
+  heading: "Popular Countries",
+  links: [
+    { label: "UK Visa", href: "/visas/uk" },
+    { label: "Canada Visa", href: "/visas/canada" },
+    { label: "USA Visa", href: "/visas/usa" },
+    { label: "Schengen Visa", href: "/visas/schengen" },
+    { label: "Australia Visa", href: "/visas/australia" },
+    { label: "Turkey Visa", href: "/visas/turkey" },
+    { label: "View All Countries", href: "/visas" },
+  ],
+};
+
+const staticFooterColumns = [
   {
     heading: "Travel Services",
     links: [
@@ -63,7 +56,18 @@ const legalLinks = [
 ];
 
 export async function Footer() {
-  const [offices, siteConfig] = await Promise.all([getOffices(), getSiteSettings()]);
+  const [offices, siteConfig, services] = await Promise.all([getOffices(), getSiteSettings(), getServicePages()]);
+  const footerColumns = [
+    {
+      heading: "Visa Services",
+      links: [
+        ...services.map((s) => ({ label: s.title, href: `/visa-consultancy/${s.slug}` })),
+        { label: "Visa Refusal Assistance", href: "/visa-refusal" },
+      ],
+    },
+    popularCountriesColumn,
+    ...staticFooterColumns,
+  ];
 
   return (
     <footer className="border-t border-border bg-charcoal text-text-inverse">

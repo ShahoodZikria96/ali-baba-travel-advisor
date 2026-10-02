@@ -8,7 +8,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, MessageCircle, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { primaryNav, type NavItem } from "@/data/navigation";
+import { type NavItem } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { LanguageToggle } from "@/components/layout/LanguageToggle";
 import { MobileMenu } from "@/components/layout/MobileMenu";
@@ -24,16 +24,16 @@ function isItemActive(item: NavItem, pathname: string) {
   return false;
 }
 
-export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumber: string }) {
+export function Header({ phone, whatsappNumber, nav }: { phone: string; whatsappNumber: string; nav: NavItem[] }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number } | null>(null);
+  const [dropdownPos, setDropdownPos] = useState<{ top: number; left: number; width: number } | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const triggerRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const DROPDOWN_WIDTH = 520;
+  const DEFAULT_DROPDOWN_WIDTH = 520;
   const EDGE_MARGIN = 16;
 
   useEffect(() => {
@@ -59,10 +59,12 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
       const el = triggerRefs.current[openMenu];
       if (!el) return;
       const rect = el.getBoundingClientRect();
-      const idealLeft = rect.left + rect.width / 2 - DROPDOWN_WIDTH / 2;
-      const maxLeft = window.innerWidth - DROPDOWN_WIDTH - EDGE_MARGIN;
+      const wanted = nav.find((n) => n.label === openMenu)?.width ?? DEFAULT_DROPDOWN_WIDTH;
+      const width = Math.min(wanted, window.innerWidth - EDGE_MARGIN * 2);
+      const idealLeft = rect.left + rect.width / 2 - width / 2;
+      const maxLeft = window.innerWidth - width - EDGE_MARGIN;
       const left = Math.max(EDGE_MARGIN, Math.min(idealLeft, Math.max(EDGE_MARGIN, maxLeft)));
-      setDropdownPos({ top: rect.bottom, left });
+      setDropdownPos({ top: rect.bottom, left, width });
     };
     update();
     window.addEventListener("resize", update);
@@ -71,7 +73,7 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
       window.removeEventListener("resize", update);
       window.removeEventListener("scroll", update, true);
     };
-  }, [openMenu]);
+  }, [openMenu, nav]);
 
   return (
     <>
@@ -113,7 +115,7 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
             aria-label="Primary"
             onMouseLeave={() => setHovered(null)}
           >
-            {primaryNav.map((item) => {
+            {nav.map((item) => {
               const active = isItemActive(item, pathname);
               const showIndicator = hovered ? hovered === item.label : active;
               return (
@@ -168,13 +170,16 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 8, scale: 0.98 }}
                         transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ top: dropdownPos.top, left: dropdownPos.left, width: DROPDOWN_WIDTH }}
+                        style={{ top: dropdownPos.top, left: dropdownPos.left, width: dropdownPos.width }}
                         className="fixed z-50 pt-3"
                         onMouseEnter={() => handleEnter(item.label)}
                         onMouseLeave={handleLeave}
                       >
                         <div className="absolute inset-x-0 top-3 -z-10 h-24 rounded-[var(--radius-lg)] bg-gradient-to-b from-primary/[0.06] to-transparent" />
-                        <div className="grid grid-cols-2 gap-6 rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-[0_20px_50px_rgba(29,26,25,0.14)]">
+                        <div
+                          style={{ gridTemplateColumns: `repeat(${item.columns.length}, minmax(0, 1fr))` }}
+                          className="grid gap-6 rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-[0_20px_50px_rgba(29,26,25,0.14)]"
+                        >
                           {item.columns.map((col) => (
                             <div key={col.heading}>
                               <p className="mb-2.5 text-xs font-bold uppercase tracking-[0.1em] text-primary/80">
@@ -254,6 +259,7 @@ export function Header({ phone, whatsappNumber }: { phone: string; whatsappNumbe
     </header>
 
     <MobileMenu
+      nav={nav}
       open={mobileOpen}
       onClose={() => setMobileOpen(false)}
       phone={phone}

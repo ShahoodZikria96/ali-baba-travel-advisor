@@ -6,16 +6,18 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, MessageCircle, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { primaryNav } from "@/data/navigation";
+import { type NavItem } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { telHref, whatsappHref } from "@/lib/whatsapp";
 
 export function MobileMenu({
+  nav,
   open,
   onClose,
   phone,
   whatsappNumber,
 }: {
+  nav: NavItem[];
   open: boolean;
   onClose: () => void;
   phone: string;
@@ -57,7 +59,7 @@ export function MobileMenu({
             </div>
 
             <nav className="flex-1 overflow-y-auto px-3 py-3">
-              {primaryNav.map((item) => {
+              {nav.map((item) => {
                 const active = item.href
                   ? item.href === "/"
                     ? pathname === "/"

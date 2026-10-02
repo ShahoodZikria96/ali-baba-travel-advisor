@@ -4,13 +4,21 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
 import { FloatingWhatsApp } from "@/components/layout/FloatingWhatsApp";
-import { getOffices, getSiteSettings } from "@/lib/content";
+import { getCountries, getOffices, getServicePages, getSiteSettings, getTours } from "@/lib/content";
+import { buildPrimaryNav } from "@/data/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE_URL, absoluteUrl, orgId, websiteId } from "@/lib/seo";
 import { siteConfig } from "@/data/site";
 
 export default async function MarketingLayout({ children }: { children: ReactNode }) {
-  const [settings, offices] = await Promise.all([getSiteSettings(), getOffices()]);
+  const [settings, offices, countries, services, tours] = await Promise.all([
+    getSiteSettings(),
+    getOffices(),
+    getCountries(),
+    getServicePages(),
+    getTours(),
+  ]);
+  const nav = buildPrimaryNav(countries, services, tours);
   const openOffices = offices.filter((o) => !o.openingDate || new Date(o.openingDate) <= new Date());
   const lahore = openOffices.find((o) => o.slug === "lahore");
   const phones = [settings.phone, settings.phoneSecondary].filter(Boolean) as string[];
@@ -82,7 +90,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       {settings.announcementActive && (
         <AnnouncementBar text={settings.announcementText} href={settings.announcementHref} />
       )}
-      <Header phone={settings.phone} whatsappNumber={settings.whatsappNumber} />
+      <Header phone={settings.phone} whatsappNumber={settings.whatsappNumber} nav={nav} />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-white">Skip to content</a>
       <main id="main" className="flex-1 pb-16 lg:pb-0">{children}</main>
       <Footer />
