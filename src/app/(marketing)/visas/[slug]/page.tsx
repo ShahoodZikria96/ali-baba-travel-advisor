@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const country = await getCountry(slug);
   if (!country) return {};
   return pageMetadata({
-    title: country.metaTitle ?? `${country.name} Visa from Pakistan`,
-    description: country.metaDescription ?? country.description,
+    title: country.metaTitle || `${country.name} Visa from Pakistan`,
+    description: country.metaDescription || country.description,
     path: `/visas/${slug}`,
     image: country.heroImage ?? `/destinations/${slug}.webp`,
   });
@@ -45,7 +45,6 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
     getCountries(),
   ]);
   const hasRefusalPage = Boolean(refusalPage);
-  const hasRichContent = Boolean(country.whoCanApply);
   const relatedCountries = allCountries.filter((c) => c.slug !== slug).slice(0, 4);
 
   const whoCanApply = country.whoCanApply as string[] | null;
@@ -54,6 +53,8 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const steps = country.steps as string[] | null;
   const refusalReasons = country.refusalReasons as string[] | null;
   const faqs = country.faqs as { question: string; answer: string }[] | null;
+  const filled = (a: unknown[] | null | undefined) => Array.isArray(a) && a.length > 0;
+  const hasRichContent = [whoCanApply, visaTypes, documents, steps, refusalReasons, faqs].some(filled);
 
   const [allGuides] = await Promise.all([getGuides()]);
   const relatedGuides = allGuides
@@ -108,71 +109,103 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       {hasRichContent ? (
         <Container className="grid grid-cols-1 gap-12 py-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <h2 className="font-heading text-xl font-bold text-charcoal">Who Can Apply</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-              {whoCanApply?.map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-success" /> {item}
-                </li>
-              ))}
-            </ul>
+            {filled(whoCanApply) && (
+              <>
+                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Who Can Apply</h2>
+                <ul className="mb-10 space-y-2 text-sm leading-relaxed text-text-muted">
+                  {whoCanApply?.map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-success" /> {item}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Visa Types</h2>
-            <div className="mt-4 space-y-3">
-              {visaTypes?.map((type) => (
-                <div key={type.name} className="rounded-[var(--radius-md)] border border-border bg-surface p-4">
-                  <p className="font-semibold text-charcoal">{type.name}</p>
-                  <p className="mt-1 text-sm text-text-muted">{type.description}</p>
+            {filled(visaTypes) && (
+              <>
+                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Visa Types</h2>
+                <div className="mb-10 space-y-3">
+                  {visaTypes?.map((type) => (
+                    <div key={type.name} className="rounded-[var(--radius-md)] border border-border bg-surface p-4">
+                      <p className="font-semibold text-charcoal">{type.name}</p>
+                      <p className="mt-1 text-sm text-text-muted">{type.description}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Required Documents</h2>
-            <ul className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {documents?.map((doc) => (
-                <li key={doc} className="flex items-start gap-2 text-sm leading-relaxed text-text-muted">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {doc}
-                </li>
-              ))}
-            </ul>
+            {filled(documents) && (
+              <>
+                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Required Documents</h2>
+                <ul className="mb-10 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {documents?.map((doc) => (
+                    <li key={doc} className="flex items-start gap-2 text-sm leading-relaxed text-text-muted">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {doc}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Financial Documentation</h2>
-            <p className="mt-3 text-sm leading-relaxed text-text-muted">{country.financialNote}</p>
+            {country.financialNote && (
+              <>
+                <h2 className="mb-3 font-heading text-xl font-bold text-charcoal">Financial Documentation</h2>
+                <p className="mb-10 text-sm leading-relaxed text-text-muted">{country.financialNote}</p>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Processing Information</h2>
-            <p className="mt-3 text-sm leading-relaxed text-text-muted">{country.processingTime}</p>
+            {country.processingTime && (
+              <>
+                <h2 className="mb-3 font-heading text-xl font-bold text-charcoal">Processing Information</h2>
+                <p className="mb-10 text-sm leading-relaxed text-text-muted">{country.processingTime}</p>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Application Process</h2>
-            <ol className="mt-4 space-y-3">
-              {steps?.map((step, i) => (
-                <li key={step} className="flex items-start gap-3 text-sm leading-relaxed text-text-muted">
-                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-tint text-xs font-bold text-primary">
-                    {i + 1}
-                  </span>
-                  {step}
-                </li>
-              ))}
-            </ol>
+            {filled(steps) && (
+              <>
+                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Application Process</h2>
+                <ol className="mb-10 space-y-3">
+                  {steps?.map((step, i) => (
+                    <li key={step} className="flex items-start gap-3 text-sm leading-relaxed text-text-muted">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-tint text-xs font-bold text-primary">
+                        {i + 1}
+                      </span>
+                      {step}
+                    </li>
+                  ))}
+                </ol>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Common Reasons for Refusal</h2>
-            <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
-              {refusalReasons?.map((reason) => (
-                <li key={reason} className="flex items-start gap-2">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {reason}
-                </li>
-              ))}
-            </ul>
+            {filled(refusalReasons) && (
+              <>
+                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Common Reasons for Refusal</h2>
+                <ul className="mb-10 space-y-2 text-sm leading-relaxed text-text-muted">
+                  {refusalReasons?.map((reason) => (
+                    <li key={reason} className="flex items-start gap-2">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {reason}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">How Ali Baba Travel Advisor Can Help</h2>
+            <h2 className="font-heading text-xl font-bold text-charcoal">How Ali Baba Travel Advisor Can Help</h2>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
               Our consultants assess your case, prepare a tailored document checklist, and guide you through
               submission — whether this is your first application or a reapplication after a previous refusal.
             </p>
 
-            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Frequently Asked Questions</h2>
-            <div className="mt-4">
-              <FAQAccordion items={faqs ?? []} />
-            </div>
+            {filled(faqs) && (
+              <>
+                <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Frequently Asked Questions</h2>
+                <div className="mt-4">
+                  <FAQAccordion items={faqs ?? []} />
+                </div>
+              </>
+            )}
 
             {sources.length > 0 && (
               <>

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = await getServicePage(slug);
   if (!service) return {};
-  return pageMetadata({ title: service.title, description: service.metaDescription ?? service.intro.slice(0, 155), path: `/visa-consultancy/${slug}` });
+  return pageMetadata({ title: service.title, description: service.metaDescription || service.intro.slice(0, 155), path: `/visa-consultancy/${slug}` });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
@@ -43,7 +43,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
     "@type": "Service",
     name: service.title,
     serviceType: "Visa consultancy",
-    description: service.metaDescription ?? service.intro,
+    description: service.metaDescription || service.intro,
     url: absoluteUrl(`/visa-consultancy/${slug}`),
     provider: { "@id": orgId },
     areaServed: { "@type": "Country", name: "Pakistan" },

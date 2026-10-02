@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const r = await getRefusalPage(slug);
   if (!r) return {};
-  return pageMetadata({ title: r.metaTitle ?? `${r.country} Visa Refusal Assistance`, description: r.metaDescription ?? r.intro.slice(0, 155), path: `/visa-refusal/${slug}` });
+  return pageMetadata({ title: r.metaTitle || `${r.country} Visa Refusal Assistance`, description: r.metaDescription || r.intro.slice(0, 155), path: `/visa-refusal/${slug}` });
 }
 
 export default async function RefusalCountryPage({ params }: { params: Promise<{ slug: string }> }) {
