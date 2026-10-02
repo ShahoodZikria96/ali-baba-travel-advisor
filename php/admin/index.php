@@ -329,29 +329,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 . implode(', ', array_map(fn($c) => ":$c", array_keys($vals))) . ") ON DUPLICATE KEY UPDATE $set"
             )->execute($vals);
             go('?a=settings');
-        case 'bulk_documents':
-            $map = json_decode((string)($_POST['data'] ?? ''), true);
-            $updated = 0;
-            $skipped = [];
-            if (is_array($map)) {
-                $st = $pdo->prepare('UPDATE ab_countries SET documents = :d WHERE slug = :s');
-                $exists = $pdo->prepare('SELECT COUNT(*) FROM ab_countries WHERE slug = ?');
-                foreach ($map as $slug => $docs) {
-                    $clean = is_array($docs)
-                        ? array_values(array_filter(array_map(fn($x) => is_string($x) ? trim($x) : '', $docs), fn($x) => $x !== ''))
-                        : [];
-                    $exists->execute([(string)$slug]);
-                    if (!$clean || (int)$exists->fetchColumn() === 0) {
-                        $skipped[] = (string)$slug;
-                        continue;
-                    }
-                    $st->execute(['d' => json_encode($clean, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), 's' => (string)$slug]);
-                    $updated++;
-                }
-            }
-            header('Content-Type: text/plain; charset=utf-8');
-            echo 'updated: ' . $updated . "\nskipped: " . implode(',', $skipped);
-            exit;
         case 'res_toggle':
         case 'res_delete':
         case 'res_save':
