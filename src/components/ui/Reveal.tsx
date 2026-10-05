@@ -1,8 +1,39 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+
+/**
+ * Scroll-reveal without a JS animation library: an IntersectionObserver flips
+ * `data-in`, and the transition itself lives in CSS (see `.reveal` in
+ * globals.css). This keeps hundreds of reveal wrappers cheap to hydrate.
+ */
+function useSeenOnce<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [seen, setSeen] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || seen) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const id = requestAnimationFrame(() => setSeen(true));
+      return () => cancelAnimationFrame(id);
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -80px 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [seen]);
+
+  return [ref, seen] as const;
+}
 
 export function Reveal({
   children,
@@ -15,16 +46,16 @@ export function Reveal({
   delay?: number;
   y?: number;
 }) {
+  const [ref, seen] = useSeenOnce<HTMLDivElement>();
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(className)}
+    <div
+      ref={ref}
+      data-in={seen}
+      className={cn("reveal", className)}
+      style={{ "--reveal-y": `${y}px`, "--reveal-delay": `${delay}s` } as CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -37,32 +68,18 @@ export function RevealGroup({
   className?: string;
   stagger?: number;
 }) {
+  const [ref, seen] = useSeenOnce<HTMLDivElement>();
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: stagger } },
-      }}
-      className={cn(className)}
-    >
+    <div ref={ref} data-in={seen} className={cn(className)} style={{ "--stagger": `${stagger}s` } as CSSProperties}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export function RevealItem({ children, className, y = 20 }: { children: ReactNode; className?: string; y?: number }) {
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
-      }}
-      className={cn(className)}
-    >
+    <div className={cn("reveal-item", className)} style={{ "--reveal-y": `${y}px` } as CSSProperties}>
       {children}
-    </motion.div>
+    </div>
   );
 }

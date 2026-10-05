@@ -21,7 +21,7 @@ export async function Hero() {
       <div aria-hidden className="bg-dot-grid pointer-events-none absolute inset-0 opacity-[0.06]" />
 
       <Container className="relative grid grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
-        <div className="animate-fade-up">
+        <div>
           <span className="inline-flex items-center gap-2 rounded-full bg-primary-tint px-3.5 py-1.5 text-xs font-bold uppercase tracking-[0.1em] text-primary">
             <PlaneTakeoff size={13} />
             Pakistan&rsquo;s Trusted Visa &amp; Travel Consultancy
@@ -68,7 +68,7 @@ export async function Hero() {
           </div>
         </div>
 
-        <div className="relative animate-fade-up-delay-1" style={{ perspective: 1000 }}>
+        <div className="relative" style={{ perspective: 1000 }}>
           <div aria-hidden className="absolute -inset-6 -z-10 rounded-[var(--radius-lg)] bg-gradient-to-br from-primary/15 via-transparent to-transparent blur-2xl" />
           <TiltCard
             strength={8}

@@ -86,6 +86,9 @@ export default async function MarketingLayout({ children }: { children: ReactNod
 
   return (
     <>
+      <noscript>
+        <style>{".reveal,.reveal-item{opacity:1!important;transform:none!important}"}</style>
+      </noscript>
       <JsonLd data={structuredData} />
       {settings.announcementActive && (
         <AnnouncementBar text={settings.announcementText} href={settings.announcementHref} />

@@ -195,3 +195,41 @@ body {
 .goog-te-banner-frame, .skiptranslate > iframe, #goog-gt-tt, .goog-tooltip, .goog-te-balloon-frame { display: none !important; }
 body { top: 0 !important; }
 .goog-text-highlight { background: none !important; box-shadow: none !important; }
+
+/* Scroll reveal (see components/ui/Reveal.tsx): CSS-only transitions toggled by an IntersectionObserver. */
+.reveal,
+.reveal-item {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 20px));
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+.reveal-item {
+  transition-delay: calc(var(--i, 0) * var(--stagger, 0.08s));
+}
+.reveal[data-in="true"],
+[data-in="true"] > .reveal-item {
+  opacity: 1;
+  transform: none;
+}
+.reveal-item:nth-child(1) { --i: 0; }
+.reveal-item:nth-child(2) { --i: 1; }
+.reveal-item:nth-child(3) { --i: 2; }
+.reveal-item:nth-child(4) { --i: 3; }
+.reveal-item:nth-child(5) { --i: 4; }
+.reveal-item:nth-child(6) { --i: 5; }
+.reveal-item:nth-child(7) { --i: 6; }
+.reveal-item:nth-child(8) { --i: 7; }
+.reveal-item:nth-child(9) { --i: 8; }
+.reveal-item:nth-child(10) { --i: 9; }
+.reveal-item:nth-child(11) { --i: 10; }
+.reveal-item:nth-child(n + 12) { --i: 11; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

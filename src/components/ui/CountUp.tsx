@@ -1,30 +1,47 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, useMotionValue, useSpring } from "framer-motion";
 
+/**
+ * Counts up to the value when it scrolls into view. The real number is in the
+ * server-rendered HTML (so crawlers and no-JS visitors see it); the animation
+ * only replays it from zero once the element is visible.
+ */
 export function CountUp({ value }: { value: string }) {
-  const match = value.match(/^([^\d]*)([\d,]+)(.*)$/);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-40px" });
-  const [display, setDisplay] = useState(match ? `${match[1]}0${match[3]}` : value);
-
-  const target = match ? Number(match[2].replace(/,/g, "")) : 0;
-  const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { stiffness: 60, damping: 20, mass: 1 });
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (isInView && match) motionVal.set(target);
-  }, [isInView, target, match, motionVal]);
+    const match = value.match(/^([^\d]*)([\d,]+)(.*)$/);
+    const el = ref.current;
+    if (!match || !el || typeof IntersectionObserver === "undefined") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  useEffect(() => {
-    if (!match) return;
-    return spring.on("change", (latest) => {
-      const rounded = Math.round(latest).toLocaleString("en-US");
-      setDisplay(`${match[1]}${rounded}${match[3]}`);
-    });
-  }, [spring, match]);
+    const [, prefix, digits, suffix] = match;
+    const target = Number(digits.replace(/,/g, ""));
+    let raf = 0;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        const start = performance.now();
+        const duration = 1400;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / duration);
+          const eased = 1 - Math.pow(1 - t, 3);
+          setDisplay(`${prefix}${Math.round(target * eased).toLocaleString("en-US")}${suffix}`);
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { rootMargin: "0px 0px -40px 0px" }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [value]);
 
-  if (!match) return <span>{value}</span>;
   return <span ref={ref}>{display}</span>;
 }
