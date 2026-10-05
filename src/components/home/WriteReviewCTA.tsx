@@ -1,25 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
+import { useState, type ComponentType } from "react";
 import { PenLine, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// The form pulls in react-hook-form + zod, so it is only downloaded when the visitor opens it.
-const WriteReviewForm = dynamic(
-  () => import("@/components/forms/WriteReviewForm").then((m) => m.WriteReviewForm),
-  { ssr: false, loading: () => <p className="text-sm text-text-muted">Loading…</p> }
-);
+type ReviewForm = ComponentType<{ onDone?: () => void }>;
 
 export function WriteReviewCTA() {
   const [open, setOpen] = useState(false);
+  // The form pulls in react-hook-form + zod (~90KB), so it is fetched only on the first click
+  // (a plain import() on demand, not next/dynamic, which would preload the chunk).
+  const [Form, setForm] = useState<ReviewForm | null>(null);
+
+  function toggle() {
+    setOpen((v) => !v);
+    if (!Form) {
+      import("@/components/forms/WriteReviewForm").then((m) => setForm(() => m.WriteReviewForm as ReviewForm));
+    }
+  }
 
   return (
     <div className="mx-auto mt-6 max-w-2xl">
       <div className="flex justify-center">
         <button
           type="button"
-          onClick={() => setOpen((v) => !v)}
+          onClick={toggle}
           aria-expanded={open}
           className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary-tint px-4 py-2 text-sm font-bold text-primary transition-colors hover:border-primary hover:bg-primary hover:text-white"
         >
@@ -42,7 +47,7 @@ export function WriteReviewCTA() {
                 Your review is checked by our team before it appears publicly.
               </p>
               <div className="mt-4">
-                <WriteReviewForm onDone={() => setOpen(false)} />
+                {Form ? <Form onDone={() => setOpen(false)} /> : <p className="text-sm text-text-muted">Loading…</p>}
               </div>
             </div>
           )}

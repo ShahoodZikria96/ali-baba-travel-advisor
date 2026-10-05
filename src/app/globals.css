@@ -247,3 +247,9 @@ body { top: 0 !important; }
 @media (prefers-reduced-motion: reduce) {
   .animate-dropdown-in, .animate-fade-in, .animate-slide-in-right { animation: none; }
 }
+
+/* Skip layout/paint work for page sections far below the fold until they are scrolled near. */
+main > section:nth-of-type(n + 4) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
+}
