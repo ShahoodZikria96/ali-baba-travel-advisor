@@ -62,9 +62,10 @@ RewriteRule ^offices/?$                 /locations/ [L,R=301]
   Header always set Content-Security-Policy "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'"
   Header unset X-Powered-By
 
-  # Pages are revalidated on every visit (cheap 304s) so a new upload shows immediately.
+  # Browsers revalidate on every visit (cheap 304s) so a new upload shows immediately.
+  # s-maxage lets a CDN cache rule (Cloudflare "Cache Everything") keep pages 5 minutes at the edge.
   <FilesMatch "\.(html|txt|xml|json)$">
-    Header set Cache-Control "no-cache"
+    Header set Cache-Control "public, max-age=0, s-maxage=300, must-revalidate"
   </FilesMatch>
   # Hashed build files (/_next/static) get their own long-cache .htaccess.
   <FilesMatch "\.(webp|png|jpg|jpeg|svg|ico|woff2)$">

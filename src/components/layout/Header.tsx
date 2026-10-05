@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, MessageCircle, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -155,28 +154,23 @@ export function Header({ phone, whatsappNumber, nav }: { phone: string; whatsapp
                     </button>
                   )}
 
-                  {showIndicator && (
-                    <motion.span
-                      layoutId="nav-underline"
-                      className="absolute inset-x-2.5 -bottom-[1px] h-[2px] rounded-full bg-primary"
-                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
-                    />
-                  )}
+                  <span
+                    aria-hidden
+                    className={cn(
+                      "absolute inset-x-2.5 -bottom-[1px] h-[2px] origin-left rounded-full bg-primary transition-transform duration-200",
+                      showIndicator ? "scale-x-100" : "scale-x-0"
+                    )}
+                  />
 
-                  <AnimatePresence>
-                    {item.columns && openMenu === item.label && dropdownPos && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
+                  {item.columns && openMenu === item.label && dropdownPos && (
+                      <div
                         style={{
                           top: dropdownPos.top,
                           left: dropdownPos.left,
                           width: dropdownPos.width,
                           maxHeight: `calc(100vh - ${dropdownPos.top}px - 12px)`,
                         }}
-                        className="fixed z-50 overflow-y-auto pt-3"
+                        className="fixed z-50 animate-dropdown-in overflow-y-auto pt-3"
                         onMouseEnter={() => handleEnter(item.label)}
                         onMouseLeave={handleLeave}
                       >
@@ -216,9 +210,8 @@ export function Header({ phone, whatsappNumber, nav }: { phone: string; whatsapp
                             </Link>
                           </div>
                         )}
-                      </motion.div>
+                      </div>
                     )}
-                  </AnimatePresence>
                 </div>
               );
             })}
