@@ -64,7 +64,9 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const matchedGuides = allGuides.filter(
     (g) => g.slug.includes(slug) || g.title.toLowerCase().includes(country.name.toLowerCase())
   );
-  const relatedGuides = (matchedGuides.length > 0 ? matchedGuides : allGuides).slice(0, 3);
+  // No guide for this country: fall back to the evergreen guides that apply to any destination.
+  const evergreenGuides = allGuides.filter((g) => /business-visa|travel-history/.test(g.slug));
+  const relatedGuides = (matchedGuides.length > 0 ? matchedGuides : evergreenGuides).slice(0, 3);
   const sources = officialSources[slug] ?? [];
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -246,7 +248,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             )}
 
             <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Related Help</h2>
-            <ul className="mt-3 space-y-1.5 text-sm">
+            <ul className="mt-3 space-y-1.5 text-sm sm:columns-2 sm:gap-8 sm:space-y-0 [&>li]:break-inside-avoid [&>li]:py-0.5">
               {services.map((s) => (
                 <li key={s.slug}>
                   <Link href={`/visa-consultancy/${s.slug}`} className="font-semibold text-primary hover:text-primary-dark">
