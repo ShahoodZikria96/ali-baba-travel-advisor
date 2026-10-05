@@ -20,7 +20,7 @@ import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { siteLinks } from "@/lib/related";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Ali Baba Travel Advisor | Visa Consultant in Lahore, Pakistan",
+  title: "Ali Baba Travel Advisor | Visa Consultant Lahore Pakistan",
   description:
     "Visa consultancy, tour packages, airline tickets and hotel booking from Ali Baba Travel Advisor. Offices in Lahore, Islamabad, Wazirabad and Karachi.",
   path: "/",
