@@ -18,6 +18,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "علی بابا ٹریول ایڈوائزر: لاہور، اسلام آباد، وزیرآباد اور کراچی میں ویزا کنسلٹنسی، ٹورز، ایئر ٹکٹ اور ہوٹل بکنگ۔ ویزا کی منظوری کی کوئی ضمانت نہیں دی جاتی۔",
   path: "/urdu",
+  languages: { "en-PK": "/", "ur-PK": "/urdu", "x-default": "/" },
 });
 
 const services = [

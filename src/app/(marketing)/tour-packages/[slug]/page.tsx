@@ -11,6 +11,7 @@ import { pageMetadata, absoluteUrl, orgId, fitTitle } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { tourPosters, priceSuffix } from "@/data/tourPosters";
 import Link from "next/link";
+import { bannerSrc } from "@/lib/images";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { countriesForTour, siteLinks } from "@/lib/related";
 import { getTours, getTour, getSiteSettings, getCountries, whatsappHref } from "@/lib/content";
@@ -85,7 +86,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
       />
 
       <section className="relative flex h-56 items-center justify-center overflow-hidden text-white sm:h-64">
-        <Image src={tour.image} alt={tour.destination} fill priority sizes="100vw" className="object-cover" />
+        <Image src={bannerSrc(tour.image)} alt={tour.destination} fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-charcoal/55" />
         <div className="relative text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">Group Tour</p>

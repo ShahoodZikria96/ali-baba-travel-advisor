@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { Compass } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: { absolute: "Page Not Found | Ali Baba Travel Advisor" },
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (

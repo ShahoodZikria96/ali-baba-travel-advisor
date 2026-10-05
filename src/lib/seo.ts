@@ -44,20 +44,25 @@ interface PageMetaInput {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  /** hreflang alternates, e.g. { "en-PK": "/", "ur-PK": "/urdu" }. */
+  languages?: Record<string, string>;
 }
 
 /**
  * Builds complete per-page metadata. Child `openGraph` replaces the parent's
  * object wholesale in Next.js, so siteName/locale are repeated here on purpose.
  */
-export function pageMetadata({ title, description, path, image, type = "website", publishedTime, modifiedTime, noindex }: PageMetaInput): Metadata {
+export function pageMetadata({ title, description, path, image, type = "website", publishedTime, modifiedTime, noindex, languages }: PageMetaInput): Metadata {
   const url = absoluteUrl(path);
   const images = [{ url: absoluteUrl(image ?? "/og-default.png"), alt: title }];
   const desc = clampDescription(description);
   return {
     title: resolveTitle(title),
     description: desc,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      ...(languages ? { languages: Object.fromEntries(Object.entries(languages).map(([k, v]) => [k, absoluteUrl(v)])) } : {}),
+    },
     robots: noindex ? { index: false, follow: false } : undefined,
     openGraph: {
       type,

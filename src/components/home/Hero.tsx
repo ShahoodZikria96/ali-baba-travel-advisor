@@ -75,7 +75,7 @@ export async function Hero() {
             className="group mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-[var(--radius-lg)] border border-border shadow-[0_24px_60px_rgba(29,26,25,0.18)] lg:mr-0"
           >
             <Image
-              src="/destinations/uk.webp"
+              src="/destinations/portrait/uk.webp"
               alt="Big Ben, London"
               fill
               priority

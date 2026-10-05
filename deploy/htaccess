@@ -10,14 +10,19 @@ AddDefaultCharset UTF-8
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-# 1) Always HTTPS
+# 1) One canonical host over HTTPS in a single hop: www.example.com -> https://example.com
+#    (handled first so http://www never takes two redirects).
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# 2) Always HTTPS
 RewriteCond %{HTTPS} off
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# 2) One canonical host: www.example.com -> example.com
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+# 2b) /something/index.html duplicates /something/ -> redirect to the clean URL
+RewriteCond %{THE_REQUEST} \s/+([^?\s]*?)index\.html[\s?] [NC]
+RewriteRule ^(.*?)index\.html$ /$1 [L,R=301]
 
 # 3) Old / alternative URLs -> current pages (301)
 RewriteRule ^visa/?$                    /visas/ [L,R=301]
@@ -42,7 +47,13 @@ RewriteRule ^offices/?$                 /locations/ [L,R=301]
   Require all denied
 </FilesMatch>
 
+# Keep the admin panel and the content API out of search results even if a link leaks.
+<IfModule mod_setenvif.c>
+  SetEnvIf Request_URI "^/(admin|api)(/|$)" NOINDEX_AREA
+</IfModule>
+
 <IfModule mod_headers.c>
+  Header always set X-Robots-Tag "noindex, nofollow" env=NOINDEX_AREA
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"

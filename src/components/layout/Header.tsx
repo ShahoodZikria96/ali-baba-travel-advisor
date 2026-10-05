@@ -253,7 +253,7 @@ export function Header({ phone, whatsappNumber, nav }: { phone: string; whatsapp
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-sm)] text-charcoal hover:bg-surface-muted xl:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-sm)] text-charcoal hover:bg-surface-muted xl:hidden"
               aria-label="Open menu"
             >
               <Menu size={22} />

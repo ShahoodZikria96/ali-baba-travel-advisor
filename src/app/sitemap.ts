@@ -60,10 +60,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const latest = [...dynamic].sort((a, b) => +new Date(b.lastModified ?? 0) - +new Date(a.lastModified ?? 0))[0]?.lastModified;
+  const newest = (items: { updatedAt: Date }[]) =>
+    items.length ? new Date(Math.max(...items.map((i) => +new Date(i.updatedAt)))) : undefined;
+  // Hub pages list a collection, so they change exactly when that collection does (never a made-up date).
+  const hubDates: Record<string, Date | undefined> = {
+    "/visas": newest(countries),
+    "/visa-consultancy": newest(servicePages),
+    "/visa-refusal": newest(refusalPages),
+    "/tour-packages": newest(tours),
+    "/tour-packages/group-tours": newest(tours),
+    "/tour-packages/upcoming": newest(tours),
+    "/guides": newest(guides),
+    "/locations": newest(offices),
+  };
   const stat: Entry[] = staticRoutes.map((r) => ({
     url: absoluteUrl(r.path || "/"),
-    // Omit fabricated dates for static pages; only the home page borrows the newest content date.
-    ...(r.path === "" && latest ? { lastModified: latest } : {}),
+    ...(r.path === "" && latest ? { lastModified: latest } : hubDates[r.path] ? { lastModified: hubDates[r.path] } : {}),
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));

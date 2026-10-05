@@ -24,6 +24,7 @@ export const metadata: Metadata = pageMetadata({
   description:
     "Visa consultancy, tour packages, airline tickets and hotel booking from Ali Baba Travel Advisor. Offices in Lahore, Islamabad, Wazirabad and Karachi.",
   path: "/",
+  languages: { "en-PK": "/", "ur-PK": "/urdu", "x-default": "/" },
 });
 
 export default function Home() {

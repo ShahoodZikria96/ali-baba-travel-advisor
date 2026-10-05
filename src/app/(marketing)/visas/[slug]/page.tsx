@@ -19,6 +19,7 @@ import { officialSources } from "@/data/officialSources";
 import { getGuides } from "@/lib/content";
 import { getCountries, getCountry, getRefusalPage, getOffices, getSiteSettings, getServicePages, getTours } from "@/lib/content";
 import { relatedCountries as getRelatedCountries, toursForCountry } from "@/lib/related";
+import { bannerSrc } from "@/lib/images";
 
 export async function generateStaticParams() {
   const countries = await getCountries();
@@ -102,7 +103,7 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Visas", href: "/visas" }, { label: country.name }]} />
       <div className="relative h-48 w-full overflow-hidden sm:h-64">
         <Image
-          src={country.heroImage ?? `/destinations/${slug}.webp`}
+          src={bannerSrc(country.heroImage ?? `/destinations/${slug}.webp`)}
           alt={`${country.name} landmark`}
           fill
           priority

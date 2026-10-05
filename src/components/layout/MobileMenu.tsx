@@ -107,7 +107,7 @@ export function MobileMenu({
                                           <Link
                                             href={link.href}
                                             onClick={onClose}
-                                            className="block rounded-[var(--radius-sm)] px-2 py-2 text-sm font-medium text-text hover:bg-surface-muted"
+                                            className="block rounded-[var(--radius-sm)] px-2 py-3 text-sm font-medium text-text hover:bg-surface-muted"
                                           >
                                             {link.label}
                                           </Link>
