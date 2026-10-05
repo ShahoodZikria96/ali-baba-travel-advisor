@@ -8,7 +8,7 @@ import { getTours } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "International Tour Packages from Pakistan",
-  description: "International group tour packages from Pakistan with visa assistance included — UK, France, Azerbaijan and more.",
+  description: "International group tour packages from Pakistan with visa assistance included — Thailand, Turkey, Japan, South Korea, Hong Kong and more.",
   path: "/tour-packages",
 });
 
