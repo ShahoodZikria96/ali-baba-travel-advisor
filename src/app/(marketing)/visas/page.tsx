@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { thumbSrc } from "@/lib/images";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
@@ -39,7 +40,7 @@ export default async function VisasPage() {
             >
               <div className="relative h-24 w-full">
                 <Image
-                  src={`/destinations/${country.slug}.webp`}
+                  src={thumbSrc(`/destinations/${country.slug}.webp`)}
                   alt={`${country.name} landmark`}
                   fill
                   sizes="(max-width: 640px) 50vw, 25vw"

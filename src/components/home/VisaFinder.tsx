@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { thumbSrc } from "@/lib/images";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -32,7 +33,7 @@ export async function VisaFinder() {
                 >
                   <div className="relative h-24 w-full">
                     <Image
-                      src={`/destinations/${country.slug}.webp`}
+                      src={thumbSrc(`/destinations/${country.slug}.webp`)}
                       alt={`${country.name} landmark`}
                       fill
                       sizes="(max-width: 640px) 50vw, 25vw"

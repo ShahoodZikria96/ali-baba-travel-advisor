@@ -9,7 +9,10 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
 import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
-import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, orgId, fitTitle } from "@/lib/seo";
+import {
+  defaultDocuments, defaultFaqs, defaultRefusalReasons, defaultSteps, defaultWhoCanApply,
+} from "@/data/countryDefaults";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { officialSources } from "@/data/officialSources";
@@ -26,9 +29,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const country = await getCountry(slug);
   if (!country) return {};
+  const meta = country.metaDescription?.trim();
+  const description =
+    meta && meta.length >= 110
+      ? meta
+      : meta
+        ? `${meta.replace(/.$/, "")}. Documents, application steps and expert help from Ali Baba Travel Advisor.`
+        : `${country.name} visa from Pakistan: required documents, application steps and common refusal reasons. Free assessment by Ali Baba Travel Advisor.`;
   return pageMetadata({
-    title: country.metaTitle || `${country.name} Visa from Pakistan`,
-    description: country.metaDescription || country.description,
+    title:
+      country.metaTitle ||
+      fitTitle([`${country.name} Visa from Pakistan: Documents & Requirements`, `${country.name} Visa from Pakistan`]),
+    description,
     path: `/visas/${slug}`,
     image: country.heroImage ?? `/destinations/${slug}.webp`,
   });
@@ -51,13 +63,17 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const relatedCountries = getRelatedCountries(slug, allCountries, 6);
   const countryTours = toursForCountry(country, allTours);
 
-  const whoCanApply = country.whoCanApply as string[] | null;
-  const visaTypes = country.visaTypes as { name: string; description: string }[] | null;
-  const documents = country.documents as string[] | null;
-  const steps = country.steps as string[] | null;
-  const refusalReasons = country.refusalReasons as string[] | null;
-  const faqs = country.faqs as { question: string; answer: string }[] | null;
   const filled = (a: unknown[] | null | undefined) => Array.isArray(a) && a.length > 0;
+  // Sections the admin has not filled fall back to safe generic content so no country page is thin.
+  const whoCanApply = filled(country.whoCanApply) ? (country.whoCanApply as string[]) : defaultWhoCanApply;
+  const visaTypes = country.visaTypes as { name: string; description: string }[] | null;
+  const usesDefaultDocuments = !filled(country.documents);
+  const documents = usesDefaultDocuments ? defaultDocuments : (country.documents as string[]);
+  const steps = filled(country.steps) ? (country.steps as string[]) : defaultSteps;
+  const refusalReasons = filled(country.refusalReasons) ? (country.refusalReasons as string[]) : defaultRefusalReasons;
+  const faqs = filled(country.faqs)
+    ? (country.faqs as { question: string; answer: string }[])
+    : defaultFaqs(country.name);
   const hasRichContent = [whoCanApply, visaTypes, documents, steps, refusalReasons, faqs].some(filled);
 
   const [allGuides] = await Promise.all([getGuides()]);
@@ -145,7 +161,13 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
 
             {filled(documents) && (
               <>
-                <h2 className="mb-4 font-heading text-xl font-bold text-charcoal">Required Documents</h2>
+                <h2 className="mb-3 font-heading text-xl font-bold text-charcoal">Required Documents</h2>
+                {usesDefaultDocuments && (
+                  <p className="mb-3 text-sm leading-relaxed text-text-muted">
+                    These are the documents most {country.name} visit visa applications from Pakistan include. Exact
+                    requirements depend on your profile, so our consultants prepare a personalised checklist for you.
+                  </p>
+                )}
                 <ul className="mb-10 grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {documents?.map((doc) => (
                     <li key={doc} className="flex items-start gap-2 text-sm leading-relaxed text-text-muted">

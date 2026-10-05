@@ -20,9 +20,9 @@ import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { siteLinks } from "@/lib/related";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Visa Consultant & Travel Agency in Lahore, Pakistan",
+  title: "Ali Baba Travel Advisor | Visa Consultant in Lahore, Pakistan",
   description:
-    "Ali Baba Travel Advisor: visa consultancy, tour packages, airline tickets and hotel booking for travellers across Pakistan. Offices in Lahore, Islamabad, Wazirabad and Karachi.",
+    "Visa consultancy, tour packages, airline tickets and hotel booking from Ali Baba Travel Advisor. Offices in Lahore, Islamabad, Wazirabad and Karachi.",
   path: "/",
 });
 

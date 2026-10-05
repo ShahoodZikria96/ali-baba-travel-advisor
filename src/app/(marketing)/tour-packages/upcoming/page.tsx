@@ -10,7 +10,7 @@ import { getTours } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Upcoming Tours",
-  description: "Upcoming group tour departures from Pakistan with visa assistance included.",
+  description: "Upcoming group tour departures from Pakistan with visa assistance included. See current itineraries, prices and booking dates from Ali Baba Travel Advisor.",
   path: "/tour-packages/upcoming",
 });
 

@@ -10,7 +10,7 @@ import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Visa & Travel Knowledge Centre",
-  description: "Visa guides, travel guides and the latest updates from Ali Baba Travel Advisor.",
+  description: "Practical visa guides, travel tips and the latest updates for Pakistani travellers: UK, Canada, Schengen, business visas and more from Ali Baba Travel Advisor.",
   path: "/guides",
 });
 

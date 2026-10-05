@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const office = await getOffice(slug);
   if (!office) return {};
   return pageMetadata({
-    title: `Visa Consultant & Travel Agency in ${office.city}`,
+    title: `Visa Consultant in ${office.city}`,
     description: `Ali Baba Travel Advisor's ${office.city} office — visa consultancy, tour packages and flight booking. ${office.address}.`,
     path: `/locations/${slug}`,
   });

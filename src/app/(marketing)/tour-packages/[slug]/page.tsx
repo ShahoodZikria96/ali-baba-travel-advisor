@@ -7,7 +7,8 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { TourCard } from "@/components/tours/TourCard";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, orgId, fitTitle } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { tourPosters, priceSuffix } from "@/data/tourPosters";
 import Link from "next/link";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
@@ -23,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) return {};
-  return pageMetadata({ title: `${tour.destination} Group Tour from Pakistan`, description: tour.summary.slice(0, 158), path: `/tour-packages/${slug}`, image: tour.image });
+  return pageMetadata({ title: fitTitle([`${tour.destination} Group Tour from Pakistan`, `${tour.destination} Tour from Pakistan`, `${tour.destination} Group Tour`]), description: `${tour.summary} Visa assistance included. Book with Ali Baba Travel Advisor.`, path: `/tour-packages/${slug}`, image: tour.image });
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -40,8 +41,41 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
   const itinerary = tour.itinerary as { day: string; description: string }[];
   const notes = tour.notes as string[];
 
+  const priceNumber = Number((tour.price.match(/[d,]+/)?.[0] ?? "").replace(/,/g, ""));
+  const tripJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TouristTrip",
+    name: `${tour.destination} Group Tour from Pakistan`,
+    description: tour.summary,
+    image: absoluteUrl(tour.image),
+    url: absoluteUrl(`/tour-packages/${slug}`),
+    touristType: "Group tour",
+    provider: { "@id": orgId },
+    ...(itinerary.length > 0
+      ? {
+          itinerary: {
+            "@type": "ItemList",
+            itemListElement: itinerary.map((d, i) => ({ "@type": "ListItem", position: i + 1, name: d.day, description: d.description })),
+          },
+        }
+      : {}),
+    ...(priceNumber > 0
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: priceNumber,
+            priceCurrency: "PKR",
+            availability: "https://schema.org/InStock",
+            url: absoluteUrl(`/tour-packages/${slug}`),
+            seller: { "@id": orgId },
+          },
+        }
+      : {}),
+  };
+
   return (
     <>
+      <JsonLd data={tripJsonLd} />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

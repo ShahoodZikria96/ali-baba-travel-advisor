@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { FaqSection } from "@/components/ui/FaqSection";
+import { hotelFaqs } from "@/data/pageFaqs";
 import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { BedDouble, Wallet, MapPinned } from "lucide-react";
@@ -11,7 +13,7 @@ import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Hotel Booking from Pakistan",
-  description: "Worldwide hotel and accommodation booking assistance from Ali Baba Travel Advisor.",
+  description: "Hotel booking from Pakistan: city stays, family rooms and business hotels matched to your itinerary and budget. Get options from Ali Baba Travel Advisor.",
   path: "/hotel-booking",
 });
 
@@ -51,6 +53,7 @@ export default async function HotelBookingPage() {
           <Button href="/consultation" variant="outline">General Enquiry</Button>
         </div>
       </Container>
+      <FaqSection faqs={hotelFaqs} />
       <RelatedLinks title="Complete Your Travel Plan" links={siteLinks(["flights", "visas", "groupTours", "customized", "documentation", "contact"])} />
     </>
   );

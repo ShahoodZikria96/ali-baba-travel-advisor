@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { FaqSection } from "@/components/ui/FaqSection";
+import { flightFaqs } from "@/data/pageFaqs";
 import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { Plane, Clock, Headset } from "lucide-react";
@@ -11,7 +13,7 @@ import { getSiteSettings } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Flight Booking from Pakistan",
-  description: "International and domestic airline ticket booking support from Ali Baba Travel Advisor.",
+  description: "Book international and domestic flights from Pakistan: fare options, schedule updates and rebooking support from Ali Baba Travel Advisor. Request a quote.",
   path: "/flights",
 });
 
@@ -60,6 +62,7 @@ export default async function FlightsPage() {
           </div>
         </div>
       </Container>
+      <FaqSection faqs={flightFaqs} />
       <RelatedLinks title="Complete Your Travel Plan" links={siteLinks(["visas", "consultancy", "hotels", "groupTours", "documentation", "faqs"])} />
     </>
   );

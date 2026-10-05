@@ -8,7 +8,7 @@ import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Travel Guides",
-  description: "Destination guides and travel planning tips from Ali Baba Travel Advisor.",
+  description: "Destination guides and trip-planning tips for Pakistani travellers: budgeting, itineraries and travel history advice from Ali Baba Travel Advisor.",
   path: "/guides/travel",
 });
 

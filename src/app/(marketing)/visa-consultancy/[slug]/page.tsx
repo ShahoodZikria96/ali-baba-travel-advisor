@@ -19,11 +19,18 @@ export async function generateStaticParams() {
   return servicePages.map((s) => ({ slug: s.slug }));
 }
 
+function serviceDescription(service: { title: string; metaDescription: string | null; intro: string }) {
+  const meta = (service.metaDescription || "").trim();
+  if (meta.length >= 110) return meta;
+  const base = meta || service.intro;
+  return `${base.replace(/.$/, "")}. Free consultation and documentation support from Ali Baba Travel Advisor.`;
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const service = await getServicePage(slug);
   if (!service) return {};
-  return pageMetadata({ title: service.title, description: service.metaDescription || service.intro.slice(0, 155), path: `/visa-consultancy/${slug}` });
+  return pageMetadata({ title: service.title, description: serviceDescription(service), path: `/visa-consultancy/${slug}` });
 }
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {

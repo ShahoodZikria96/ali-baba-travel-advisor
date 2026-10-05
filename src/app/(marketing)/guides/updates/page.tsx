@@ -8,7 +8,7 @@ import { getGuides } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Latest Updates",
-  description: "The latest visa, airline and travel policy updates from Ali Baba Travel Advisor.",
+  description: "The latest visa, airline and travel policy updates that affect Pakistani travellers, explained simply by the Ali Baba Travel Advisor team.",
   path: "/guides/updates",
 });
 

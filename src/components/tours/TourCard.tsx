@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { thumbSrc } from "@/lib/images";
 import Image from "next/image";
 import { CalendarDays, ShieldCheck } from "lucide-react";
 import type { Tour } from "@/lib/types";
@@ -10,7 +11,7 @@ export function TourCard({ tour }: { tour: Tour }) {
       <div className="tilt-card-inner group overflow-hidden rounded-[var(--radius-lg)] border border-border bg-surface">
         <div className="relative h-32 w-full overflow-hidden">
           <Image
-            src={tour.image}
+            src={thumbSrc(tour.image)}
             alt={tour.destination}
             fill
             sizes="(max-width: 640px) 100vw, 33vw"
