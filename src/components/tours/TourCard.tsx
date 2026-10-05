@@ -32,7 +32,7 @@ export function TourCard({ tour }: { tour: Tour }) {
           <div className="mt-4 flex items-center justify-between">
             <span className="font-heading text-base font-extrabold text-primary">{tour.price}</span>
             <Link href={`/tour-packages/${tour.slug}`} className="text-sm font-bold text-charcoal hover:text-primary">
-              View Package →
+              View Package<span className="sr-only"> for {tour.destination}</span> →
             </Link>
           </div>
         </div>

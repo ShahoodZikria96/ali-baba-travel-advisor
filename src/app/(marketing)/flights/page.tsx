@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { Plane, Clock, Headset } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -58,6 +60,7 @@ export default async function FlightsPage() {
           </div>
         </div>
       </Container>
+      <RelatedLinks title="Complete Your Travel Plan" links={siteLinks(["visas", "consultancy", "hotels", "groupTours", "documentation", "faqs"])} />
     </>
   );
 }

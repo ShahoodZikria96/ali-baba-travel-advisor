@@ -14,7 +14,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { officialSources } from "@/data/officialSources";
 import { getGuides } from "@/lib/content";
-import { getCountries, getCountry, getRefusalPage, getOffices, getSiteSettings } from "@/lib/content";
+import { getCountries, getCountry, getRefusalPage, getOffices, getSiteSettings, getServicePages, getTours } from "@/lib/content";
+import { relatedCountries as getRelatedCountries, toursForCountry } from "@/lib/related";
 
 export async function generateStaticParams() {
   const countries = await getCountries();
@@ -38,14 +39,17 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const country = await getCountry(slug);
   if (!country) notFound();
 
-  const [refusalPage, offices, settings, allCountries] = await Promise.all([
+  const [refusalPage, offices, settings, allCountries, services, allTours] = await Promise.all([
     getRefusalPage(slug),
     getOffices(),
     getSiteSettings(),
     getCountries(),
+    getServicePages(),
+    getTours(),
   ]);
   const hasRefusalPage = Boolean(refusalPage);
-  const relatedCountries = allCountries.filter((c) => c.slug !== slug).slice(0, 4);
+  const relatedCountries = getRelatedCountries(slug, allCountries, 6);
+  const countryTours = toursForCountry(country, allTours);
 
   const whoCanApply = country.whoCanApply as string[] | null;
   const visaTypes = country.visaTypes as { name: string; description: string }[] | null;
@@ -57,9 +61,10 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
   const hasRichContent = [whoCanApply, visaTypes, documents, steps, refusalReasons, faqs].some(filled);
 
   const [allGuides] = await Promise.all([getGuides()]);
-  const relatedGuides = allGuides
-    .filter((g) => g.slug.includes(slug) || g.title.toLowerCase().includes(country.name.toLowerCase()))
-    .slice(0, 3);
+  const matchedGuides = allGuides.filter(
+    (g) => g.slug.includes(slug) || g.title.toLowerCase().includes(country.name.toLowerCase())
+  );
+  const relatedGuides = (matchedGuides.length > 0 ? matchedGuides : allGuides).slice(0, 3);
   const sources = officialSources[slug] ?? [];
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -196,6 +201,20 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
               Our consultants assess your case, prepare a tailored document checklist, and guide you through
               submission — whether this is your first application or a reapplication after a previous refusal.
+              See <Link href="/visa-process" className="font-semibold text-primary hover:text-primary-dark">how our visa process works</Link>
+              {services.some((s) => s.slug === "bank-statement-assistance") && (
+                <>
+                  {" "}or get help with your{" "}
+                  <Link href="/visa-consultancy/bank-statement-assistance" className="font-semibold text-primary hover:text-primary-dark">bank statement</Link>
+                </>
+              )}
+              {services.some((s) => s.slug === "file-submission") && (
+                <>
+                  {" "}and{" "}
+                  <Link href="/visa-consultancy/file-submission" className="font-semibold text-primary hover:text-primary-dark">{country.name} visa file submission</Link>
+                </>
+              )}
+              .
             </p>
 
             {filled(faqs) && (
@@ -228,11 +247,28 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
 
             <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Related Help</h2>
             <ul className="mt-3 space-y-1.5 text-sm">
-              <li><Link href="/visa-consultancy/visit-visa" className="font-semibold text-primary hover:text-primary-dark">Visit visa consultancy</Link></li>
-              <li><Link href="/visa-consultancy/business-visa" className="font-semibold text-primary hover:text-primary-dark">Business visa consultancy</Link></li>
-              {hasRefusalPage && (
-                <li><Link href={`/visa-refusal/${slug}`} className="font-semibold text-primary hover:text-primary-dark">{country.name} visa refusal case review</Link></li>
-              )}
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/visa-consultancy/${s.slug}`} className="font-semibold text-primary hover:text-primary-dark">
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href={hasRefusalPage ? `/visa-refusal/${slug}` : "/visa-refusal"} className="font-semibold text-primary hover:text-primary-dark">
+                  {hasRefusalPage ? `${country.name} visa refusal case review` : "Visa refusal assistance"}
+                </Link>
+              </li>
+              {countryTours.map((t) => (
+                <li key={t.slug}>
+                  <Link href={`/tour-packages/${t.slug}`} className="font-semibold text-primary hover:text-primary-dark">
+                    {t.destination} group tour from Pakistan
+                  </Link>
+                </li>
+              ))}
+              <li><Link href="/flights" className="font-semibold text-primary hover:text-primary-dark">Flight booking for your {country.name} trip</Link></li>
+              <li><Link href="/hotel-booking" className="font-semibold text-primary hover:text-primary-dark">Hotel booking worldwide</Link></li>
+              <li><Link href="/faqs" className="font-semibold text-primary hover:text-primary-dark">Visa and travel FAQs</Link></li>
               {relatedGuides.map((g) => (
                 <li key={g.slug}><Link href={`/guides/${g.slug}`} className="font-semibold text-primary hover:text-primary-dark">{g.title}</Link></li>
               ))}
@@ -273,19 +309,22 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
 
       {relatedCountries.length > 0 && (
         <Container className="border-t border-border py-14">
-          <h2 className="font-heading text-xl font-bold text-charcoal">Other Popular Destinations</h2>
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <h2 className="font-heading text-xl font-bold text-charcoal">Related Visa Destinations</h2>
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {relatedCountries.map((c) => (
               <Link
                 key={c.slug}
                 href={`/visas/${c.slug}`}
                 className="group flex items-center justify-between gap-2 rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-charcoal hover:border-primary hover:text-primary"
               >
-                {c.name}
+                {c.name} visa from Pakistan
                 <ArrowRight size={14} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
               </Link>
             ))}
           </div>
+          <p className="mt-5 text-sm">
+            <Link href="/visas" className="font-semibold text-primary hover:text-primary-dark">Browse visa requirements for all countries →</Link>
+          </p>
         </Container>
       )}
     </>

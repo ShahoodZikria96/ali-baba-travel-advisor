@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -52,6 +54,7 @@ export default async function SuccessStoriesPage() {
           <Button href="/consultation">Get Visa Assessment</Button>
         </div>
       </Container>
+      <RelatedLinks title="Keep Exploring" links={siteLinks(["refusal", "consultancy", "visas", "about", "team", "faqs"])} />
     </>
   );
 }

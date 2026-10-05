@@ -55,7 +55,7 @@ export async function VisaFinder() {
                     </p>
                     <p className="mt-2 text-sm leading-relaxed text-text-muted">{country.description}</p>
                     <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-charcoal group-hover:text-primary">
-                      View Visa Guide
+                      View Visa Guide<span className="sr-only"> for {country.name}</span>
                       <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
                     </span>
                   </div>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -49,6 +51,7 @@ export default async function CustomizedToursPage() {
           </div>
         </div>
       </Container>
+      <RelatedLinks title="More Ways to Travel" links={siteLinks(["groupTours", "upcoming", "flights", "hotels", "visas", "consultation"])} />
     </>
   );
 }

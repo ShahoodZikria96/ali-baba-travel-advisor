@@ -9,7 +9,10 @@ import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { TourCard } from "@/components/tours/TourCard";
 import { pageMetadata } from "@/lib/seo";
 import { tourPosters, priceSuffix } from "@/data/tourPosters";
-import { getTours, getTour, getSiteSettings, whatsappHref } from "@/lib/content";
+import Link from "next/link";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { countriesForTour, siteLinks } from "@/lib/related";
+import { getTours, getTour, getSiteSettings, getCountries, whatsappHref } from "@/lib/content";
 
 export async function generateStaticParams() {
   const tours = await getTours();
@@ -25,8 +28,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [tour, settings, allTours] = await Promise.all([getTour(slug), getSiteSettings(), getTours()]);
+  const [tour, settings, allTours, allCountries] = await Promise.all([getTour(slug), getSiteSettings(), getTours(), getCountries()]);
   if (!tour) notFound();
+  const tourCountries = countriesForTour(tour, allCountries);
 
   const poster = tourPosters[slug];
   const otherTours = allTours.filter((t) => t.slug !== slug);
@@ -132,6 +136,30 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
               </li>
             ))}
           </ul>
+
+          {tourCountries.length > 0 && (
+            <>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Visa Requirements for This Trip</h2>
+              <p className="mt-3 text-sm leading-relaxed text-text-muted">
+                Visa assistance is included, but it helps to know what each destination asks for. Read the document
+                checklist for every country on this itinerary:
+              </p>
+              <ul className="mt-3 space-y-1.5 text-sm">
+                {tourCountries.map((c) => (
+                  <li key={c.slug}>
+                    <Link href={`/visas/${c.slug}`} className="font-semibold text-primary hover:text-primary-dark">
+                      {c.name} visa requirements from Pakistan →
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link href="/visa-consultancy" className="font-semibold text-primary hover:text-primary-dark">
+                    Visa consultancy services for your group tour →
+                  </Link>
+                </li>
+              </ul>
+            </>
+          )}
         </div>
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6 lg:sticky lg:top-24">
@@ -164,6 +192,11 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           </div>
         </Container>
       )}
+
+      <RelatedLinks
+        title="Plan Your Trip"
+        links={siteLinks(["groupTours", "upcoming", "customized", "flights", "hotels", "visas"])}
+      />
     </>
   );
 }

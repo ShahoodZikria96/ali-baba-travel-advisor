@@ -16,6 +16,8 @@ import { Reviews } from "@/components/home/Reviews";
 import { OfficeLocations } from "@/components/home/OfficeLocations";
 import { FaqPreview } from "@/components/home/FaqPreview";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 
 export const metadata: Metadata = pageMetadata({
   title: "Visa Consultant & Travel Agency in Lahore, Pakistan",
@@ -42,6 +44,10 @@ export default function Home() {
       <Reviews />
       <OfficeLocations />
       <FaqPreview />
+      <RelatedLinks
+        title="More About Ali Baba Travel Advisor"
+        links={siteLinks(["about", "process", "team", "documentation", "urdu", "contact"])}
+      />
       <FinalCTA />
     </>
   );

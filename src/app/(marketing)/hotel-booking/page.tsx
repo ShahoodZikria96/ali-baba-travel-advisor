@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { BedDouble, Wallet, MapPinned } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -49,6 +51,7 @@ export default async function HotelBookingPage() {
           <Button href="/consultation" variant="outline">General Enquiry</Button>
         </div>
       </Container>
+      <RelatedLinks title="Complete Your Travel Plan" links={siteLinks(["flights", "visas", "groupTours", "customized", "documentation", "contact"])} />
     </>
   );
 }

@@ -10,7 +10,9 @@ import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
 import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
-import { getServicePages, getServicePage, getSiteSettings } from "@/lib/content";
+import { getServicePages, getServicePage, getSiteSettings, getCountries } from "@/lib/content";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 
 export async function generateStaticParams() {
   const servicePages = await getServicePages();
@@ -26,10 +28,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [service, settings, allServices] = await Promise.all([
+  const [service, settings, allServices, allCountries] = await Promise.all([
     getServicePage(slug),
     getSiteSettings(),
     getServicePages(),
+    getCountries(),
   ]);
   if (!service) notFound();
   const otherServices = allServices.filter((s) => s.slug !== slug);
@@ -123,6 +126,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           )}
         </div>
       </Container>
+      <RelatedLinks
+        title="Visa Requirements by Destination"
+        links={[
+          ...allCountries.slice(0, 9).map((c) => ({
+            href: `/visas/${c.slug}`,
+            label: `${c.name} visa requirements`,
+            description: "Documents and guidance for Pakistani applicants",
+          })),
+          ...siteLinks(["refusal", "process", "groupTours"]),
+        ]}
+      />
     </>
   );
 }

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { getSiteSettings } from "@/lib/content";
 import { whatsappHref } from "@/lib/whatsapp";
@@ -80,6 +82,7 @@ export default async function VisasPage() {
           </a>
         </section>
       </Container>
+      <RelatedLinks title="Keep Exploring" links={siteLinks(["consultancy", "process", "refusal", "groupTours", "guides", "faqs"])} />
     </>
   );
 }

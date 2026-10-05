@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, ShieldAlert } from "lucide-react";
@@ -73,6 +75,7 @@ export default async function VisaRefusalHubPage() {
           No outcome is ever guaranteed.
         </p>
       </Container>
+      <RelatedLinks title="Keep Exploring" links={siteLinks(["consultancy", "process", "visas", "stories", "faqs", "consultation"])} />
     </>
   );
 }

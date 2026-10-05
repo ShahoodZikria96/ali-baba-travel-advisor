@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { FileText, ClipboardCheck, FolderCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -43,6 +45,7 @@ export default function TravelDocumentationPage() {
           <Button href="/consultation">Book Consultation</Button>
         </div>
       </Container>
+      <RelatedLinks title="Keep Exploring" links={siteLinks(["visas", "process", "consultancy", "flights", "hotels", "faqs"])} />
     </>
   );
 }

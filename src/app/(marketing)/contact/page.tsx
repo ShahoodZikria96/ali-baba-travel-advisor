@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { siteLinks } from "@/lib/related";
 import { pageMetadata } from "@/lib/seo";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -83,6 +85,7 @@ export default async function ContactPage() {
           </div>
         </div>
       </Container>
+      <RelatedLinks title="Before You Visit" links={siteLinks(["consultation", "visas", "consultancy", "about", "faqs", "urdu"])} />
     </>
   );
 }

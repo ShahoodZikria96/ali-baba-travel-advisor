@@ -12,6 +12,8 @@ import { AdSlot } from "@/components/monetization/AdSlot";
 import { getGuides, getGuide, getCountries } from "@/lib/content";
 import Link from "next/link";
 import { officialSources } from "@/data/officialSources";
+import { RelatedLinks } from "@/components/ui/RelatedLinks";
+import { countriesMentioned, siteLinks } from "@/lib/related";
 
 export async function generateStaticParams() {
   const guides = await getGuides();
@@ -46,6 +48,9 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
     publisher: { "@id": orgId },
   };
   const relatedCountry = allCountries.find((c) => slug.includes(c.slug) || guide.title.toLowerCase().includes(c.name.toLowerCase()));
+  const mentionedCountries = countriesMentioned(`${guide.title} ${content.join(" ")}`, allCountries, 5).filter(
+    (c) => c.slug !== relatedCountry?.slug
+  ).slice(0, 4);
 
   return (
     <>
@@ -107,6 +112,11 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
                 {relatedCountry.name} visa requirements →
               </Link>
             )}
+            {mentionedCountries.map((c) => (
+              <Link key={c.slug} href={`/visas/${c.slug}`} className="text-primary hover:text-primary-dark">
+                {c.name} visa requirements →
+              </Link>
+            ))}
             <Link href="/visa-consultancy" className="text-primary hover:text-primary-dark">Visa consultancy services →</Link>
             <Link href="/contact" className="text-primary hover:text-primary-dark">Contact our consultants →</Link>
           </div>
@@ -133,6 +143,11 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
           </div>
         </Container>
       )}
+
+      <RelatedLinks
+        title="Keep Exploring"
+        links={siteLinks(["visas", "consultancy", "refusal", "guideTravel", "guideUpdates", "faqs"])}
+      />
     </>
   );
 }
