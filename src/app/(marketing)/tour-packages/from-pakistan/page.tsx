@@ -14,7 +14,7 @@ import type { PageFaq } from "@/data/pageFaqs";
 
 export const metadata: Metadata = pageMetadata({
   title: "International Tour Packages from Pakistan",
-  description: "Tour packages from Pakistan to Europe, Canada, Dubai, Turkey, Japan and 20+ more destinations, with flights, hotels and visa assistance. Free quote.",
+  description: "Tour packages from Pakistan to Europe, Canada, Turkey, Japan and 20+ more destinations, with flights, hotels and visa assistance. Free quote.",
   path: "/tour-packages/from-pakistan",
 });
 
@@ -23,7 +23,7 @@ const regions: PackageDestination["region"][] = ["Europe", "Asia", "Middle East 
 const faqs: PageFaq[] = [
   {
     question: "Which countries do your tour packages from Pakistan cover?",
-    answer: "We plan packages for Europe, the UK, Canada, the USA, Australia, New Zealand, Dubai, Turkey, Egypt, Morocco, South Africa, Japan, South Korea, Thailand, Malaysia, Singapore, Indonesia, Hong Kong, the Maldives and more. If your destination is not listed, ask us and we will quote it.",
+    answer: "We plan packages for Europe, the UK, Canada, the USA, Australia, New Zealand, Turkey, Egypt, Morocco, South Africa, Japan, South Korea, Thailand, Malaysia, Singapore, Indonesia, Hong Kong, the Maldives and more. If your destination is not listed, ask us and we will quote it.",
   },
   {
     question: "Do you publish package prices?",

@@ -13,7 +13,7 @@ export const SITE_LINKS = {
   refusal: { href: "/visa-refusal", label: "Visa refusal assistance", description: "Case review if you were refused before" },
   process: { href: "/visa-process", label: "How our visa process works", description: "From free assessment to submission, step by step" },
   tours: { href: "/tour-packages", label: "International tour packages", description: "Group tours with visa assistance included" },
-  packagesFromPakistan: { href: "/tour-packages/from-pakistan", label: "Tour packages from Pakistan", description: "Europe, Canada, Dubai, Turkey, Japan and 20+ destinations" },
+  packagesFromPakistan: { href: "/tour-packages/from-pakistan", label: "Tour packages from Pakistan", description: "Europe, Canada, Turkey, Japan and 20+ destinations" },
   travelAgency: { href: "/travel-agency", label: "Travel agency in your city", description: "Serving every province of Pakistan" },
   groupTours: { href: "/tour-packages/group-tours", label: "Group tours from Pakistan", description: "Fixed itineraries, flights and hotels in one price" },
   upcoming: { href: "/tour-packages/upcoming", label: "Upcoming tour departures", description: "Current group departures and booking dates" },

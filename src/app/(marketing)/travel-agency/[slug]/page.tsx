@@ -57,7 +57,7 @@ export default async function TravelAgencyAreaPage({ params }: { params: Promise
   const nearOffices = offices.filter((o) => officeSlugs.includes(o.slug));
   const provinceCities = city ? [] : cities.filter((c) => c.province === province!.slug);
   const siblingCities = city ? cities.filter((c) => c.province === city.province && c.slug !== city.slug).slice(0, 8) : [];
-  const popular = (city?.popular ?? ["europe", "uk", "dubai", "turkey"]).map((s) => getPackageDestination(s)).filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const popular = (city?.popular ?? ["europe", "uk", "canada", "turkey"]).map((s) => getPackageDestination(s)).filter((x): x is NonNullable<typeof x> => Boolean(x));
   const path = `/travel-agency/${slug}`;
 
   const faqs: PageFaq[] = city

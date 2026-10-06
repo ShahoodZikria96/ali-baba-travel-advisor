@@ -92,7 +92,7 @@ export function buildPrimaryNav(
   tourColumns.push({
     heading: "Popular Packages",
     links: [
-      ["europe", "Europe"], ["dubai", "Dubai & UAE"], ["turkey", "Turkey"], ["canada", "Canada"],
+      ["europe", "Europe"], ["turkey", "Turkey"], ["canada", "Canada"],
       ["switzerland", "Switzerland"], ["thailand", "Thailand"], ["japan", "Japan"],
     ].map(([slug, label]) => ({ label: `${label} Packages`, href: `/tour-packages/from-pakistan/${slug}` })),
   });
@@ -137,7 +137,47 @@ export function buildPrimaryNav(
       columns: tourColumns,
     },
     { label: "Flights & Hotels", href: "/flights" },
-    { label: "Success Stories", href: "/success-stories" },
+    {
+      label: "Cities",
+      width: 640,
+      columns: [
+        {
+          heading: "Provinces",
+          links: [
+            { label: "Punjab", href: "/travel-agency/punjab" },
+            { label: "Sindh", href: "/travel-agency/sindh" },
+            { label: "Khyber Pakhtunkhwa", href: "/travel-agency/khyber-pakhtunkhwa" },
+            { label: "Balochistan", href: "/travel-agency/balochistan" },
+            { label: "Islamabad", href: "/travel-agency/islamabad-capital-territory" },
+            { label: "Azad Kashmir", href: "/travel-agency/azad-kashmir" },
+            { label: "Gilgit-Baltistan", href: "/travel-agency/gilgit-baltistan" },
+          ],
+        },
+        {
+          heading: "Popular Cities",
+          links: [
+            { label: "Rawalpindi", href: "/travel-agency/rawalpindi" },
+            { label: "Faisalabad", href: "/travel-agency/faisalabad" },
+            { label: "Multan", href: "/travel-agency/multan" },
+            { label: "Peshawar", href: "/travel-agency/peshawar" },
+            { label: "Sialkot", href: "/travel-agency/sialkot" },
+            { label: "Gujranwala", href: "/travel-agency/gujranwala" },
+            { label: "Quetta", href: "/travel-agency/quetta" },
+            { label: "Hyderabad", href: "/travel-agency/hyderabad" },
+          ],
+        },
+        {
+          heading: "Our Offices",
+          links: [
+            { label: "Lahore", href: "/locations/lahore" },
+            { label: "Islamabad", href: "/locations/islamabad" },
+            { label: "Wazirabad", href: "/locations/wazirabad" },
+            { label: "Karachi", href: "/locations/karachi" },
+          ],
+        },
+      ],
+      viewAll: { label: "All Cities and Provinces", href: "/travel-agency" },
+    },
     {
       label: "Resources",
       columns: [
@@ -148,6 +188,7 @@ export function buildPrimaryNav(
             { label: "Travel Guides", href: "/guides/travel" },
             { label: "Latest Updates", href: "/guides/updates" },
             { label: "FAQs", href: "/faqs" },
+            { label: "Success Stories", href: "/success-stories" },
           ],
         },
       ],
@@ -164,4 +205,6 @@ export const mobileQuickLinks = [
   { label: "Flights & Hotels", href: "/flights" },
   { label: "Success Stories", href: "/success-stories" },
   { label: "Office Locations", href: "/locations" },
+  { label: "Cities We Serve", href: "/travel-agency" },
+  { label: "Packages from Pakistan", href: "/tour-packages/from-pakistan" },
 ];

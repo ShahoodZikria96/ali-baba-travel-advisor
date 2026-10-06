@@ -5,6 +5,7 @@ import { countryPages } from "@/data/countryPages";
 import { refusalPages } from "@/data/refusalPages";
 import { servicePages } from "@/data/servicePages";
 import { tours, extraTours } from "@/data/tours";
+import { extraGuides } from "@/data/extraGuides";
 import { guides } from "@/data/guides";
 import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "@/data/placeholders";
 import { generalFaqs } from "@/data/faqs";
@@ -257,9 +258,12 @@ let guideListCache: Guide[] | null = null;
 async function guideList(): Promise<Guide[]> {
   if (guideListCache) return guideListCache;
   const api = await fetchResource<ApiGuide[]>("guides");
-  return (guideListCache = api && api.length
-    ? api.map(fromApiGuide).sort((a, b) => +b.publishedDate - +a.publishedDate)
-    : guideFallback);
+  const base = api && api.length ? api.map(fromApiGuide) : guideFallback;
+  // Code-defined guides join the list unless the admin panel already has one with the same slug.
+  const extras: Guide[] = extraGuides
+    .filter((e) => !base.some((g) => g.slug === e.slug))
+    .map((g) => ({ ...g, id: g.slug, publishedDate: new Date(g.publishedDate), updatedAt: new Date(g.updatedDate ?? g.publishedDate) }));
+  return (guideListCache = [...base, ...extras].sort((a, b) => +b.publishedDate - +a.publishedDate));
 }
 
 export async function getGuides() { return guideList(); }

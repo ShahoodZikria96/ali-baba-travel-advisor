@@ -71,7 +71,7 @@ RewriteRule ^destination/paris-tour-packages[^/]*/?$                            
 RewriteRule ^destination/rome-italy-tour-packages[^/]*/?$                          /tour-packages/from-pakistan/italy/ [L,R=301]
 RewriteRule ^destination/bali-tour-packages[^/]*/?$                                /tour-packages/from-pakistan/indonesia/ [L,R=301]
 RewriteRule ^destination/azerbaijan-baku-tour-packages[^/]*/?$                     /tour-packages/from-pakistan/azerbaijan/ [L,R=301]
-RewriteRule ^destination/dubai-tour-packages[^/]*/?$                              /tour-packages/from-pakistan/dubai/ [L,R=301]
+RewriteRule ^destination/dubai-tour-packages[^/]*/?$                              /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^destination/maldives-tour-packages[^/]*/?$                            /tour-packages/from-pakistan/maldives/ [L,R=301]
 RewriteRule ^destination/?$                                                        /tour-packages/from-pakistan/ [L,R=301]
 RewriteRule ^destination/.+$                                                       /tour-packages/ [L,R=301]
@@ -83,10 +83,10 @@ RewriteRule ^thailand-visit-visa-from-pakistan-how-to-apply-easily/?$           
 RewriteRule ^explore-the-adventure-in-thailand-with-best-travel-agency-in-lahore/?$ /visas/thailand/ [L,R=301]
 RewriteRule ^best-honeymoon-places-for-france/?$                                   /visas/france/ [L,R=301]
 RewriteRule ^best-way-to-travel-around-canada-in-winter(-[0-9]+)?/?$                   /visas/canada/ [L,R=301]
-RewriteRule ^dubai-tour-packages-from-pakistan-with-flight-and-hotel/?$            /tour-packages/from-pakistan/dubai/ [L,R=301]
+RewriteRule ^dubai-tour-packages-from-pakistan-with-flight-and-hotel/?$            /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^discover-the-beauty-of-the-island-with-lahores-top-travel-company/?$  /tour-packages/ [L,R=301]
 RewriteRule ^top-beaches-to-visit-in-gulf-countries-a-travelers-paradise/?$        /guides/travel/ [L,R=301]
-RewriteRule ^best-airlines-in-the-world-that-fly-to-dubai/?$                       /guides/travel/ [L,R=301]
+RewriteRule ^best-airlines-in-the-world-that-fly-to-dubai/?$                       /guides/best-airlines-from-pakistan-to-dubai/ [L,R=301]
 RewriteRule ^explore-the-gulf-mountains-with-the-best-travel-agency-in-lahore/?$   /guides/travel/ [L,R=301]
 RewriteRule ^discover-the-natural-wonders-of-the-world-with-the-best-travel-agency-in-lahore/?$ /guides/travel/ [L,R=301]
 RewriteRule ^ocean-countries-culture-with-the-best-travel-agency-in-lahore/?$      /guides/travel/ [L,R=301]
@@ -103,7 +103,7 @@ RewriteRule ^countries-info/.+$                                                 
 
 # Landing pages from the previous website that still receive organic clicks
 RewriteRule ^packages/?$                /tour-packages/ [L,R=301]
-RewriteRule ^dubai-tour-packages/?$     /tour-packages/from-pakistan/dubai/ [L,R=301]
+RewriteRule ^dubai-tour-packages/?$     /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^documentation/?$           /travel-documentation/ [L,R=301]
 RewriteRule ^countries-info/?$          /visas/ [L,R=301]
 </IfModule>

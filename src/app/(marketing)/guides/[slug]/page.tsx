@@ -83,9 +83,13 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
           </div>
 
           <div className="prose-content mt-6 space-y-4 text-[0.98rem] leading-relaxed text-text">
-            {content.map((paragraph, i) => (
-              <p key={i}>{paragraph}</p>
-            ))}
+            {content.map((paragraph, i) =>
+              paragraph.startsWith("## ") ? (
+                <h2 key={i} className="pt-4 font-heading text-xl font-bold text-charcoal">{paragraph.slice(3)}</h2>
+              ) : (
+                <p key={i}>{paragraph}</p>
+              )
+            )}
           </div>
 
           <AdSlot placement="end-of-article" />

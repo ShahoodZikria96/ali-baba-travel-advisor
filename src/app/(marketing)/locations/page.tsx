@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import { remoteCities } from "@/data/locationExtras";
+import { cities } from "@/data/cityPages";
 import Link from "next/link";
 import { Clock, MapPin, Phone, Sparkles } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -113,13 +114,20 @@ export default async function LocationsPage() {
           <ul className="mt-4 grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
             {remoteCities.map((c) => (
               <li key={c.city} className="rounded-[var(--radius-sm)] border border-border bg-surface px-4 py-2.5 text-text-muted">
-                <span className="font-semibold text-charcoal">{c.city}</span> — nearest office:{" "}
+                {cities.some((x) => x.name.toLowerCase() === c.city.toLowerCase()) ? (
+                  <Link href={`/travel-agency/${cities.find((x) => x.name.toLowerCase() === c.city.toLowerCase())!.slug}`} className="font-semibold text-charcoal hover:text-primary">{c.city}</Link>
+                ) : (
+                  <span className="font-semibold text-charcoal">{c.city}</span>
+                )}{" "}— nearest office:{" "}
                 <Link href={`/locations/${c.nearestSlug}`} className="font-semibold text-primary hover:text-primary-dark">
                   {c.nearestOffice}
                 </Link>
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-sm">
+            <Link href="/travel-agency" className="font-semibold text-primary hover:text-primary-dark">See every city and province we serve →</Link>
+          </p>
         </section>
       </Container>
     </>

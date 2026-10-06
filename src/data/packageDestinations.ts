@@ -175,23 +175,6 @@ export const packageDestinations: PackageDestination[] = [
     ],
   },
   {
-    slug: "dubai",
-    name: "Dubai & UAE",
-    region: "Middle East & Africa",
-    image: "/destinations/airliner.webp",
-    intro:
-      "Dubai is the shortest international holiday from Pakistan, with direct flights from Lahore, Karachi and Islamabad. Packages usually include a desert safari, Burj Khalifa, Dubai Mall and an Abu Dhabi day trip, and we help with the UAE tourist visa.",
-    bestTime: "November to March is cool and ideal for outdoor plans; summer is very hot but hotels are cheaper and malls and indoor attractions are comfortable.",
-    places: ["Burj Khalifa and Dubai Mall", "Desert safari", "Palm Jumeirah", "Dubai Marina and Global Village", "Sheikh Zayed Grand Mosque, Abu Dhabi", "Louvre Abu Dhabi"],
-    ideas: ["4 night Dubai family package", "Dubai and Abu Dhabi", "Dubai honeymoon with desert stay"],
-    visaNote: "UAE entry for Pakistani passport holders depends on current UAE rules, so we confirm what applies and prepare the application and supporting documents.",
-    related: ["turkey", "egypt", "maldives", "azerbaijan"],
-    faqs: [
-      { question: "Do you offer Dubai packages with flight and hotel?", answer: "Yes. Tell us your dates, number of travellers and hotel level and we send a quote with flights, hotel, transfers and activities." },
-      { question: "How many days are enough for Dubai?", answer: "Four to five nights covers the main sights; add two days for Abu Dhabi." },
-    ],
-  },
-  {
     slug: "turkey",
     name: "Turkey",
     region: "Middle East & Africa",
@@ -204,7 +187,7 @@ export const packageDestinations: PackageDestination[] = [
     visaNote: "Turkey requires a visa from Pakistani passport holders, and the type available can depend on other visas held. We confirm the correct route for you.",
     visaSlug: "turkey",
     tourSlug: "turkey-south-africa-morocco-group-tour",
-    related: ["azerbaijan", "morocco", "egypt", "dubai"],
+    related: ["azerbaijan", "morocco", "egypt"],
     faqs: [
       { question: "How many days do I need for Turkey?", answer: "Seven days covers Istanbul and Cappadocia; ten days adds the coast or Pamukkale." },
       { question: "Is Turkey a good first international trip?", answer: "Yes. It is varied, good value, and easy to travel as a family or group." },
@@ -315,7 +298,7 @@ export const packageDestinations: PackageDestination[] = [
     ideas: ["4 to 5 day Baku city tour", "Baku, Gabala and Sheki", "Winter trip to Shahdag"],
     visaNote: "A visa is required for Pakistani passport holders; we confirm the current process and help prepare the application.",
     visaSlug: "azerbaijan",
-    related: ["turkey", "dubai", "egypt", "europe"],
+    related: ["turkey", "egypt", "europe"],
     faqs: [
       { question: "How many days do I need for Azerbaijan?", answer: "Four to five days covers Baku and a day trip; add two days for Gabala or Sheki." },
       { question: "Is Azerbaijan good for a group trip?", answer: "Yes, it is well suited to groups and families because sights are close together." },
@@ -461,7 +444,7 @@ export const packageDestinations: PackageDestination[] = [
     ideas: ["6 day Cairo and Luxor", "Nile cruise", "Cairo and Red Sea beach"],
     visaNote: "Egypt requires a visa or e-visa for Pakistani passport holders, depending on current rules; we help you with the right route.",
     visaSlug: "egypt",
-    related: ["dubai", "turkey", "morocco", "azerbaijan"],
+    related: ["turkey", "morocco", "azerbaijan"],
     faqs: [
       { question: "When is the best time to go to Egypt?", answer: "October to April, when sightseeing is comfortable." },
       { question: "Is a Nile cruise worth it?", answer: "Yes, if you have 7 days or more. It covers Luxor and Aswan comfortably." },
@@ -478,7 +461,7 @@ export const packageDestinations: PackageDestination[] = [
     places: ["Malé", "Maafushi local island", "Resort island overwater villas", "Snorkelling and diving", "Sandbank picnics", "Sunset cruises"],
     ideas: ["4 to 5 night guesthouse stay", "Resort honeymoon", "Maldives and Sri Lanka"],
     visaNote: "The Maldives normally issues a visitor visa on arrival, subject to entry conditions such as confirmed accommodation and funds. We confirm current rules before you travel.",
-    related: ["indonesia", "thailand", "dubai", "singapore"],
+    related: ["indonesia", "thailand", "singapore"],
     faqs: [
       { question: "Is the Maldives expensive?", answer: "Resorts are costly, but guesthouses on local islands are far cheaper. We quote both so you can compare." },
       { question: "How many nights should I plan?", answer: "Four to five nights are enough for a honeymoon or a family break." },
@@ -515,7 +498,7 @@ export const packageDestinations: PackageDestination[] = [
     visaNote: "South Africa requires a visitor visa for Pakistani passport holders, which we prepare with your itinerary and funds.",
     visaSlug: "south-africa",
     tourSlug: "turkey-south-africa-morocco-group-tour",
-    related: ["morocco", "egypt", "turkey", "dubai"],
+    related: ["morocco", "egypt", "turkey"],
     faqs: [
       { question: "Can I do a safari on a package?", answer: "Yes. Kruger safaris can be added to a Cape Town or Johannesburg itinerary." },
       { question: "Is there a group tour with South Africa?", answer: "Yes, our Turkey, South Africa and Morocco group tour includes it." },

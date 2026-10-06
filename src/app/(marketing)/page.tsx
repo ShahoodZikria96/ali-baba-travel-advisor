@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import { Hero } from "@/components/home/Hero";
+import { PackagesFromPakistan } from "@/components/home/PackagesFromPakistan";
+import { ServiceAreas } from "@/components/home/ServiceAreas";
 import { StatsBar } from "@/components/home/StatsBar";
 import { VisaFinder } from "@/components/home/VisaFinder";
 import { CoreServices } from "@/components/home/CoreServices";
@@ -40,14 +42,16 @@ export default function Home() {
       <SuccessStories />
       <HowItWorks />
       <UpcomingTours />
+      <PackagesFromPakistan />
       <VideoUpdates />
       <LatestGuides />
       <Reviews />
       <OfficeLocations />
+      <ServiceAreas />
       <FaqPreview />
       <RelatedLinks
         title="More About Ali Baba Travel Advisor"
-        links={siteLinks(["about", "process", "team", "documentation", "urdu", "contact"])}
+        links={siteLinks(["packagesFromPakistan", "travelAgency", "about", "process", "documentation", "contact"])}
       />
       <FinalCTA />
     </>
