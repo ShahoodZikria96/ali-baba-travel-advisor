@@ -62,6 +62,17 @@ function ab_schema(PDO $pdo): void
         INDEX (k, t)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
+    // Logins for the read-only leads portal (/leads-portal/); managed from the admin panel.
+    $pdo->exec("CREATE TABLE IF NOT EXISTS ab_portal_users (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(40) NOT NULL UNIQUE,
+        display_name VARCHAR(80) NOT NULL DEFAULT '',
+        password_hash VARCHAR(255) NOT NULL,
+        active TINYINT(1) NOT NULL DEFAULT 1,
+        last_login DATETIME NULL,
+        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
     // ---------- Content management tables (offices, tours, guides, etc.) ----------
     // Full parity with the previous Node.js/Prisma CMS, so the admin panel can add
     // or edit any of this content without ever needing a rebuild: the live site

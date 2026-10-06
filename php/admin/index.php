@@ -24,7 +24,7 @@ function page(string $title, string $body, bool $withChrome = true): void
 {
     echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
         . '<meta name="robots" content="noindex,nofollow"><link rel="icon" href="/favicon.ico">'
-        . '<title>' . h($title) . ' - Ali Baba Admin</title><style>' . admin_css() . '</style></head><body>'
+        . '<title>' . h($title) . ' - Ali Baba Admin</title><style>' . admin_css() . '</style><script src="/admin/admin.js" defer></script></head><body>'
         . ($withChrome ? '<div class="shell">' . $body . '</div>' : $body) . '</body></html>';
     exit;
 }
@@ -88,6 +88,7 @@ function nav(string $active): string
     $out .= '<a href="/admin/?a=leads"' . ($active === 'leads' ? ' class="on"' : '') . '>Enquiries</a>';
     $out .= '<a href="/admin/?a=reviews"' . ($active === 'reviews' ? ' class="on"' : '') . '>Reviews</a>';
     $out .= '<a href="/admin/?a=settings"' . ($active === 'settings' ? ' class="on"' : '') . '>Site Settings</a>';
+    $out .= '<a href="/admin/?a=pusers"' . ($active === 'pusers' ? ' class="on"' : '') . '>Leads Portal Users</a>';
     $out .= '</div><div class="navgroup"><div class="label">Content</div>';
     foreach (ab_resources() as $key => $cfg) {
         $out .= '<a href="/admin/?a=res&r=' . urlencode($key) . '"' . ($active === $key ? ' class="on"' : '') . '>' . h($cfg['label']) . '</a>';
@@ -329,6 +330,46 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST') {
                 . implode(', ', array_map(fn($c) => ":$c", array_keys($vals))) . ") ON DUPLICATE KEY UPDATE $set"
             )->execute($vals);
             go('?a=settings');
+        case 'puser_add':
+            $uname = strtolower(trim((string)($_POST['username'] ?? '')));
+            $dname = ab_clean((string)($_POST['display_name'] ?? ''), 80);
+            $pw = (string)($_POST['password'] ?? '');
+            $err = '';
+            if (!preg_match('/^[a-z0-9._-]{3,40}$/', $uname)) {
+                $err = 'Username must be 3-40 characters: lowercase letters, numbers, dot, dash or underscore.';
+            } elseif (strlen($pw) < 10) {
+                $err = 'Password must be at least 10 characters.';
+            } else {
+                $st = $pdo->prepare('SELECT COUNT(*) FROM ab_portal_users WHERE username = ?');
+                $st->execute([$uname]);
+                if ((int)$st->fetchColumn() > 0) {
+                    $err = 'That username is already taken.';
+                }
+            }
+            if ($err !== '') {
+                $_SESSION['flash'] = ['err', $err];
+                go('?a=pusers');
+            }
+            $pdo->prepare('INSERT INTO ab_portal_users (username, display_name, password_hash) VALUES (?, ?, ?)')
+                ->execute([$uname, $dname, password_hash($pw, PASSWORD_DEFAULT)]);
+            $_SESSION['flash'] = ['ok', 'Login created for "' . $uname . '". Share the username and password with them securely.'];
+            go('?a=pusers');
+        case 'puser_pass':
+            $pw = (string)($_POST['password'] ?? '');
+            if (strlen($pw) < 10) {
+                $_SESSION['flash'] = ['err', 'Password must be at least 10 characters.'];
+                go('?a=pusers');
+            }
+            // A new hash also signs the user out everywhere (the portal compares a hash fingerprint).
+            $pdo->prepare('UPDATE ab_portal_users SET password_hash = ? WHERE id = ?')->execute([password_hash($pw, PASSWORD_DEFAULT), $id]);
+            $_SESSION['flash'] = ['ok', 'Password changed. Any open session for that user was signed out.'];
+            go('?a=pusers');
+        case 'puser_toggle':
+            $pdo->prepare('UPDATE ab_portal_users SET active = 1 - active WHERE id = ?')->execute([$id]);
+            go('?a=pusers');
+        case 'puser_delete':
+            $pdo->prepare('DELETE FROM ab_portal_users WHERE id = ?')->execute([$id]);
+            go('?a=pusers');
         case 'res_toggle':
         case 'res_delete':
         case 'res_save':
@@ -439,6 +480,39 @@ if ($action === 'res') {
         page($resource['singular'], res_form($rKey, $resource, $row));
     }
     page($resource['label'], res_list($rKey, $resource, $pdo));
+}
+
+// ---------- Leads portal users ----------
+if ($action === 'pusers') {
+    $flash = $_SESSION['flash'] ?? null;
+    unset($_SESSION['flash']);
+    $users = $pdo->query('SELECT * FROM ab_portal_users ORDER BY id ASC')->fetchAll();
+    $b = nav('pusers') . '<div class="main"><content>';
+    if ($flash) {
+        $b .= '<div class="card" style="' . ($flash[0] === 'ok' ? 'border-color:#3d6b34;color:#3d6b34' : 'border-color:#b3261e;color:#b3261e') . '">' . h($flash[1]) . '</div>';
+    }
+    $b .= '<div class="card"><h2>Add a leads-portal login</h2>'
+        . '<p class="small">These logins open <b>/leads-portal/</b>, a separate read-only page that shows website enquiries and nothing else. They cannot enter this admin panel.</p>'
+        . '<form method="post" action="/admin/?a=puser_add" autocomplete="off"><input type="hidden" name="csrf" value="' . h(csrf()) . '">'
+        . '<div class="row"><div style="flex:1;min-width:150px"><label>Username</label><input name="username" required pattern="[a-z0-9._-]{3,40}" placeholder="e.g. sales.lahore"></div>'
+        . '<div style="flex:1;min-width:150px"><label>Display name</label><input name="display_name" placeholder="e.g. Sales Team Lahore"></div>'
+        . '<div style="flex:1;min-width:190px"><label>Password (min 10 characters)</label><div class="row" style="flex-wrap:nowrap"><input id="np" name="password" type="text" minlength="10" required autocomplete="new-password">'
+        . '<button class="g" type="button" id="gen">Generate</button></div></div></div>'
+        . '<p style="margin-top:12px"><button type="submit">Create login</button></p></form></div>'
+        . '<h2>Logins</h2><table><tr><th>Username</th><th>Name</th><th>Status</th><th>Last login</th><th>Change password</th><th></th></tr>';
+    foreach ($users as $u) {
+        $b .= '<tr><td><strong>' . h($u['username']) . '</strong></td><td>' . h($u['display_name']) . '</td>'
+            . '<td>' . ((int)$u['active'] ? '<span class="tag">Active</span>' : '<span class="tag new">Disabled</span>') . '</td>'
+            . '<td>' . h($u['last_login'] ?: 'Never') . '</td>'
+            . '<td><form method="post" action="/admin/?a=puser_pass" class="row" autocomplete="off"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$u['id'] . '">'
+            . '<input name="password" type="text" minlength="10" required placeholder="New password" style="width:170px" autocomplete="new-password"><button class="g" type="submit">Change</button></form></td>'
+            . '<td><div class="row"><form method="post" action="/admin/?a=puser_toggle"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$u['id'] . '"><button class="g" type="submit">' . ((int)$u['active'] ? 'Disable' : 'Enable') . '</button></form>'
+            . '<form method="post" action="/admin/?a=puser_delete" class="confirm-delete"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="id" value="' . (int)$u['id'] . '"><button class="r" type="submit">Delete</button></form></div></td></tr>';
+    }
+    if (!$users) {
+        $b .= '<tr><td colspan="6">No portal logins yet. Create the first one above.</td></tr>';
+    }
+    page('Leads Portal Users', $b . '</table></content></div>');
 }
 
 // ---------- Site settings (singleton) ----------

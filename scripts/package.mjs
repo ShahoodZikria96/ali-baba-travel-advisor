@@ -21,6 +21,7 @@ fs.mkdirSync(site, { recursive: true });
 fs.cpSync(out, site, { recursive: true });
 fs.cpSync(path.join(root, "php", "api"), path.join(site, "api"), { recursive: true });
 fs.cpSync(path.join(root, "php", "admin"), path.join(site, "admin"), { recursive: true });
+fs.cpSync(path.join(root, "php", "leads-portal"), path.join(site, "leads-portal"), { recursive: true });
 fs.copyFileSync(path.join(root, "deploy", "htaccess"), path.join(site, ".htaccess"));
 // Hashed build files never change: cache them for a year (own .htaccess avoids <If>, which some hosts lack).
 fs.writeFileSync(

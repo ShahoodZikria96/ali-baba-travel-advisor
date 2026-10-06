@@ -54,7 +54,7 @@ RewriteRule ^countries-info/?$          /visas/ [L,R=301]
 
 # Keep the admin panel and the content API out of search results even if a link leaks.
 <IfModule mod_setenvif.c>
-  SetEnvIf Request_URI "^/(admin|api)(/|$)" NOINDEX_AREA
+  SetEnvIf Request_URI "^/(admin|leads-portal|api)(/|$)" NOINDEX_AREA
 </IfModule>
 
 <IfModule mod_headers.c>

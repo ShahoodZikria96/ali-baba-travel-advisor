@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Admin, API and any parameterised/filter URLs are never useful in search.
-      disallow: ["/admin/", "/api/", "/*?*utm_", "/*?*fbclid=", "/*?*gclid="],
+      disallow: ["/admin/", "/leads-portal/", "/api/", "/*?*utm_", "/*?*fbclid=", "/*?*gclid="],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
