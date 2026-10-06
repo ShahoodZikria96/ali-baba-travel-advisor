@@ -40,6 +40,11 @@ RewriteRule ^terms-and-conditions/?$    /terms/ [L,R=301]
 RewriteRule ^tours/?$                   /tour-packages/ [L,R=301]
 RewriteRule ^hotels/?$                  /hotel-booking/ [L,R=301]
 RewriteRule ^offices/?$                 /locations/ [L,R=301]
+# Landing pages from the previous website that still receive organic clicks
+RewriteRule ^packages/?$                /tour-packages/ [L,R=301]
+RewriteRule ^dubai-tour-packages/?$     /tour-packages/ [L,R=301]
+RewriteRule ^documentation/?$           /travel-documentation/ [L,R=301]
+RewriteRule ^countries-info/?$          /visas/ [L,R=301]
 </IfModule>
 
 # Never serve secrets or source files.
