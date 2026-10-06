@@ -209,7 +209,7 @@ body { top: 0 !important; }
   transition-delay: calc(var(--i, 0) * var(--stagger, 0.08s));
 }
 .reveal[data-in="true"],
-[data-in="true"] > .reveal-item {
+[data-in="true"] .reveal-item {
   opacity: 1;
   transform: none;
 }
