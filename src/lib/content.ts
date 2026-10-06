@@ -4,7 +4,7 @@ import { popularDestinations, moreDestinations } from "@/data/countries";
 import { countryPages } from "@/data/countryPages";
 import { refusalPages } from "@/data/refusalPages";
 import { servicePages } from "@/data/servicePages";
-import { tours } from "@/data/tours";
+import { tours, extraTours } from "@/data/tours";
 import { guides } from "@/data/guides";
 import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "@/data/placeholders";
 import { generalFaqs } from "@/data/faqs";
@@ -228,7 +228,10 @@ let tourListCache: Tour[] | null = null;
 async function tourList(): Promise<Tour[]> {
   if (tourListCache) return tourListCache;
   const api = await fetchResource<ApiTour[]>("tours");
-  return (tourListCache = api && api.length ? api.map(fromApiTour) : tourFallback);
+  const list = api && api.length ? api.map(fromApiTour) : tourFallback;
+  // Code-defined tours join the list unless the admin panel already has one with the same slug.
+  const extras = extraTours.filter((e) => !list.some((t) => t.slug === e.slug)).map((t) => ({ ...t, id: t.slug, updatedAt }));
+  return (tourListCache = [...list, ...extras]);
 }
 
 export async function getTours() { return tourList(); }

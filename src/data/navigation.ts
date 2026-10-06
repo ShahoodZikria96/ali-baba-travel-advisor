@@ -82,12 +82,20 @@ export function buildPrimaryNav(
       links: [
         { label: "Group Tours", href: "/tour-packages/group-tours" },
         { label: "International Packages", href: "/tour-packages" },
+        { label: "Packages from Pakistan", href: "/tour-packages/from-pakistan" },
         { label: "Upcoming Departures", href: "/tour-packages/upcoming" },
         { label: "Customized Tours", href: "/tour-packages/customized" },
         { label: "Hotel Booking", href: "/hotel-booking" },
       ],
     },
   ];
+  tourColumns.push({
+    heading: "Popular Packages",
+    links: [
+      ["europe", "Europe"], ["dubai", "Dubai & UAE"], ["turkey", "Turkey"], ["canada", "Canada"],
+      ["switzerland", "Switzerland"], ["thailand", "Thailand"], ["japan", "Japan"],
+    ].map(([slug, label]) => ({ label: `${label} Packages`, href: `/tour-packages/from-pakistan/${slug}` })),
+  });
   if (tours.length > 0) {
     tourColumns.push({
       heading: "Current Group Tours",
@@ -125,7 +133,7 @@ export function buildPrimaryNav(
     },
     {
       label: "Tours",
-      width: tourColumns.length > 1 ? 640 : 520,
+      width: tourColumns.length > 2 ? 780 : tourColumns.length > 1 ? 640 : 520,
       columns: tourColumns,
     },
     { label: "Flights & Hotels", href: "/flights" },

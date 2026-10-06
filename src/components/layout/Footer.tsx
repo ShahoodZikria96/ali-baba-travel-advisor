@@ -26,6 +26,7 @@ const staticFooterColumns = [
   {
     heading: "Travel Services",
     links: [
+      { label: "Tour Packages from Pakistan", href: "/tour-packages/from-pakistan" },
       { label: "Group Tours", href: "/tour-packages/group-tours" },
       { label: "Customized Tours", href: "/tour-packages/customized" },
       { label: "Air Ticketing", href: "/flights" },
@@ -40,6 +41,7 @@ const staticFooterColumns = [
       { label: "Success Stories", href: "/success-stories" },
       { label: "Visa & Travel Guides", href: "/guides" },
       { label: "Our Visa Process", href: "/visa-process" },
+      { label: "Travel Agency in Your City", href: "/travel-agency" },
       { label: "اردو میں معلومات", href: "/urdu" },
       { label: "Contact", href: "/contact" },
     ],

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getCountries, getRefusalPages, getServicePages, getTours, getOffices, getGuides } from "@/lib/content";
 import { absoluteUrl } from "@/lib/seo";
+import { packageDestinations } from "@/data/packageDestinations";
+import { cities, provinces } from "@/data/cityPages";
 
 export const dynamic = "force-static";
 
@@ -16,6 +18,8 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Entry["ch
   { path: "/tour-packages/group-tours", priority: 0.6, changeFrequency: "weekly" },
   { path: "/tour-packages/customized", priority: 0.6, changeFrequency: "monthly" },
   { path: "/tour-packages/upcoming", priority: 0.6, changeFrequency: "weekly" },
+  { path: "/tour-packages/from-pakistan", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/travel-agency", priority: 0.8, changeFrequency: "monthly" },
   { path: "/flights", priority: 0.7, changeFrequency: "monthly" },
   { path: "/hotel-booking", priority: 0.7, changeFrequency: "monthly" },
   { path: "/travel-documentation", priority: 0.6, changeFrequency: "monthly" },
@@ -59,6 +63,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...guides.map((g) => ({ url: absoluteUrl(`/guides/${g.slug}`), lastModified: g.updatedAt, changeFrequency: "monthly" as const, priority: 0.6 })),
   ];
 
+  // Code-defined landing pages change only when the site is redeployed with new copy.
+  const landingUpdated = new Date("2026-10-06");
+  dynamic.push(
+    ...packageDestinations.map((d) => ({ url: absoluteUrl(`/tour-packages/from-pakistan/${d.slug}`), lastModified: landingUpdated, changeFrequency: "monthly" as const, priority: 0.8 })),
+    ...provinces.map((p) => ({ url: absoluteUrl(`/travel-agency/${p.slug}`), lastModified: landingUpdated, changeFrequency: "monthly" as const, priority: 0.7 })),
+    ...cities.map((c) => ({ url: absoluteUrl(`/travel-agency/${c.slug}`), lastModified: landingUpdated, changeFrequency: "monthly" as const, priority: 0.6 })),
+  );
+
   const latest = [...dynamic].sort((a, b) => +new Date(b.lastModified ?? 0) - +new Date(a.lastModified ?? 0))[0]?.lastModified;
   const newest = (items: { updatedAt: Date }[]) =>
     items.length ? new Date(Math.max(...items.map((i) => +new Date(i.updatedAt)))) : undefined;
@@ -72,6 +84,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/tour-packages/upcoming": newest(tours),
     "/guides": newest(guides),
     "/locations": newest(offices),
+    "/tour-packages/from-pakistan": landingUpdated,
+    "/travel-agency": landingUpdated,
   };
   const stat: Entry[] = staticRoutes.map((r) => ({
     url: absoluteUrl(r.path || "/"),

@@ -123,3 +123,35 @@ export const tours: TourPackage[] = [
 export function getTour(slug: string) {
   return tours.find((t) => t.slug === slug);
 }
+
+/**
+ * Tours defined in code. They are merged into the list the admin panel provides
+ * (see getTours in lib/content.ts): a tour with the same slug in the admin panel
+ * wins, so once Canada is added or edited there this entry simply steps aside.
+ */
+export const extraTours: TourPackage[] = [
+  {
+    slug: "canada-group-tour",
+    destination: "Canada",
+    image: "/destinations/canada.webp",
+    duration: "Duration: ask us for the full itinerary",
+    departure: "Departure: March 2027, travelling with CEO Syed Ali Jawad and Usman Molvi",
+    price: "Call for price",
+    visaAssistance: true,
+    summary:
+      "A guided Canada group tour departing in March 2027, travelling with our CEO Syed Ali Jawad and Usman Molvi. The tour covers Niagara Falls, Toronto, Banff and Ottawa, and includes visa support, 4-star hotels, daily activities, return flight tickets and breakfast.",
+    highlights: [
+      "Niagara Falls, Toronto, Banff and Ottawa on one group itinerary",
+      "Travel with CEO Syed Ali Jawad and Usman Molvi",
+      "Canada visa support included",
+      "4-star hotels and daily activities",
+    ],
+    included: ["Visa support", "4-star hotels", "Daily activities", "Return flight tickets", "Breakfast"],
+    excluded: ["Lunch and dinner (unless specified)", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
+    itinerary: [],
+    notes: [
+      "Departure is in March 2027. Seats are limited, so contact us for the exact dates, the full day-by-day itinerary and the current package price.",
+      "Visa decisions are made by the Canadian immigration authority; support from us and a group tour do not guarantee visa approval.",
+    ],
+  },
+];

@@ -42,7 +42,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
   const itinerary = tour.itinerary as { day: string; description: string }[];
   const notes = tour.notes as string[];
 
-  const priceNumber = Number((tour.price.match(/[d,]+/)?.[0] ?? "").replace(/,/g, ""));
+  const priceNumber = Number((tour.price.match(/\d[\d,]*/)?.[0] ?? "").replace(/,/g, ""));
   const tripJsonLd = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
@@ -90,7 +90,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
         <div className="absolute inset-0 bg-charcoal/55" />
         <div className="relative text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">Group Tour</p>
-          <h1 className="mt-2 font-heading text-3xl font-extrabold sm:text-4xl">{tour.destination}</h1>
+          <h1 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">{tour.destination}</h1>
         </div>
       </section>
 
