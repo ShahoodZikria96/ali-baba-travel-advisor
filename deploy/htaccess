@@ -73,6 +73,7 @@ RewriteRule ^destination/bali-tour-packages[^/]*/?$                             
 RewriteRule ^destination/azerbaijan-baku-tour-packages[^/]*/?$                     /tour-packages/from-pakistan/azerbaijan/ [L,R=301]
 RewriteRule ^destination/dubai-tour-packages[^/]*/?$                              /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^destination/maldives-tour-packages[^/]*/?$                            /tour-packages/from-pakistan/maldives/ [L,R=301]
+RewriteRule ^tour-packages/from-pakistan/dubai/?$                                  /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^destination/?$                                                        /tour-packages/from-pakistan/ [L,R=301]
 RewriteRule ^destination/.+$                                                       /tour-packages/ [L,R=301]
 RewriteRule ^visit-european-cities-with-the-best-travel-agency-in-lahore/?$        /tour-packages/from-pakistan/europe/ [L,R=301]
