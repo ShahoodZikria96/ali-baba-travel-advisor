@@ -4,10 +4,43 @@ import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 
 import { cn } from "@/lib/utils";
 
 /**
- * Scroll-reveal without a JS animation library: an IntersectionObserver flips
- * `data-in`, and the transition itself lives in CSS (see `.reveal` in
- * globals.css). This keeps hundreds of reveal wrappers cheap to hydrate.
+ * Scroll-reveal without a JS animation library: an element flips `data-in` once its
+ * top edge has entered the viewport (or been scrolled past), and the transition itself
+ * lives in CSS (see `.reveal` in globals.css).
+ *
+ * One shared passive scroll listener checks every waiting element. An IntersectionObserver
+ * was not enough: it only fires when an element *crosses* the viewport, so after a reload at
+ * a scrolled position, an anchor jump or a fast fling, sections above the viewport were never
+ * revealed and showed up as empty (dark or blank) bands.
  */
+type Waiter = { el: HTMLElement; reveal: () => void };
+const waiting = new Set<Waiter>();
+let ticking = false;
+let listening = false;
+
+function check() {
+  ticking = false;
+  const limit = window.innerHeight - 80;
+  for (const w of [...waiting]) {
+    if (w.el.getBoundingClientRect().top < limit) {
+      waiting.delete(w);
+      w.reveal();
+    }
+  }
+  if (waiting.size === 0 && listening) {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+    listening = false;
+  }
+}
+
+function onScroll() {
+  if (!ticking) {
+    ticking = true;
+    requestAnimationFrame(check);
+  }
+}
+
 function useSeenOnce<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
@@ -15,21 +48,17 @@ function useSeenOnce<T extends HTMLElement>() {
   useEffect(() => {
     const el = ref.current;
     if (!el || seen) return;
-    if (typeof IntersectionObserver === "undefined") {
-      const id = requestAnimationFrame(() => setSeen(true));
-      return () => cancelAnimationFrame(id);
+    const waiter: Waiter = { el, reveal: () => setSeen(true) };
+    waiting.add(waiter);
+    if (!listening) {
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
+      listening = true;
     }
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSeen(true);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "0px 0px -80px 0px" }
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    onScroll(); // reveal anything already on screen, or above it, right away
+    return () => {
+      waiting.delete(waiter);
+    };
   }, [seen]);
 
   return [ref, seen] as const;
