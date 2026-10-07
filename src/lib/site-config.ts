@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 export interface RuntimeConfig {
   gaId?: string;
   gtmId?: string;
+  /** Meta (Facebook) Pixel ID, digits only. Optional; enables ad conversion tracking. */
+  metaPixelId?: string;
   adsEnabled?: boolean;
   adsenseClient?: string;
 }

@@ -7,6 +7,7 @@ declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
   }
 }
 
@@ -16,8 +17,12 @@ declare global {
  * tour_enquiry | flight_enquiry | refusal_case | contact), consultation_request,
  * tour_inquiry, visa_inquiry.
  */
+// Meta Pixel standard events for the actions that matter to ads.
+const META_EVENT: Record<string, string> = { generate_lead: "Lead", whatsapp_click: "Contact", phone_click: "Contact" };
+
 export function trackEvent(name: string, params: EventParams = {}) {
   if (typeof window === "undefined") return;
+  if (window.fbq && META_EVENT[name]) window.fbq("track", META_EVENT[name]);
   const payload = { ...params, page_path: window.location.pathname };
   window.dataLayer?.push({ event: name, ...payload });
   if (!window.dataLayer && window.gtag) window.gtag("event", name, payload);

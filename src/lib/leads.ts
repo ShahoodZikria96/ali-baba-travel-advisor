@@ -11,7 +11,7 @@ const EVENT_BY_TYPE: Record<LeadType, string> = {
 };
 
 export function submitLead(type: LeadType, data: Record<string, unknown>) {
-  const source = typeof window !== "undefined" ? window.location.pathname : undefined;
+  const source = typeof window !== "undefined" ? window.location.pathname + window.location.search : undefined;
   const hp = (document.querySelector('input[name="hp_website"]') as HTMLInputElement | null)?.value ?? "";
   trackEvent("generate_lead", { lead_type: type });
   trackEvent(EVENT_BY_TYPE[type]);
