@@ -48,7 +48,10 @@ export function Analytics() {
         s.async = true;
         s.src = `https://www.googletagmanager.com/gtm.js?id=${gtmId}`;
         document.head.appendChild(s);
-      } else if (gaId && ID_PATTERN.test(gaId)) {
+      }
+      // GA4 direct and GTM are independent: use GA4 direct for plain tracking, and add GTM for extra tags.
+      // Do not also create a GA4 tag inside GTM for the same property, or every hit is counted twice.
+      if (gaId && ID_PATTERN.test(gaId)) {
         w.gtag = function () {
           // eslint-disable-next-line prefer-rest-params
           w.dataLayer!.push(arguments);

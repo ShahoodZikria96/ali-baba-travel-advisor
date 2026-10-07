@@ -24,6 +24,7 @@ export function trackEvent(name: string, params: EventParams = {}) {
   if (typeof window === "undefined") return;
   if (window.fbq && META_EVENT[name]) window.fbq("track", META_EVENT[name]);
   const payload = { ...params, page_path: window.location.pathname };
+  // Tag Manager reads plain {event} objects from the dataLayer; GA4 loaded directly needs a gtag event call.
   window.dataLayer?.push({ event: name, ...payload });
-  if (!window.dataLayer && window.gtag) window.gtag("event", name, payload);
+  if (window.gtag) window.gtag("event", name, payload);
 }
