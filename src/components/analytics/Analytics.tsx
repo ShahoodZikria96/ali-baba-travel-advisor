@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { loadRuntimeConfig } from "@/lib/site-config";
 import { ClickTracker } from "@/components/analytics/ClickTracker";
 
@@ -35,6 +36,19 @@ const ID_PATTERN = /^(GTM-[A-Z0-9]+|G-[A-Z0-9]+)$/;
  * the page is interactive. Does nothing when both IDs are empty.
  */
 export function Analytics() {
+  const pathname = usePathname();
+  const firstPath = useRef(true);
+
+  // The pixel records the first page load itself; this site navigates between pages without a full
+  // reload, so every later page change needs its own PageView or Meta only ever sees the landing page.
+  useEffect(() => {
+    if (firstPath.current) {
+      firstPath.current = false;
+      return;
+    }
+    (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq?.("track", "PageView");
+  }, [pathname]);
+
   useEffect(() => {
     let cancelled = false;
     loadRuntimeConfig().then(({ gtmId, gaId, metaPixelId }) => {

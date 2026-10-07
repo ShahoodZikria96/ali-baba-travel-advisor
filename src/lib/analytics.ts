@@ -22,7 +22,12 @@ const META_EVENT: Record<string, string> = { generate_lead: "Lead", whatsapp_cli
 
 export function trackEvent(name: string, params: EventParams = {}) {
   if (typeof window === "undefined") return;
-  if (window.fbq && META_EVENT[name]) window.fbq("track", META_EVENT[name]);
+  if (window.fbq && META_EVENT[name]) {
+    // content_name tells Meta which form (visa, tour, flight...) produced the lead.
+    const metaParams = name === "generate_lead" && params.lead_type ? { content_name: String(params.lead_type) } : name === "whatsapp_click" ? { content_name: "WhatsApp" } : name === "phone_click" ? { content_name: "Phone" } : undefined;
+    if (metaParams) window.fbq("track", META_EVENT[name], metaParams);
+    else window.fbq("track", META_EVENT[name]);
+  }
   const payload = { ...params, page_path: window.location.pathname };
   // Tag Manager reads plain {event} objects from the dataLayer; GA4 loaded directly needs a gtag event call.
   window.dataLayer?.push({ event: name, ...payload });
