@@ -27,6 +27,8 @@ export const metadata: Metadata = {
   // Google Search Console HTML-tag verification (set GOOGLE_SITE_VERIFICATION in the environment).
   verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
   formatDetection: { telephone: false },
+  // Meta Business domain verification (Business Settings > Brand safety > Domains).
+  other: { "facebook-domain-verification": "g0bwbvmpqa773qbzxbezuy4294h6u5" },
 };
 
 export const viewport = { width: "device-width", initialScale: 1, themeColor: "#9e1b26" };
