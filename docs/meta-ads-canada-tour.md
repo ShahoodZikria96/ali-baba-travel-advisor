@@ -10,7 +10,7 @@ A test with a total of Rs 500 for the whole week would not teach you anything.
 2. **Meta Ads Manager account** with a payment method added.
 3. Optional but strongly recommended: a **Meta Pixel**.
    - Events Manager > Connect data sources > Web > create a Pixel and copy its **Pixel ID** (digits only).
-   - Open `site-config.json` on the server (cPanel File Manager, `public_html/site-config.json`) and add the ID:
+   - Send the ID to the developer (or edit `public/site-config.json` in the project). Do **not** edit the file only on the server: every deploy replaces it with the project copy. The file looks like this:
      ```json
      {
        "gaId": "",
@@ -20,7 +20,7 @@ A test with a total of Rs 500 for the whole week would not teach you anything.
        "adsenseClient": ""
      }
      ```
-   - No rebuild is needed. The site then reports `PageView`, `Lead` (form submit) and `Contact` (WhatsApp or call click) to Meta.
+   - After the next deploy the site reports `PageView`, `Lead` (form submit) and `Contact` (WhatsApp or call click) to Meta.
 4. Landing page for the ad link: `https://alibabatraveladvisor.com/lp/canada-group-tour/`
 
 ## Which campaign type? Two options
