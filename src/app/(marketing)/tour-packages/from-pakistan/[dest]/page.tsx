@@ -15,7 +15,7 @@ import { bannerSrc } from "@/lib/images";
 import { siteLinks } from "@/lib/related";
 import { getPackageDestination, packageDestinations } from "@/data/packageDestinations";
 import type { PageFaq } from "@/data/pageFaqs";
-import { getSiteSettings, getTours, whatsappHref } from "@/lib/content";
+import { getGuides, getSiteSettings, getTours, whatsappHref } from "@/lib/content";
 
 export function generateStaticParams() {
   return packageDestinations.map((d) => ({ dest: d.slug }));
@@ -37,8 +37,11 @@ export default async function PackageDestinationPage({ params }: { params: Promi
   const { dest } = await params;
   const d = getPackageDestination(dest);
   if (!d) notFound();
-  const [settings, allTours] = await Promise.all([getSiteSettings(), getTours()]);
+  const [settings, allTours, allGuides] = await Promise.all([getSiteSettings(), getTours(), getGuides()]);
   const tour = d.tourSlug ? allTours.find((t) => t.slug === d.tourSlug) : undefined;
+  const guideLinks = (d.guides ?? [])
+    .map((slug) => allGuides.find((g) => g.slug === slug))
+    .filter((g): g is NonNullable<typeof g> => Boolean(g));
   const related = d.related.map((s) => getPackageDestination(s)).filter((x): x is NonNullable<typeof x> => Boolean(x));
 
   const faqs: PageFaq[] = [
@@ -133,6 +136,15 @@ export default async function PackageDestinationPage({ params }: { params: Promi
             ))}
           </ul>
 
+          {d.sections?.map((sec) => (
+            <div key={sec.heading}>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">{sec.heading}</h2>
+              {sec.paragraphs.map((para) => (
+                <p key={para} className="mt-3 text-sm leading-relaxed text-text-muted">{para}</p>
+              ))}
+            </div>
+          ))}
+
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Best Time to Visit</h2>
           <p className="mt-3 text-sm leading-relaxed text-text-muted">{d.bestTime}</p>
 
@@ -211,6 +223,13 @@ export default async function PackageDestinationPage({ params }: { params: Promi
       </Container>
 
       <FaqSection title={`${d.name} Tour Package FAQs`} faqs={faqs} />
+
+      {guideLinks.length > 0 && (
+        <RelatedLinks
+          title={`${d.name} Travel Guides`}
+          links={guideLinks.map((g) => ({ href: `/guides/${g.slug}`, label: g.title, description: g.excerpt }))}
+        />
+      )}
 
       {related.length > 0 && (
         <RelatedLinks

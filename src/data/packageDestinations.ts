@@ -24,9 +24,13 @@ export interface PackageDestination {
   tourSlug?: string;
   related: string[];
   faqs: PageFaq[];
+  /** Longer, destination-specific sections shown below the trip ideas. */
+  sections?: { heading: string; paragraphs: string[] }[];
+  /** Slugs of /guides articles worth linking from this page. */
+  guides?: string[];
 }
 
-export const packageDestinations: PackageDestination[] = [
+const baseDestinations: PackageDestination[] = [
   {
     slug: "europe",
     name: "Europe",
@@ -505,6 +509,71 @@ export const packageDestinations: PackageDestination[] = [
     ],
   },
 ];
+
+
+/** Longer content and guide links for the destinations people search for most. */
+const extras: Record<string, Pick<PackageDestination, "sections" | "guides">> = {
+  europe: {
+    guides: [
+      "europe-tour-packages-from-pakistan-planning-guide",
+      "easiest-legal-way-to-go-to-europe-from-pakistan",
+      "schengen-visa-from-pakistan-time-fees-documents",
+      "schengen-visa-refusal-reasons-pakistan",
+      "best-time-to-travel-from-pakistan-month-by-month",
+    ],
+    sections: [
+      {
+        heading: "Sample Europe Routes for Pakistani Travellers",
+        paragraphs: [
+          "Classic first trip, 9 to 11 days: Paris (3 nights), Switzerland (3 nights across Lucerne and Interlaken), Amsterdam (2 nights), with a train or short flight between each stop. It shows three very different countries without long overland days.",
+          "Italy and Switzerland, 8 to 10 days: Rome (3 nights), Florence (1 to 2 nights), Venice (1 night), then a train north to Lucerne or Interlaken (2 to 3 nights). Good for couples and for travellers who like history and scenery together.",
+          "Central Europe on a smaller budget, 8 to 10 days: Prague, Vienna and Budapest are all Schengen destinations and are close enough to travel by train in a few hours. They offer castles, old towns and lower hotel and food costs than Western Europe.",
+          "Spain, France and Italy, 10 to 12 days: Barcelona, Paris and Rome by flight, for travellers who want the big cities. Allow time for flights and airport transfers.",
+        ],
+      },
+      {
+        heading: "How to Compare Europe Tour Packages",
+        paragraphs: [
+          "Two quotes for the same route are not comparable unless they list the same things. Check the hotel star level and location, the number of nights in each city, whether breakfast is included, and how airport and city transfers are handled. Ask whether sightseeing tickets and city passes are included or extra, whether flights are included, and what happens to your payment if the visa is refused or your dates change.",
+          "A lower price that leaves out transfers, entry tickets or insurance can end up costing more. Ask for the inclusions in writing so you can compare line by line.",
+        ],
+      },
+      {
+        heading: "Visa Timeline for a Europe Package",
+        paragraphs: [
+          "Start about 6 to 8 weeks before travel. First decide the countries and the country where you will spend the most nights, then prepare the visa file: passport, bank statements, employment or business proof, itinerary, hotel bookings and travel insurance. Apply and wait for the decision. Only then confirm non-refundable flights and hotels. In summer, appointment slots fill up, so the earlier you start the better.",
+          "A good agent prepares the trip and the visa file together so that the dates, hotels and itinerary all match, which is one of the most common reasons applications are refused when they do not.",
+        ],
+      },
+    ],
+  },
+  switzerland: {
+    guides: ["switzerland-trip-from-pakistan-guide", "switzerland-honeymoon-from-pakistan", "europe-tour-packages-from-pakistan-planning-guide"],
+  },
+  france: {
+    guides: ["france-honeymoon-from-pakistan", "schengen-visa-from-pakistan-time-fees-documents"],
+  },
+  canada: {
+    guides: ["canada-group-tour-niagara-toronto-banff-ottawa", "canada-visitor-visa-from-pakistan"],
+  },
+  japan: {
+    guides: ["japan-visa-for-pakistanis-documents-process", "japan-or-south-korea-first-asia-trip-from-pakistan"],
+  },
+  "south-korea": {
+    guides: ["japan-or-south-korea-first-asia-trip-from-pakistan"],
+  },
+  thailand: {
+    guides: ["thailand-visa-for-pakistanis-how-to-apply", "best-time-to-travel-from-pakistan-month-by-month"],
+  },
+  "new-zealand": {
+    guides: ["new-zealand-visit-visa-for-pakistanis"],
+  },
+  uk: {
+    guides: ["uk-visit-visa-from-pakistan-easy-guide", "uk-visit-visa-refusal-reasons-pakistan"],
+  },
+};
+
+export const packageDestinations: PackageDestination[] = baseDestinations.map((d) => ({ ...d, ...(extras[d.slug] ?? {}) }));
 
 export function getPackageDestination(slug: string) {
   return packageDestinations.find((d) => d.slug === slug);
