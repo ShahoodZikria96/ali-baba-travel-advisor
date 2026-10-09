@@ -20,7 +20,7 @@ export const tours: TourPackage[] = [
     destination: "Thailand, Indonesia, Malaysia & Sri Lanka",
     image: "/destinations/malaysia.webp",
     duration: "10 Days",
-    departure: "Departure: November 2026 · Last date to book: 5 October 2026",
+    departure: "Departure: November 2026 · Last date to book: 31 October 2026",
     price: "PKR 560,000",
     visaAssistance: true,
     summary:
@@ -35,7 +35,7 @@ export const tours: TourPackage[] = [
     excluded: ["Lunch and dinner", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
     itinerary: [],
     notes: [
-      "Departure is in November 2026 and booking closes on 5 October 2026. Contact us to confirm seat availability and the exact departure date.",
+      "Departure is in November 2026 and booking closes on 31 October 2026. Contact us to confirm seat availability and the exact departure date.",
       "The price is per person.",
       "Visa decisions are made by each country's immigration authority; a group tour and its price do not guarantee visa approval, and a tour does not guarantee a future visa outcome elsewhere.",
     ],
@@ -155,3 +155,12 @@ export const extraTours: TourPackage[] = [
     ],
   },
 ];
+
+/**
+ * Booking-date correction for the Travel History group tour: the deadline was extended from
+ * 5 October to 31 October 2026. getTours applies it to the admin-panel copy too; once the admin
+ * entry says 31 October the replacement simply finds nothing to change.
+ */
+export const tourTextFixes: Record<string, [string, string][]> = {
+  "travel-history-group-tour": [["5 October 2026", "31 October 2026"]],
+};

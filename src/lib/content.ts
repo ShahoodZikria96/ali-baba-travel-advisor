@@ -4,7 +4,7 @@ import { popularDestinations, moreDestinations } from "@/data/countries";
 import { countryPages } from "@/data/countryPages";
 import { refusalPages } from "@/data/refusalPages";
 import { servicePages } from "@/data/servicePages";
-import { tours, extraTours } from "@/data/tours";
+import { tours, extraTours, tourTextFixes } from "@/data/tours";
 import { extraGuides } from "@/data/extraGuides";
 import { guides } from "@/data/guides";
 import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "@/data/placeholders";
@@ -232,7 +232,13 @@ async function tourList(): Promise<Tour[]> {
   const list = api && api.length ? api.map(fromApiTour) : tourFallback;
   // Code-defined tours join the list unless the admin panel already has one with the same slug.
   const extras = extraTours.filter((e) => !list.some((t) => t.slug === e.slug)).map((t) => ({ ...t, id: t.slug, updatedAt }));
-  return (tourListCache = [...list, ...extras]);
+  const fix = (text: string, slug: string) => (tourTextFixes[slug] ?? []).reduce((s, [from, to]) => s.split(from).join(to), text);
+  const fixed = [...list, ...extras].map((t) => ({
+    ...t,
+    departure: fix(t.departure, t.slug),
+    notes: (t.notes as string[]).map((x) => fix(x, t.slug)),
+  }));
+  return (tourListCache = fixed);
 }
 
 export async function getTours() { return tourList(); }
