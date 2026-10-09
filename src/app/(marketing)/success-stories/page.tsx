@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { ReviewsGrid } from "@/components/reviews/ReviewsGrid";
 import { WriteReviewCTA } from "@/components/home/WriteReviewCTA";
 import { getSuccessStories, getTestimonials } from "@/lib/content";
+import { siteConfig as business } from "@/data/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "Client Reviews & Case Examples",
@@ -29,6 +30,12 @@ export default async function SuccessStoriesPage() {
       />
 
       <Container className="py-14">
+        <div className="mb-8 flex flex-col items-start justify-between gap-3 rounded-[var(--radius-md)] border border-primary/30 bg-primary/5 p-5 sm:flex-row sm:items-center">
+          <p className="max-w-xl text-sm leading-relaxed text-charcoal">
+            <b>See real visa approvals.</b> We post client visa approvals on our Facebook page as they come in.
+          </p>
+          <Button href={business.socials.facebookPage} external variant="outline" size="sm">View on Facebook</Button>
+        </div>
         <p className="mb-5 max-w-2xl text-xs leading-relaxed text-text-muted">
           These are illustrative summaries of case types, not individual client testimonials, and they do not
           imply that any application will be approved.

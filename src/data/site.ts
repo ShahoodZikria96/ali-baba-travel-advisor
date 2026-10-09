@@ -22,6 +22,8 @@ export const siteConfig = {
   email: "info@alibabatraveladvisor.com",
   socials: {
     facebook: "https://www.facebook.com/share/19K6oKut5R/",
+    /** Public Facebook page where visa approvals are posted. */
+    facebookPage: "https://www.facebook.com/AliBabaTravelAdvisor",
     instagram: "https://www.instagram.com/alibabatraveladvisor/",
     youtube: "https://www.youtube.com/@AliBabaTravelAdvisor",
   },

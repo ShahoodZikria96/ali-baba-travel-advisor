@@ -9,7 +9,7 @@ import { extraGuides } from "@/data/extraGuides";
 import { guides } from "@/data/guides";
 import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from "@/data/placeholders";
 import { generalFaqs } from "@/data/faqs";
-import { team } from "@/data/team";
+import { team, extraTeam, teamRoleOverrides } from "@/data/team";
 import { siteConfig, publicSettings } from "@/data/site";
 import type {
   Country, Faq, Guide, Office, RefusalPage, ServicePage, SiteSettings, SuccessStory, TeamMember, Testimonial, Tour, Video,
@@ -328,7 +328,15 @@ let teamListCache: TeamMember[] | null = null;
 export async function getTeamMembers(): Promise<TeamMember[]> {
   if (teamListCache) return teamListCache;
   const api = await fetchResource<ApiTeamMember[]>("team_members");
-  return (teamListCache = api && api.length
+  const base: TeamMember[] = api && api.length
     ? api.map((m) => ({ id: `m${m.id}`, name: m.name, role: m.role, photo: m.photo, bio: m.bio }))
-    : teamFallback);
+    : teamFallback;
+  const withOverrides = base.map((m) => {
+    const o = teamRoleOverrides[m.name.trim().toLowerCase()];
+    return o ? { ...m, role: o.role, bio: o.bio ?? m.bio } : m;
+  });
+  const extras: TeamMember[] = extraTeam
+    .filter((e) => !withOverrides.some((m) => m.name.trim().toLowerCase() === e.name.trim().toLowerCase()))
+    .map((e, i) => ({ id: `x${i}`, ...e }));
+  return (teamListCache = [...withOverrides, ...extras]);
 }

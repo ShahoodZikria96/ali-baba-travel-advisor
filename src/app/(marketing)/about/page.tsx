@@ -7,6 +7,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getOffices, getSiteSettings } from "@/lib/content";
+import { siteConfig as business } from "@/data/site";
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us",
@@ -21,6 +22,14 @@ const differentiators = [
   "International travel expertise alongside visa consultancy",
   "Transparent process with no guaranteed-outcome claims",
   "An active YouTube channel with 58,500+ subscribers sharing visa guidance",
+];
+
+const credentials = [
+  "Company established in 2024",
+  "Founder and CEO Syed Ali Jawad has worked in this field since 2016",
+  "Registered with the SECP (Securities and Exchange Commission of Pakistan)",
+  "Associated with IATA (International Air Transport Association)",
+  "Holds a DTS licence",
 ];
 
 export default async function AboutPage() {
@@ -40,8 +49,10 @@ export default async function AboutPage() {
           <div>
             <h2 className="font-heading text-xl font-bold text-charcoal">Our Story</h2>
             <p className="mt-4 text-sm leading-relaxed text-text-muted">
-              Ali Baba Travel Advisor started as a Lahore-based travel agency and has grown into a visa
-              consultancy and travel advisory serving clients across Punjab and, from September 2026, Karachi.
+              Ali Baba Travel Advisor was established in 2024 by Syed Ali Jawad, our founder and CEO, who has
+              worked in this field since 2016. It started as a Lahore-based travel agency and has grown into a visa
+              consultancy and travel advisory serving clients across Pakistan, with offices in Lahore, Islamabad,
+              Wazirabad and, from September 2026, Karachi.
               We work with families planning a first international trip, business owners traveling for work,
               students heading abroad to study, and applicants who have faced a previous visa refusal and need a
               clearer path forward.
@@ -50,6 +61,15 @@ export default async function AboutPage() {
               Alongside visa consultancy, we plan group and customized tours, book flights and hotels, and share
               visa guidance publicly through our YouTube channel, which has grown to over 58,500 subscribers.
             </p>
+
+            <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Registration and Credentials</h2>
+            <ul className="mt-4 space-y-2.5 text-sm leading-relaxed text-text-muted">
+              {credentials.map((c) => (
+                <li key={c} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" /> {c}
+                </li>
+              ))}
+            </ul>
 
             <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Mission</h2>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
@@ -85,6 +105,7 @@ export default async function AboutPage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="/team" variant="outline">Meet Our Team</Button>
+              <Button href={business.socials.facebookPage} external variant="outline">See Visa Approvals on Facebook</Button>
               <Button href={`https://wa.me/${siteConfig.whatsappNumber}`} external variant="whatsapp">
                 Chat on WhatsApp
               </Button>

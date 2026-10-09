@@ -32,6 +32,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
         name: siteConfig.name,
         legalName: siteConfig.legalName,
         alternateName: ["AliBaba Travel Advisor", "Alibaba Travel Advisor"],
+        foundingDate: "2024",
         founder: { "@type": "Person", "@id": `${SITE_URL}/#founder`, name: "Syed Ali Jawad", jobTitle: "Founder and CEO", worksFor: { "@id": orgId } },
         url: SITE_URL,
         logo: absoluteUrl("/brand/logo.webp"),
@@ -47,7 +48,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
           areaServed: "PK",
           availableLanguage: ["English", "Urdu"],
         })),
-        sameAs: [settings.facebookUrl, settings.instagramUrl, settings.youtubeUrl, siteConfig.googleBusinessProfileUrl],
+        sameAs: [settings.facebookUrl, siteConfig.socials.facebookPage, settings.instagramUrl, settings.youtubeUrl, siteConfig.googleBusinessProfileUrl],
         areaServed: { "@type": "Country", name: "Pakistan" },
         knowsAbout: ["Visit visas", "Business visas", "Visa refusal case review", "Tour packages", "Airline tickets", "Hotel booking"],
         hasOfferCatalog: {
