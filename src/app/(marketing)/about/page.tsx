@@ -6,6 +6,8 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { FaqSection } from "@/components/ui/FaqSection";
+import type { PageFaq } from "@/data/pageFaqs";
 import { getOffices, getSiteSettings } from "@/lib/content";
 import { GoogleReviewsBadge } from "@/components/reviews/GoogleReviewsBadge";
 import { siteConfig as business } from "@/data/site";
@@ -31,6 +33,41 @@ const credentials = [
   "Registered with the SECP (Securities and Exchange Commission of Pakistan)",
   "Associated with IATA (International Air Transport Association)",
   "Holds a DTS licence",
+];
+
+const aboutFaqs: PageFaq[] = [
+  {
+    question: "What is Ali Baba Travel Advisor?",
+    answer: "Ali Baba Travel Advisor is a visa consultancy and travel agency in Pakistan. It helps individuals, families and businesses with visa applications, visa refusal case review, group tours, tour packages, flights and hotel booking.",
+  },
+  {
+    question: "Where are the Ali Baba Travel Advisor offices?",
+    answer: "There are offices in Lahore (Gulberg II), Islamabad (G-11 Markaz), Wazirabad and Karachi (DHA Phase 2 Extension). Clients in other cities are served by phone, WhatsApp and online. See the locations page for exact addresses and hours.",
+  },
+  {
+    question: "Is Ali Baba Travel Advisor a registered company?",
+    answer: "Yes. The company was established in 2024, is registered with the SECP, is associated with IATA and holds a DTS licence.",
+  },
+  {
+    question: "Who founded Ali Baba Travel Advisor?",
+    answer: "Syed Ali Jawad is the founder and CEO. He has worked in this field since 2016 and established the company in 2024.",
+  },
+  {
+    question: "Does Ali Baba Travel Advisor guarantee a visa?",
+    answer: "No. Only the embassy or immigration authority decides, and no consultant can guarantee approval. The company prepares and reviews your application and guides you through the process.",
+  },
+  {
+    question: "Which services does Ali Baba Travel Advisor offer?",
+    answer: "Visit, business, family and study visa consultancy, visa refusal case review, visa appointment and file-submission support, group tours and tour packages, flight tickets and hotel booking.",
+  },
+  {
+    question: "How can I contact Ali Baba Travel Advisor?",
+    answer: "Call or WhatsApp +92 311 1666076, email info@alibabatraveladvisor.com, or visit one of the offices Monday to Saturday between 10:00 AM and 6:00 PM.",
+  },
+  {
+    question: "Where can I see client reviews and visa approvals?",
+    answer: "Client reviews are on the Google profile, and visa approvals are posted on the Facebook page. Daily updates are shared on the WhatsApp Channel.",
+  },
 ];
 
 export default async function AboutPage() {
@@ -116,6 +153,7 @@ export default async function AboutPage() {
           </div>
         </div>
       </Container>
+      <FaqSection title="About Ali Baba Travel Advisor: FAQs" faqs={aboutFaqs} />
       <RelatedLinks title="Learn More About Our Services" links={siteLinks(["consultancy", "visas", "tours", "stories", "guides", "urdu"])} />
     </>
   );
