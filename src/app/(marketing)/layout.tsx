@@ -31,6 +31,8 @@ export default async function MarketingLayout({ children }: { children: ReactNod
         "@id": orgId,
         name: siteConfig.name,
         legalName: siteConfig.legalName,
+        alternateName: ["AliBaba Travel Advisor", "Alibaba Travel Advisor"],
+        founder: { "@type": "Person", "@id": `${SITE_URL}/#founder`, name: "Syed Ali Jawad", jobTitle: "Founder and CEO", worksFor: { "@id": orgId } },
         url: SITE_URL,
         logo: absoluteUrl("/brand/logo.webp"),
         image: absoluteUrl("/brand/logo.webp"),
