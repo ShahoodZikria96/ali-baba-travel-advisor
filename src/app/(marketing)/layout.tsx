@@ -48,7 +48,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
           areaServed: "PK",
           availableLanguage: ["English", "Urdu"],
         })),
-        sameAs: [settings.facebookUrl, siteConfig.socials.facebookPage, settings.instagramUrl, settings.youtubeUrl, siteConfig.googleBusinessProfileUrl],
+        sameAs: [settings.facebookUrl, siteConfig.socials.facebookPage, siteConfig.socials.whatsappChannel, settings.instagramUrl, settings.youtubeUrl, siteConfig.googleBusinessProfileUrl],
         areaServed: { "@type": "Country", name: "Pakistan" },
         knowsAbout: ["Visit visas", "Business visas", "Visa refusal case review", "Tour packages", "Airline tickets", "Hotel booking"],
         hasOfferCatalog: {

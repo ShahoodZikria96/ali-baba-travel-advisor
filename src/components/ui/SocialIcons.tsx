@@ -27,3 +27,12 @@ export function YouTubeIcon(props: IconProps) {
     </svg>
   );
 }
+
+export function WhatsAppIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M3.5 20.5l1.3-4.6A8.5 8.5 0 1 1 8.2 19.3L3.5 20.5z" />
+      <path d="M9 8.8c.2 2.6 2.6 5.2 5.9 6.1.8.2 1.6-.4 1.7-1.2l-1.8-.9-.9.7c-1.2-.5-2.2-1.6-2.7-2.7l.8-.9L11 8" />
+    </svg>
+  );
+}

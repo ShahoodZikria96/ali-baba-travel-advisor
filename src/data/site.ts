@@ -24,6 +24,8 @@ export const siteConfig = {
     facebook: "https://www.facebook.com/share/19K6oKut5R/",
     /** Public Facebook page where visa approvals are posted. */
     facebookPage: "https://www.facebook.com/AliBabaTravelAdvisor",
+    /** WhatsApp Channel for daily visa and tour updates. */
+    whatsappChannel: "https://whatsapp.com/channel/0029VaIIM5L8V0tk3fb18q2t",
     instagram: "https://www.instagram.com/alibabatraveladvisor/",
     youtube: "https://www.youtube.com/@AliBabaTravelAdvisor",
   },

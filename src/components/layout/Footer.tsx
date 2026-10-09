@@ -2,11 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { siteConfig as business } from "@/data/site";
 import { getOffices, getServicePages, getSiteSettings, telHref } from "@/lib/content";
 import {
   FacebookIcon,
   InstagramIcon,
   YouTubeIcon,
+  WhatsAppIcon,
 } from "@/components/ui/SocialIcons";
 
 const popularCountriesColumn = {
@@ -97,6 +99,7 @@ export async function Footer() {
               { icon: FacebookIcon, label: "Facebook", href: siteConfig.facebookUrl },
               { icon: InstagramIcon, label: "Instagram", href: siteConfig.instagramUrl },
               { icon: YouTubeIcon, label: "YouTube", href: siteConfig.youtubeUrl },
+              { icon: WhatsAppIcon, label: "WhatsApp Channel", href: business.socials.whatsappChannel },
             ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
