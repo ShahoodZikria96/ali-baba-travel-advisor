@@ -7,6 +7,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ReviewsGrid } from "@/components/reviews/ReviewsGrid";
+import { GoogleReviewsBadge } from "@/components/reviews/GoogleReviewsBadge";
 import { WriteReviewCTA } from "@/components/home/WriteReviewCTA";
 import { getSuccessStories, getTestimonials } from "@/lib/content";
 import { siteConfig as business } from "@/data/site";
@@ -54,6 +55,7 @@ export default async function SuccessStoriesPage() {
         </div>
 
         <h2 className="mt-16 font-heading text-xl font-bold text-charcoal">What Our Clients Say</h2>
+        <div className="mt-4"><GoogleReviewsBadge /></div>
         <ReviewsGrid initial={sampleReviews} />
         <WriteReviewCTA />
 

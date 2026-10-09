@@ -33,6 +33,8 @@ export const siteConfig = {
   // Set as soon as the Google Business Profile is verified — it feeds `sameAs` and the "Leave a review" link.
   googleBusinessProfileUrl:
     "https://www.google.com/maps/place/Ali+Baba+Travel+Advisor/@31.5314837,74.3526375,17z/data=!3m1!4b1!4m6!3m5!1s0x39190545cf1e5eab:0x7b86c4a6068a7238!8m2!3d31.5314837!4d74.3526375!16s%2Fg%2F11vwmyf0pr",
+  /** Google reviews badge. Keep `count` (and `rating`, a string like "4.9", once confirmed) in step with the Google profile. */
+  googleReviews: { url: "https://share.google/jMBlwaingAvMIZZEj", count: "200+", rating: null as string | null },
   // Lahore head-office coordinates (from the Google Maps listing).
   geo: { latitude: 31.5314837, longitude: 74.3526375 },
   openingHours: { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], opens: "10:00", closes: "18:00" },

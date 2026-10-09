@@ -4,6 +4,7 @@ import { CheckCircle2, MapPin, MessageCircle, Phone, ShieldCheck, Star, Users } 
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
+import { siteConfig as business } from "@/data/site";
 import { getSiteSettings, telHref, whatsappHref } from "@/lib/content";
 
 // Ad landing page: kept out of search results (ads send the traffic here), so it never competes with /tour-packages/canada-group-tour.
@@ -84,7 +85,7 @@ export default async function CanadaLandingPage() {
           </div>
 
           <ul className="mt-7 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
-            <li className="flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3"><Star size={18} className="shrink-0 text-primary" /> 200+ Google reviews</li>
+            <li className="rounded-[var(--radius-md)] border border-border bg-surface"><a href={business.googleReviews.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-3"><Star size={18} className="shrink-0 text-primary" /> {business.googleReviews.count} Google reviews</a></li>
             <li className="flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3"><Users size={18} className="shrink-0 text-primary" /> {settings.happyCustomersStat} happy customers</li>
             <li className="flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3"><ShieldCheck size={18} className="shrink-0 text-primary" /> Offices in 4 cities</li>
           </ul>

@@ -7,6 +7,7 @@ import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { getOffices, getSiteSettings } from "@/lib/content";
+import { GoogleReviewsBadge } from "@/components/reviews/GoogleReviewsBadge";
 import { siteConfig as business } from "@/data/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -93,6 +94,8 @@ export default async function AboutPage() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-6"><GoogleReviewsBadge /></div>
 
             <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Our Offices</h2>
             <ul className="mt-4 space-y-3 text-sm text-text-muted">
