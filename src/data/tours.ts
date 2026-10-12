@@ -12,6 +12,8 @@ export interface TourPackage {
   excluded: string[];
   itinerary: { day: string; description: string }[];
   notes: string[];
+  /** Documents the visa application needs (shown on the tour page when present). */
+  documents?: string[];
 }
 
 export const tours: TourPackage[] = [
@@ -135,23 +137,41 @@ export const extraTours: TourPackage[] = [
     destination: "Canada",
     image: "/destinations/canada.webp",
     duration: "Duration: ask us for the full itinerary",
-    departure: "Departure: March 2027, travelling with CEO Syed Ali Jawad and Usman Molvi",
-    price: "Call for price",
+    departure: "Departure: March 2027 · Last date to book: 31 October 2026",
+    price: "PKR 885,000",
     visaAssistance: true,
     summary:
-      "A guided Canada group tour departing in March 2027, travelling with our CEO Syed Ali Jawad and Usman Molvi. The tour covers Niagara Falls, Toronto, Banff and Ottawa, and includes visa support, 4-star hotels, daily activities, return flight tickets and breakfast.",
+      "A guided Canada group tour departing in March 2027, travelling with our CEO Syed Ali Jawad and Usman Molvi. The tour covers Niagara Falls, Toronto, Banff and Ottawa. The total price is PKR 885,000, with a booking amount of PKR 120,000 per person (embassy fee included). Return tickets, hotel bookings, daily tours and visa assistance are included.",
     highlights: [
       "Niagara Falls, Toronto, Banff and Ottawa on one group itinerary",
       "Travel with CEO Syed Ali Jawad and Usman Molvi",
-      "Canada visa support included",
-      "4-star hotels and daily activities",
+      "Total price PKR 885,000; booking amount PKR 120,000 per person (embassy fee included)",
+      "Booking closes on 31 October 2026; departure March 2027",
     ],
-    included: ["Visa support", "4-star hotels", "Daily activities", "Return flight tickets", "Breakfast"],
+    included: ["Return tickets", "Hotel bookings (4-star hotels)", "Daily tours and activities", "Visa assistance", "Breakfast"],
     excluded: ["Lunch and dinner (unless specified)", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
     itinerary: [],
     notes: [
-      "Departure is in March 2027. Seats are limited, so contact us for the exact dates, the full day-by-day itinerary and the current package price.",
-      "Visa decisions are made by the Canadian immigration authority; support from us and a group tour do not guarantee visa approval.",
+      "Booking can be done online or by visiting our office.",
+      "The booking amount is PKR 120,000 per person, and the embassy fee is included in it.",
+      "Departure dates are confirmed and will not be changed under any circumstances.",
+      "The visa is issued by the embassy, and the embassy reserves the right to approve or refuse any application.",
+      "The booking amount (PKR 120,000) is charged upfront and is non-refundable in case of a change of mind or a visa refusal.",
+      "Booking must be completed before 31 October 2026. Travel date: March 2027.",
+    ],
+    documents: [
+      "Valid passport with at least 8 months of validity",
+      "All previous passports, visas and entry and exit stamps",
+      "CNIC",
+      "FRC",
+      "MRC (for married persons)",
+      "NTN",
+      "Last year's tax returns",
+      "Chamber of Commerce certificate (if available)",
+      "Last 4 months of bank statements (minimum balance PKR 2,000,000)",
+      "Account maintenance letter",
+      "Job letter and last 4 salary slips (for salaried persons)",
+      "Parents' dates of birth",
     ],
   },
 ];

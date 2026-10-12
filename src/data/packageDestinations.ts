@@ -64,7 +64,7 @@ const baseDestinations: PackageDestination[] = [
     tourSlug: "canada-group-tour",
     related: ["usa", "uk", "new-zealand", "australia"],
     faqs: [
-      { question: "Is there a Canada group tour from Pakistan?", answer: "Yes. Our Canada group tour departs in March 2027 and covers Niagara Falls, Toronto, Banff and Ottawa, with visa support, 4-star hotels, daily activities, return flights and breakfast included. Contact us for dates and the current price." },
+      { question: "Is there a Canada group tour from Pakistan?", answer: "Yes. Our Canada group tour departs in March 2027 and covers Niagara Falls, Toronto, Banff and Ottawa, with return tickets, hotel bookings, daily tours, visa assistance and breakfast included. The total price is PKR 885,000, the booking amount is PKR 120,000 per person, and booking closes on 31 October 2026." },
       { question: "Can I travel to Canada with family?", answer: "Yes. Each family member needs their own visitor visa application, and we prepare the files together so the documents are consistent." },
     ],
   },

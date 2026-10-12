@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const included = ["Canada visa support", "4-star hotels", "Daily activities", "Return flight tickets", "Daily breakfast"];
+const included = ["Return tickets", "Hotel bookings (4-star)", "Daily tours and activities", "Visa assistance", "Daily breakfast"];
 const places = ["Niagara Falls", "Toronto", "Banff", "Ottawa"];
 
 const faqs = [
-  { q: "When does the tour leave?", a: "March 2027. Seats are limited, so message us for the exact date and the current price." },
-  { q: "Is the visa included?", a: "Visa support is included: we prepare your file and guide you through it. The visa decision is made by the Canadian immigration authority and is never guaranteed." },
+  { q: "When does the tour leave?", a: "March 2027. Booking closes on 31 October 2026 and the departure dates are confirmed." },
+  { q: "What is the price?", a: "The total price is PKR 885,000. The booking amount is PKR 120,000 per person (embassy fee included), paid upfront and non-refundable in case of a change of mind or a visa refusal." },
+  { q: "Is the visa included?", a: "Visa assistance is included: we prepare your file and guide you through it. The visa is issued by the embassy, which can approve or refuse any application, so approval is never guaranteed." },
   { q: "Who travels with the group?", a: "Our CEO Syed Ali Jawad and Usman Molvi travel with the group." },
-  { q: "How do I get the price?", a: "Fill in the form or message us on WhatsApp. We reply with the price, payment plan and what to prepare." },
 ];
 
 export default async function CanadaLandingPage() {
@@ -58,6 +58,23 @@ export default async function CanadaLandingPage() {
           <p className="mt-3 text-[1.02rem] leading-relaxed text-text-muted">
             Niagara Falls, Toronto, Banff and Ottawa on one guided trip, travelling with our CEO <b className="text-charcoal">Syed Ali Jawad</b> and Usman Molvi.
           </p>
+
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            <div className="rounded-[var(--radius-md)] border border-border bg-surface p-3.5">
+              <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Total price</p>
+              <p className="font-heading text-xl font-extrabold text-primary">PKR 885,000</p>
+            </div>
+            <div className="rounded-[var(--radius-md)] border border-border bg-surface p-3.5">
+              <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Booking amount</p>
+              <p className="font-heading text-xl font-extrabold text-charcoal">PKR 120,000</p>
+              <p className="text-xs text-text-muted">per person, embassy fee included</p>
+            </div>
+            <div className="rounded-[var(--radius-md)] border border-border bg-surface p-3.5">
+              <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Book before</p>
+              <p className="font-heading text-xl font-extrabold text-charcoal">31 Oct 2026</p>
+              <p className="text-xs text-text-muted">Travel: March 2027</p>
+            </div>
+          </div>
 
           <ul className="mt-5 flex flex-wrap gap-2">
             {places.map((p) => (
@@ -102,8 +119,8 @@ export default async function CanadaLandingPage() {
         </div>
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-sm lg:sticky lg:top-20">
-          <h2 className="font-heading text-xl font-bold text-charcoal">Get the price and seat availability</h2>
-          <p className="mt-1 text-sm text-text-muted">Fill in the form; we reply the same day on WhatsApp.</p>
+          <h2 className="font-heading text-xl font-bold text-charcoal">Reserve your seat</h2>
+          <p className="mt-1 text-sm text-text-muted">Fill in the form; we reply the same day on WhatsApp. Booking closes on 31 October 2026.</p>
           <div className="mt-5">
             <TourEnquiryForm defaultDestination="Canada Group Tour (March 2027)" whatsappNumber={settings.whatsappNumber} />
           </div>

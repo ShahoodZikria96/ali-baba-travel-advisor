@@ -176,7 +176,7 @@ export const extraGuides: Guide[] = [
       "## Ottawa",
       "Canada's capital has Parliament Hill, the Rideau Canal and the national museums, and it feels smaller and calmer than Toronto. It is a good place to finish the trip.",
       "## What the tour includes",
-      "The tour includes visa support, 4-star hotels, daily activities, return flight tickets and breakfast. Contact us for the exact dates, the itinerary and the current price, because seats are limited.",
+      "The tour includes return tickets, hotel bookings, daily tours, visa assistance and breakfast. The total price is PKR 885,000, with a booking amount of PKR 120,000 per person (embassy fee included). Booking must be completed before 31 October 2026, and travel is in March 2027. The booking amount is non-refundable in case of a change of mind or a visa refusal. Message us for the full terms and the document list.",
       "## Visa",
       "Pakistani passport holders need a Canadian visitor visa and biometrics. The application should show a clear trip plan, funds and strong ties to Pakistan. Our team prepares the file with you; the decision rests with the Canadian immigration authority and is never guaranteed. Read our Canada visa requirements page for the document checklist.",
     ],

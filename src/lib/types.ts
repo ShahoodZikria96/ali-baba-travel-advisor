@@ -25,7 +25,7 @@ export interface ServicePage {
 export interface Tour {
   id: string; slug: string; destination: string; image: string; duration: string; departure: string; price: string;
   visaAssistance: boolean; summary: string; highlights: string[]; included: string[]; excluded: string[];
-  itinerary: { day: string; description: string }[]; notes: string[]; updatedAt: Date;
+  itinerary: { day: string; description: string }[]; notes: string[]; documents?: string[]; updatedAt: Date;
 }
 export interface Guide {
   id: string; slug: string; title: string; image: string; category: string; publishedDate: Date; readingTime: string;

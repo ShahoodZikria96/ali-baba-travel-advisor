@@ -47,7 +47,7 @@ Objective: **Leads** or **Traffic** to the landing page above, with the Pixel in
 Use the poster `public/tours/canada-group-tour.webp` (1080 x 1080) for all three, and change only the text. This tells you which message works.
 
 **Ad 1: The offer**
-- Primary text: `Canada Group Tour, March 2027. Niagara Falls, Toronto, Banff and Ottawa with visa support, 4-star hotels, return flights and breakfast. Travel with our CEO Syed Ali Jawad. Seats are limited: message us for the price.`
+- Primary text: `Canada Group Tour, March 2027. Niagara Falls, Toronto, Banff and Ottawa with visa support, 4-star hotels, return flights and breakfast. Travel with our CEO Syed Ali Jawad. Total price PKR 885,000, booking amount PKR 120,000 per person. Book before 31 October 2026.`
 - Headline: `Canada Group Tour, March 2027`
 - Button: `Send WhatsApp message`
 
@@ -68,7 +68,7 @@ Use the poster `public/tours/canada-group-tour.webp` (1080 x 1080) for all three
 
 - Never write "visa guaranteed" or "100 percent visa". Only the embassy decides.
 - Do not use the Canadian flag or logos in a way that suggests you are the Canadian government.
-- Keep the price in WhatsApp until you have confirmed it. Do not show a price that is not final.
+- The price is confirmed: total PKR 885,000, booking amount PKR 120,000 per person (embassy fee included), booking closes 31 October 2026. State the non-refundable booking amount clearly if you mention it.
 
 ## Daily routine for the 7 days
 

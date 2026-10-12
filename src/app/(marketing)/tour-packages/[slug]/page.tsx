@@ -163,7 +163,18 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             </>
           )}
 
-          <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Important Notes</h2>
+          {tour.documents && tour.documents.length > 0 && (
+            <>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Documents Required for the Visa</h2>
+              <ol className="mt-4 list-decimal space-y-1.5 pl-5 text-sm leading-relaxed text-text-muted">
+                {tour.documents.map((doc) => (
+                  <li key={doc}>{doc}</li>
+                ))}
+              </ol>
+            </>
+          )}
+
+          <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Terms &amp; Important Notes</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-text-muted">
             {notes.map((n) => (
               <li key={n} className="flex items-start gap-2">
