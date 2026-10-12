@@ -106,6 +106,16 @@ export default async function PackageDestinationPage({ params }: { params: Promi
             </span>
           </div>
 
+          {d.region === "Europe" && d.slug !== "europe" && (
+            <p className="mt-6 text-sm leading-relaxed text-text-muted">
+              Want to see more than one country on the same trip? Read our{" "}
+              <Link href="/tour-packages/from-pakistan/europe" className="font-semibold text-primary hover:text-primary-dark">
+                Europe tour packages from Pakistan
+              </Link>{" "}
+              page for multi-country routes and one Schengen visa.
+            </p>
+          )}
+
           {tour && (
             <div className="mt-6 rounded-[var(--radius-md)] border border-primary/30 bg-primary/5 p-5">
               <p className="font-heading text-base font-bold text-charcoal">Group tour available</p>
