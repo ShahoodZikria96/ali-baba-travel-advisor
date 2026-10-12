@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) return {};
-  return pageMetadata({ title: fitTitle([`${tour.destination} Group Tour from Pakistan`, `${tour.destination} Tour from Pakistan`, `${tour.destination} Group Tour`]), description: `${tour.summary} Visa assistance included. Book with Ali Baba Travel Advisor.`, path: `/tour-packages/${slug}`, image: tour.image });
+  return pageMetadata({ title: fitTitle([`${tour.destination} Group Tour from Pakistan`, `${tour.destination} Tour from Pakistan`, `${tour.destination} Group Tour`]), description: `${tour.summary} Visa assistance included. Book with Ali Baba Travel Advisor.`, path: `/tour-packages/${slug}`, image: tourPosters[slug]?.[0] ?? tour.image });
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -34,7 +34,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
   if (!tour) notFound();
   const tourCountries = countriesForTour(tour, allCountries);
 
-  const poster = tourPosters[slug];
+  const posters = tourPosters[slug] ?? [];
   const otherTours = allTours.filter((t) => t.slug !== slug);
   const highlights = tour.highlights as string[];
   const included = tour.included as string[];
@@ -156,10 +156,22 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
               </ol>
             </>
           )}
-          {poster && (
+          {posters.length > 0 && (
             <>
-              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Tour Poster</h2>
-              <Image src={poster} alt={`${tour.destination} group tour poster with package details`} width={1080} height={1080} sizes="(max-width: 1024px) 100vw, 560px" className="mt-4 h-auto w-full max-w-md rounded-[var(--radius-md)] border border-border" />
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Tour Poster{posters.length > 1 ? "s" : ""}</h2>
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {posters.map((src, i) => (
+                  <Image
+                    key={src}
+                    src={src}
+                    alt={i === 0 ? `${tour.destination} group tour poster with package details` : `${tour.destination} group tour terms and conditions and documents required`}
+                    width={1080}
+                    height={1080}
+                    sizes="(max-width: 640px) 100vw, 360px"
+                    className="h-auto w-full rounded-[var(--radius-md)] border border-border"
+                  />
+                ))}
+              </div>
             </>
           )}
 

@@ -1,7 +1,8 @@
 /** Optional promotional posters shown on tour detail pages, keyed by tour slug. */
-export const tourPosters: Record<string, string> = {
-  "travel-history-group-tour": "/tours/travel-history-group-tour.webp",
-  "canada-group-tour": "/tours/canada-group-tour.webp",
+export const tourPosters: Record<string, string[]> = {
+  "travel-history-group-tour": ["/tours/travel-history-group-tour.webp"],
+  // Poster with the group leaders, then the terms and documents poster.
+  "canada-group-tour": ["/tours/canada-group-tour-march-2027.webp", "/tours/canada-group-tour-terms-2027.webp"],
 };
 
 /** Prices marked "(package price)" are not shown as per-person. */

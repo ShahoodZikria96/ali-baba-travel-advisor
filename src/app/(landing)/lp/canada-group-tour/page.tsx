@@ -107,15 +107,25 @@ export default async function CanadaLandingPage() {
             <li className="flex items-center gap-2 rounded-[var(--radius-md)] border border-border bg-surface p-3"><ShieldCheck size={18} className="shrink-0 text-primary" /> Offices in 4 cities</li>
           </ul>
 
-          <Image
-            src="/tours/canada-group-tour.webp"
-            alt="Canada group tour poster: Niagara Falls, Toronto, Banff, Ottawa"
-            width={1080}
-            height={1080}
-            priority
-            sizes="(max-width: 1024px) 100vw, 520px"
-            className="mt-8 h-auto w-full max-w-md rounded-[var(--radius-lg)] border border-border"
-          />
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Image
+              src="/tours/canada-group-tour-march-2027.webp"
+              alt="Canada group tour poster: travel with Ali Jawad and Molvi Usman, March 2027"
+              width={1080}
+              height={1080}
+              priority
+              sizes="(max-width: 640px) 100vw, 260px"
+              className="h-auto w-full rounded-[var(--radius-lg)] border border-border"
+            />
+            <Image
+              src="/tours/canada-group-tour-terms-2027.webp"
+              alt="Canada group tour terms and conditions and documents required to apply for the visa"
+              width={1080}
+              height={1080}
+              sizes="(max-width: 640px) 100vw, 260px"
+              className="h-auto w-full rounded-[var(--radius-lg)] border border-border"
+            />
+          </div>
         </div>
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-sm lg:sticky lg:top-20">
