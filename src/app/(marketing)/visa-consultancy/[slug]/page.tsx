@@ -10,7 +10,7 @@ import { VisaAssessmentForm } from "@/components/forms/VisaAssessmentForm";
 import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
-import { getServicePages, getServicePage, getSiteSettings, getCountries } from "@/lib/content";
+import { getServicePages, getServicePage, getSiteSettings, getCountries, getGuides } from "@/lib/content";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { siteLinks } from "@/lib/related";
 
@@ -33,13 +33,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return pageMetadata({ title: service.title, description: serviceDescription(service), path: `/visa-consultancy/${slug}` });
 }
 
+const BUSINESS_GUIDES = [
+  "business-visa-guide-for-pakistani-travellers",
+  "business-visa-vs-visit-visa-which-do-you-need",
+  "business-visa-invitation-letter-what-to-include",
+  "schengen-business-visa-from-pakistan-documents",
+  "uk-business-visit-from-pakistan-standard-visitor-visa",
+  "usa-b1-business-visa-from-pakistan-interview-documents",
+  "canada-business-visitor-visa-from-pakistan",
+];
+
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const [service, settings, allServices, allCountries] = await Promise.all([
+  const [service, settings, allServices, allCountries, allGuides] = await Promise.all([
     getServicePage(slug),
     getSiteSettings(),
     getServicePages(),
     getCountries(),
+    getGuides(),
   ]);
   if (!service) notFound();
   const otherServices = allServices.filter((s) => s.slug !== slug);
@@ -133,6 +144,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           )}
         </div>
       </Container>
+      {slug === "business-visa" && (
+        <RelatedLinks
+          title="Business Visa Guides"
+          links={BUSINESS_GUIDES.map((g) => allGuides.find((x) => x.slug === g)).filter((g): g is NonNullable<typeof g> => Boolean(g)).map((g) => ({ href: `/guides/${g.slug}`, label: g.title, description: g.excerpt }))}
+        />
+      )}
       <RelatedLinks
         title="Visa Requirements by Destination"
         links={[
