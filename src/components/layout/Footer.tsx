@@ -66,6 +66,7 @@ export async function Footer() {
       heading: "Visa Services",
       links: [
         ...services.map((s) => ({ label: s.title, href: `/visa-consultancy/${s.slug}` })),
+        { label: "Trade Fairs & Delegations", href: "/visa-consultancy/trade-fairs-and-delegations" },
         { label: "Visa Refusal Assistance", href: "/visa-refusal" },
       ],
     },

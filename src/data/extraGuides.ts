@@ -617,4 +617,81 @@ export const extraGuides: Guide[] = [
       "Ali Baba Travel Advisor prepares Canada visitor and business visitor applications and also runs a Canada group tour for travellers who want a guided trip. IRCC makes every decision, and approval is never guaranteed."
     ]
   },
+  {
+    "publishedDate": "2026-10-15",
+    "category": "Visa Guides",
+    "image": "/destinations/airliner.webp",
+    "slug": "trade-fair-visa-from-pakistan-exhibition-visit",
+    "title": "Trade Fair Visa from Pakistan: Visiting Exhibitions Abroad",
+    "readingTime": "6 min read",
+    "excerpt": "How Pakistani business owners get a visa for a trade fair or exhibition abroad: visitor or exhibitor, the documents, timing and common mistakes.",
+    "content": [
+      "Trade fairs are one of the best ways to meet suppliers and buyers, and also one of the most date-sensitive trips to plan. The fair will not move if your visa is late, so the visa timeline decides whether you can go. This guide explains how it works for Pakistani business travellers. Rules differ by country, so confirm with the official source of the country you are visiting.",
+      "## Visitor or exhibitor?",
+      "Most business travellers go as trade visitors: they walk the fair, meet suppliers, place orders and make contacts. Exhibitors rent a stand, show their products and often hire staff or ship goods. The visa category can differ, and an exhibitor usually needs more documents, such as the stand contract. Be clear in your application about which one you are.",
+      "## Start with the fair's own documents",
+      "Register for the fair and keep the confirmation. For many fairs the organiser can issue an invitation or a registration letter that names you, your company and the event dates. Large fairs publish visa information for foreign visitors on their websites. An organiser's letter helps, but it is not a visa and the embassy still decides.",
+      "## Documents commonly prepared",
+      "A valid passport. The fair registration or invitation. A cover letter explaining why you are attending and what you plan to do. Your company registration, NTN and tax documents, and company bank statements that show real activity. Personal bank statements. Your itinerary with flights and hotel bookings. Travel insurance where required. Evidence of ties to Pakistan, such as your business, property and family.",
+      "## Timing matters",
+      "For a Schengen fair, applications are generally accepted up to six months before travel and decisions normally take up to 15 calendar days after an admissible application, with appointment waiting time on top. Hotels near big fairs fill up and cost more, so plan the visa first, then book refundable rooms. Do not buy non-refundable flights before the decision.",
+      "## What you can and cannot do",
+      "Visiting a fair, meeting suppliers, negotiating and placing orders is normally fine. Working at a stand for a foreign company, selling directly to the public, or being paid for work abroad usually needs a different permission. Do not mix these up in your application.",
+      "## Common mistakes",
+      "Applying too late, using an invitation that cannot be verified, company accounts that do not show activity, and itineraries that do not match the fair dates. A refusal can be hard to fix before the fair, so prepare carefully.",
+      "Ali Baba Travel Advisor arranges trade fair and conference trips and prepares the visa files for the travellers. Visa decisions are made only by the embassy or immigration authority and are never guaranteed."
+    ]
+  },
+  {
+    "publishedDate": "2026-10-15",
+    "category": "Visa Guides",
+    "image": "/destinations/airliner.webp",
+    "slug": "business-delegation-visa-group-application-from-pakistan",
+    "title": "Business Delegation Visa: Group Applications from Pakistan",
+    "readingTime": "6 min read",
+    "excerpt": "How a business delegation from Pakistan applies for visas together: what is shared, what each member prepares and how to avoid delays.",
+    "content": [
+      "A business delegation might be a group of exporters visiting a market, members of a chamber or association meeting a foreign counterpart, or a company team attending an exhibition. Travelling together has real advantages, but the visa process still treats each person as an individual. Here is how to prepare a delegation properly.",
+      "## Every member is assessed individually",
+      "Even when you travel as a group, each member has their own application, and the embassy decides each file on its own. A strong group letter helps, but one weak file does not become strong because the others are. This is why each member needs a complete set of their own documents.",
+      "## What the group shares",
+      "The purpose of the trip and the programme of meetings or events. The invitation from the host organisation, chamber or event organiser, which should list the delegation or at least name the participants. The group itinerary with dates, cities and hotels. The same arrival and departure plan, unless a member has a good reason to differ.",
+      "## What each member prepares",
+      "A valid passport and photographs. A personal cover letter. Their own company documents (registration, NTN, tax records, company bank statements) or an employer letter if salaried. Personal bank statements. Proof of ties to Pakistan. Their role in the delegation and the company they represent.",
+      "## Choose a coordinator",
+      "One person should coordinate the delegation, collect documents, check them for consistency and handle the appointments. Without a coordinator, small differences in dates or names between files cause delays and questions.",
+      "## Book appointments early",
+      "Appointment slots for a whole group can be scarce, and consulates may need several slots. Start at least two to three months before travel and, for a fixed event, work backwards from its date. Where the system allows it, ask whether group submissions are accepted.",
+      "## Keep the details identical",
+      "Company names, traveller names, dates, hotels and event names should be written the same way everywhere. Small inconsistencies are one of the most common reasons for questions.",
+      "## Do not add people with weak files",
+      "Be honest about who is genuinely part of the business delegation. Adding people whose role is unclear can harm the credibility of the group.",
+      "Ali Baba Travel Advisor handles business delegations: we prepare the group letters, check each member's documents, book flights and hotels and coordinate the applications. The embassy decides each visa, and approval is never guaranteed."
+    ]
+  },
+  {
+    "publishedDate": "2026-10-15",
+    "category": "Visa Guides",
+    "image": "/destinations/airliner.webp",
+    "slug": "conference-visa-from-pakistan-attendee-or-speaker",
+    "title": "Conference Visa from Pakistan: Attendee or Speaker",
+    "readingTime": "5 min read",
+    "excerpt": "The documents Pakistani professionals prepare to attend or speak at a conference abroad, and how the visa differs for attendees and speakers.",
+    "content": [
+      "Attending a conference abroad is usually covered by a business or visitor visa, but the documents depend on whether you attend or speak, and on whether you are paid. This guide explains the common cases. Always check the rules of the country you are visiting.",
+      "## Attending as a delegate",
+      "Delegates pay a registration fee and attend sessions. You normally need the conference registration confirmation, your own proof of employment or business, bank statements, an itinerary with hotel and flights, and travel insurance where required. The registration confirmation shows the dates and purpose.",
+      "## Speaking at a conference",
+      "A speaker should have an invitation from the organiser that names the talk, the dates and what the organiser covers, such as registration, accommodation or travel. If you are only reimbursed for costs, say so. If you are paid a fee, check carefully, because payment for work can change the permission you need.",
+      "## Employer or company letter",
+      "A letter from your employer or your own company should confirm your position, the purpose of the trip, the dates and that you will return to your role.",
+      "## Funds and ties",
+      "Show that you can pay for the trip yourself or that the organiser or employer does, and that you have strong reasons to return to Pakistan: a job, a business, a family. Consistent bank statements matter more than a large balance.",
+      "## Timing",
+      "Conference dates are fixed, so start early. For Schengen countries applications are generally accepted up to six months before travel and decisions normally take up to 15 calendar days after an admissible application, plus the appointment wait.",
+      "## Common mistakes",
+      "Applying with only a registration receipt and no itinerary, unclear payment arrangements for speakers, and dates that do not match the programme.",
+      "Ali Baba Travel Advisor arranges conference trips and prepares the visa files. Visa decisions are made only by the embassy or immigration authority and are never guaranteed."
+    ]
+  },
 ];
