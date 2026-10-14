@@ -48,7 +48,7 @@ export const siteConfig = {
 export const publicSettings = {
   happyCustomersStat: "7,500+",
   youtubeSubscribers: "58,500+",
-  announcement: { text: "Now open in Karachi — visit our DHA Phase 2 Extension office.", href: "/locations/karachi", active: true },
+  announcement: { text: "", href: "/", active: false },
   /** Shown as "last reviewed" on country pages and in the sitemap. Update when content is re-checked. */
   contentReviewed: "2026-09-30",
 };

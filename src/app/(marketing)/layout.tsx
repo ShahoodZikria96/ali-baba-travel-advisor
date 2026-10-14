@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { CanadaTourPopup } from "@/components/layout/CanadaTourPopup";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
@@ -93,7 +94,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
         <style>{".reveal,.reveal-item{opacity:1!important;transform:none!important}"}</style>
       </noscript>
       <JsonLd data={structuredData} />
-      {settings.announcementActive && (
+      {settings.announcementActive && !/now open in karachi/i.test(settings.announcementText) && (
         <AnnouncementBar text={settings.announcementText} href={settings.announcementHref} />
       )}
       <Header phone={settings.phone} whatsappNumber={settings.whatsappNumber} nav={nav} />
@@ -102,6 +103,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       <Footer />
       <StickyMobileCTA phone={settings.phone} whatsappNumber={settings.whatsappNumber} />
       <FloatingWhatsApp whatsappNumber={settings.whatsappNumber} />
+      <CanadaTourPopup whatsappNumber={settings.whatsappNumber} />
     </>
   );
 }
