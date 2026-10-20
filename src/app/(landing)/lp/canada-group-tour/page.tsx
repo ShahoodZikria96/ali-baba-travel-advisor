@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle2, MapPin, MessageCircle, Phone, ShieldCheck, Star, Users } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { DaysLeft } from "@/components/ui/DaysLeft";
 import { Button } from "@/components/ui/Button";
 import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { siteConfig as business } from "@/data/site";
@@ -50,7 +51,7 @@ export default async function CanadaLandingPage() {
       <Container className="grid grid-cols-1 gap-10 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:py-12">
         <div>
           <p className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-primary">
-            Bookings open · March 2027
+            Bookings open · March 2027 · <DaysLeft until="2026-10-31" />
           </p>
           <h1 className="mt-4 font-heading text-[1.9rem] font-extrabold leading-tight text-charcoal sm:text-4xl">
             Canada Group Tour from Pakistan

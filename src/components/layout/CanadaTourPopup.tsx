@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessageCircle, X } from "lucide-react";
 import { whatsappHref } from "@/lib/whatsapp";
+import { DaysLeft } from "@/components/ui/DaysLeft";
 import { trackEvent } from "@/lib/analytics";
 
 // The offer stops being shown when booking closes (31 October 2026, end of day in Pakistan, UTC+5).
@@ -109,7 +110,9 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
         />
 
         <div className="p-5">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">Featured group tour</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
+            Featured group tour <DaysLeft until="2026-10-31" className="ml-1 rounded-full bg-primary px-2 py-0.5 normal-case tracking-normal text-white" />
+          </p>
           <h2 id="canada-popup-title" className="mt-1 font-heading text-xl font-extrabold text-charcoal">
             Canada Group Tour, March 2027
           </h2>
