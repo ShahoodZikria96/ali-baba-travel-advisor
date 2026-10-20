@@ -3,6 +3,7 @@ import { MessageCircle, ShieldCheck, Building2, Users, PhoneCall, PlaneTakeoff }
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { TiltCard } from "@/components/ui/TiltCard";
+import { QuickCallbackForm } from "@/components/forms/QuickCallbackForm";
 import { getSiteSettings, whatsappHref } from "@/lib/content";
 
 const trustPoints = [
@@ -54,7 +55,9 @@ export async function Hero() {
             </Button>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border pt-6 sm:grid-cols-4">
+          <QuickCallbackForm whatsappNumber={settings.whatsappNumber} />
+
+          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-border pt-6 sm:grid-cols-4">
             {trustPoints.map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-2.5">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-tint text-primary">

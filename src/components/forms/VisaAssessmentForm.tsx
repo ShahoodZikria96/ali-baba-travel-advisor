@@ -14,11 +14,11 @@ import { submitLead } from "@/lib/leads";
 const schema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
   phone: z.string().min(9, "Enter a valid phone / WhatsApp number"),
-  city: z.string().min(2, "Enter your city"),
+  city: z.string().optional(),
   country: z.string().min(1, "Select a country"),
-  visaType: z.string().min(1, "Select a visa type"),
+  visaType: z.string().optional(),
   previousRefusal: z.enum(["yes", "no"]),
-  office: z.string().min(1, "Select a preferred office"),
+  office: z.string().optional(),
   message: z.string().optional(),
 });
 
@@ -46,11 +46,11 @@ export function VisaAssessmentForm({
       "Hi Ali Baba Travel Advisor, I'd like a visa assessment.",
       `Name: ${data.fullName}`,
       `Phone: ${data.phone}`,
-      `City: ${data.city}`,
+      data.city ? `City: ${data.city}` : "",
       `Country: ${data.country}`,
-      `Visa Type: ${data.visaType}`,
+      data.visaType ? `Visa Type: ${data.visaType}` : "",
       `Previous Refusal: ${data.previousRefusal}`,
-      `Preferred Office: ${data.office}`,
+      data.office ? `Preferred Office: ${data.office}` : "",
       data.message ? `Message: ${data.message}` : "",
     ]
       .filter(Boolean)
@@ -80,7 +80,7 @@ export function VisaAssessmentForm({
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <FieldWrapper label="City" htmlFor="city" error={errors.city?.message}>
+        <FieldWrapper label="City (optional)" htmlFor="city" error={errors.city?.message}>
           <TextInput id="city" placeholder="e.g. Lahore" error={!!errors.city} {...register("city")} />
         </FieldWrapper>
         <FieldWrapper label="Country Interested In" htmlFor="country" error={errors.country?.message}>
@@ -96,7 +96,7 @@ export function VisaAssessmentForm({
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <FieldWrapper label="Visa Type" htmlFor="visaType" error={errors.visaType?.message}>
+        <FieldWrapper label="Visa Type (optional)" htmlFor="visaType" error={errors.visaType?.message}>
           <SelectInput id="visaType" error={!!errors.visaType} {...register("visaType")}>
             <option value="">Select visa type</option>
             <option value="Visit Visa">Visit Visa</option>
@@ -105,7 +105,7 @@ export function VisaAssessmentForm({
             <option value="Study Visa">Study Visa</option>
           </SelectInput>
         </FieldWrapper>
-        <FieldWrapper label="Preferred Office" htmlFor="office" error={errors.office?.message}>
+        <FieldWrapper label="Preferred Office (optional)" htmlFor="office" error={errors.office?.message}>
           <SelectInput id="office" error={!!errors.office} {...register("office")}>
             <option value="">Select office</option>
             {offices.map((o) => (

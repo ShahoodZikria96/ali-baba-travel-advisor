@@ -13,9 +13,9 @@ const schema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
   phone: z.string().min(9, "Enter a valid phone number"),
   destination: z.string().min(2, "Enter your destination"),
-  travelers: z.string().min(1, "Enter number of travelers"),
-  travelMonth: z.string().min(2, "Enter preferred travel month"),
-  departureCity: z.string().min(2, "Enter your departure city"),
+  travelers: z.string().optional(),
+  travelMonth: z.string().optional(),
+  departureCity: z.string().optional(),
   message: z.string().optional(),
 });
 
@@ -43,9 +43,9 @@ export function TourEnquiryForm({
       `Hi, I would like details about a tour to ${data.destination}.`,
       `Name: ${data.fullName}`,
       `Phone: ${data.phone}`,
-      `Travelers: ${data.travelers}`,
-      `Preferred Month: ${data.travelMonth}`,
-      `Departure City: ${data.departureCity}`,
+      data.travelers ? `Travelers: ${data.travelers}` : "",
+      data.travelMonth ? `Preferred Month: ${data.travelMonth}` : "",
+      data.departureCity ? `Departure City: ${data.departureCity}` : "",
       data.message ? `Message: ${data.message}` : "",
     ]
       .filter(Boolean)
@@ -77,15 +77,15 @@ export function TourEnquiryForm({
         <FieldWrapper label="Destination" htmlFor="tf-destination" error={errors.destination?.message}>
           <TextInput id="tf-destination" error={!!errors.destination} {...register("destination")} />
         </FieldWrapper>
-        <FieldWrapper label="Number of Travelers" htmlFor="tf-travelers" error={errors.travelers?.message}>
+        <FieldWrapper label="Number of Travelers (optional)" htmlFor="tf-travelers" error={errors.travelers?.message}>
           <TextInput id="tf-travelers" type="number" min={1} error={!!errors.travelers} {...register("travelers")} />
         </FieldWrapper>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <FieldWrapper label="Preferred Travel Month" htmlFor="tf-month" error={errors.travelMonth?.message}>
+        <FieldWrapper label="Preferred Travel Month (optional)" htmlFor="tf-month" error={errors.travelMonth?.message}>
           <TextInput id="tf-month" placeholder="e.g. December 2026" error={!!errors.travelMonth} {...register("travelMonth")} />
         </FieldWrapper>
-        <FieldWrapper label="Departure City" htmlFor="tf-city" error={errors.departureCity?.message}>
+        <FieldWrapper label="Departure City (optional)" htmlFor="tf-city" error={errors.departureCity?.message}>
           <TextInput id="tf-city" placeholder="e.g. Lahore" error={!!errors.departureCity} {...register("departureCity")} />
         </FieldWrapper>
       </div>
