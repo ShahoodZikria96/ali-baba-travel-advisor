@@ -6,7 +6,7 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, orgId, fitTitle } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { FAQAccordion } from "@/components/ui/FAQAccordion";
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const office = await getOffice(slug);
   if (!office) return {};
   return pageMetadata({
-    title: `Visa Consultant in ${office.city}`,
+    title: fitTitle([`Travel Agency & Visa Consultant in ${office.city}`, `Travel Agency in ${office.city}`, `Visa Consultant in ${office.city}`]),
     description: `Ali Baba Travel Advisor's ${office.city} office — visa consultancy, tour packages and flight booking. ${office.address}.`,
     path: `/locations/${slug}`,
   });

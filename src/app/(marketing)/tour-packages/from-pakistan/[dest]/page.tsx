@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ dest: str
   const d = getPackageDestination(dest);
   if (!d) return {};
   return pageMetadata({
-    title: fitTitle([`${d.name} Tour Packages from Pakistan`, `${d.name} Tour Packages`, `${d.name} Packages`]),
+    title: fitTitle([`${d.name} Tour Packages from Pakistan 2026`, `${d.name} Tour Packages from Pakistan`, `${d.name} Tour Packages`, `${d.name} Packages`]),
     description: `${d.name} tour packages from Pakistan with flights, hotels and visa assistance. Visit ${d.places.slice(0, 3).join(", ")} and more. Free quote from Ali Baba Travel Advisor.`,
     path: `/tour-packages/from-pakistan/${d.slug}`,
     image: d.image,

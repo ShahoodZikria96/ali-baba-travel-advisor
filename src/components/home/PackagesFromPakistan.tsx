@@ -39,7 +39,7 @@ export function PackagesFromPakistan() {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
-                <p className="p-3.5 font-heading text-sm font-bold text-charcoal group-hover:text-primary sm:text-base">{d.name} Packages</p>
+                <p className="p-3.5 font-heading text-sm font-bold text-charcoal group-hover:text-primary sm:text-base">{d.slug === "europe" ? "Europe Tour Packages from Pakistan" : `${d.name} Packages`}</p>
               </Link>
             </li>
           ))}

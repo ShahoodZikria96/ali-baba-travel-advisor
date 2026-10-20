@@ -94,7 +94,7 @@ export function buildPrimaryNav(
     links: [
       ["europe", "Europe"], ["turkey", "Turkey"], ["canada", "Canada"],
       ["switzerland", "Switzerland"], ["thailand", "Thailand"], ["japan", "Japan"],
-    ].map(([slug, label]) => ({ label: `${label} Packages`, href: `/tour-packages/from-pakistan/${slug}` })),
+    ].map(([slug, label]) => ({ label: slug === "europe" ? "Europe Tour Packages from Pakistan" : `${label} Packages`, href: `/tour-packages/from-pakistan/${slug}` })),
   });
   if (tours.length > 0) {
     tourColumns.push({
