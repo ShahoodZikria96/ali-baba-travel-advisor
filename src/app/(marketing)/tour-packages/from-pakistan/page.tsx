@@ -13,7 +13,7 @@ import { packageDestinations, type PackageDestination } from "@/data/packageDest
 import type { PageFaq } from "@/data/pageFaqs";
 
 export const metadata: Metadata = pageMetadata({
-  title: "International Tour Packages from Pakistan",
+  title: "Tour Packages from Pakistan by Destination",
   description: "Tour packages from Pakistan to Europe, Canada, Turkey, Japan and 20+ more destinations, with flights, hotels and visa assistance. Free quote.",
   path: "/tour-packages/from-pakistan",
 });

@@ -59,7 +59,10 @@ export default function VisaProcessPage() {
           <p className="mt-8 text-xs leading-relaxed text-text-muted">
             Visa decisions are made solely by the relevant authority. Read our <Link href="/visa-disclaimer" className="text-primary underline">visa disclaimer</Link>. Browse{" "}
             <Link href="/visas" className="text-primary underline">country requirements</Link> or{" "}
-            <Link href="/visa-refusal" className="text-primary underline">refusal case review</Link>.
+            <Link href="/visa-refusal" className="text-primary underline">refusal case review</Link>. Preparing documents? Read our guides on{" "}
+            <Link href="/guides/bank-statement-for-visa-application-guide" className="text-primary underline">bank statements</Link>,{" "}
+            <Link href="/guides/flight-and-hotel-bookings-for-visa-applications" className="text-primary underline">flight and hotel bookings</Link> and{" "}
+            <Link href="/guides/schengen-visa-requirements-from-pakistan" className="text-primary underline">Schengen requirements</Link>.
           </p>
         </div>
       </Container>

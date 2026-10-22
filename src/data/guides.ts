@@ -69,7 +69,7 @@ export const guides: Guide[] = [
   },
   {
     slug: "how-to-build-travel-history-for-visa-applications",
-    title: "Travel History and Visa Applications: What It Does and Doesn't Do",
+    title: "Travel History and Visa Applications: Does It Help?",
     image: "/destinations/malaysia.webp",
     category: "Travel Guides",
     publishedDate: "2026-09-29",
