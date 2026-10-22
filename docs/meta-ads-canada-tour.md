@@ -1,5 +1,7 @@
 # Meta (Facebook / Instagram) Ads: Canada Group Tour, First Test
 
+**Timing: the Canada tour closes for booking on 31 October 2026. Start today and keep the ads running until the deadline. Do not wait for a full 7-day test; use the daily routine below as a guide.**
+
 Budget for the test: **Rs 500 to 600 per day for 7 days** (about Rs 3,500 to 4,200 in total).
 That is enough to learn which poster and message work. It is not enough to promise a number of leads.
 A test with a total of Rs 500 for the whole week would not teach you anything.
@@ -8,19 +10,7 @@ A test with a total of Rs 500 for the whole week would not teach you anything.
 
 1. **Facebook Page** for Ali Baba Travel Advisor (you already have it). The ad runs from the Page.
 2. **Meta Ads Manager account** with a payment method added.
-3. Optional but strongly recommended: a **Meta Pixel**.
-   - Events Manager > Connect data sources > Web > create a Pixel and copy its **Pixel ID** (digits only).
-   - Send the ID to the developer (or edit `public/site-config.json` in the project). Do **not** edit the file only on the server: every deploy replaces it with the project copy. The file looks like this:
-     ```json
-     {
-       "gaId": "",
-       "gtmId": "",
-       "metaPixelId": "123456789012345",
-       "adsEnabled": false,
-       "adsenseClient": ""
-     }
-     ```
-   - After the next deploy the site reports `PageView`, `Lead` (form submit) and `Contact` (WhatsApp or call click) to Meta.
+3. **Meta Pixel: already installed** on the website (Pixel ID 2908357806201246), together with Google Analytics 4. The site reports `PageView`, `Lead` (form submit) and `Contact` (WhatsApp or call click). Nothing more to do here.
 4. Landing page for the ad link: `https://alibabatraveladvisor.com/lp/canada-group-tour/`
 
 ## Which campaign type? Two options
