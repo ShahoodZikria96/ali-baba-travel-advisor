@@ -269,7 +269,12 @@ async function guideList(): Promise<Guide[]> {
   const extras: Guide[] = extraGuides
     .filter((e) => !base.some((g) => g.slug === e.slug))
     .map((g) => ({ ...g, id: g.slug, publishedDate: new Date(g.publishedDate), updatedAt: new Date(g.updatedDate ?? g.publishedDate) }));
-  return (guideListCache = [...base, ...extras].sort((a, b) => +b.publishedDate - +a.publishedDate));
+  // Titles corrected in code win over the admin-panel copy of the same guide (keeps them under 60 characters).
+  const titleFixes: Record<string, string> = {
+    "how-to-build-travel-history-for-visa-applications": "Travel History and Visa Applications: Does It Help?",
+  };
+  const merged = [...base, ...extras].map((g) => (titleFixes[g.slug] ? { ...g, title: titleFixes[g.slug] } : g));
+  return (guideListCache = merged.sort((a, b) => +b.publishedDate - +a.publishedDate));
 }
 
 export async function getGuides() { return guideList(); }
