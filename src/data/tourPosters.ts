@@ -2,6 +2,7 @@
 export const tourPosters: Record<string, string[]> = {
   "travel-history-group-tour": ["/tours/travel-history-group-tour.webp"],
   // Poster with the group leaders, then the terms and documents poster.
+  "usa-group-tour": ["/tours/usa-group-tour-march-april-2027.webp"],
   "canada-group-tour": ["/tours/canada-group-tour-march-2027.webp", "/tours/canada-group-tour-terms-2027.webp"],
 };
 
