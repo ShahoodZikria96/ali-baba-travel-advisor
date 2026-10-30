@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ShieldAlert } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
@@ -95,6 +96,16 @@ export default async function RefusalCountryPage({ params }: { params: Promise<{
           <div className="mt-4">
             <FAQAccordion items={faqs} />
           </div>
+
+          {slug === "schengen" && (
+            <p className="mt-8 text-sm leading-relaxed text-text-muted">
+              Refused for a business trip to Belgium? See our{" "}
+              <Link href="/visa-consultancy/belgium-business-visa" className="font-semibold text-primary hover:text-primary-dark">
+                Belgium business visa
+              </Link>{" "}
+              page.
+            </p>
+          )}
 
           <p className="mt-8 text-xs leading-relaxed text-text-muted">
             Visa decisions are made solely by the relevant embassy, consulate or immigration authority. Ali Baba

@@ -9,6 +9,7 @@ import { TourEnquiryForm } from "@/components/forms/TourEnquiryForm";
 import { TourCard } from "@/components/tours/TourCard";
 import { pageMetadata, absoluteUrl, orgId, fitTitle } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { FaqSection } from "@/components/ui/FaqSection";
 import { tourPosters, priceSuffix } from "@/data/tourPosters";
 import Link from "next/link";
 import { bannerSrc } from "@/lib/images";
@@ -25,7 +26,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const tour = await getTour(slug);
   if (!tour) return {};
-  return pageMetadata({ title: fitTitle([`${tour.destination} Group Tour from Pakistan`, `${tour.destination} Tour from Pakistan`, `${tour.destination} Group Tour`]), description: `${tour.summary} Visa assistance included. Book with Ali Baba Travel Advisor.`, path: `/tour-packages/${slug}`, image: tourPosters[slug]?.[0] ?? tour.image });
+  return pageMetadata({
+    title: tour.metaTitle ?? fitTitle([`${tour.destination} Group Tour from Pakistan`, `${tour.destination} Tour from Pakistan`, `${tour.destination} Group Tour`]),
+    description: tour.metaDescription ?? `${tour.summary}${tour.visaAssistance ? " Visa assistance included. Book with Ali Baba Travel Advisor." : ""}`,
+    path: `/tour-packages/${slug}`,
+    image: tourPosters[slug]?.[0] ?? tour.image,
+  });
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -90,7 +96,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
         <div className="absolute inset-0 bg-charcoal/55" />
         <div className="relative text-center">
           <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/70">Group Tour</p>
-          <h1 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">{tour.destination}</h1>
+          <h1 className="mt-2 font-heading text-3xl font-extrabold text-white sm:text-4xl">{tour.heading ?? tour.destination}</h1>
         </div>
       </section>
 
@@ -120,6 +126,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             ))}
           </ul>
 
+          {(included.length > 0 || excluded.length > 0) && (
           <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2">
             <div>
               <h2 className="font-heading text-lg font-bold text-charcoal">What&rsquo;s Included</h2>
@@ -142,6 +149,25 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
               </ul>
             </div>
           </div>
+          )}
+
+          {tour.sections?.map((sec) => (
+            <section key={sec.heading}>
+              <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">{sec.heading}</h2>
+              {sec.paragraphs?.map((p) => (
+                <p key={p} className="mt-3 text-sm leading-relaxed text-text-muted">{p}</p>
+              ))}
+              {sec.bullets && (
+                <ul className="mt-3 space-y-2 text-sm leading-relaxed text-text-muted">
+                  {sec.bullets.map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <CheckCircle2 size={15} className="mt-0.5 shrink-0 text-success" /> {b}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          ))}
 
           {itinerary.length > 0 && (
             <>
@@ -199,7 +225,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
             <>
               <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Visa Requirements for This Trip</h2>
               <p className="mt-3 text-sm leading-relaxed text-text-muted">
-                Visa assistance is included, but it helps to know what each destination asks for. Read the document
+                {tour.visaAssistance ? "Visa assistance is included, but it helps" : "It helps"} to know what each destination asks for. Read the document
                 checklist for every country on this itinerary:
               </p>
               <ul className="mt-3 space-y-1.5 text-sm">
@@ -239,6 +265,8 @@ export default async function TourDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
       </Container>
+
+      {tour.faqs && tour.faqs.length > 0 && <FaqSection title={`${tour.destination} Group Tour: FAQs`} faqs={tour.faqs} />}
 
       {otherTours.length > 0 && (
         <Container className="border-t border-border py-14">

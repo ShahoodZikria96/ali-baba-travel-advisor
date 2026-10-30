@@ -111,7 +111,7 @@ export function buildPrimaryNav(
       columns: [
         {
           heading: "Visa Categories",
-          links: [...categoryLinks, { label: "Trade Fairs & Delegations", href: "/visa-consultancy/trade-fairs-and-delegations" }, { label: "Our Visa Process", href: "/visa-process" }],
+          links: [...categoryLinks, { label: "Trade Fairs & Delegations", href: "/visa-consultancy/trade-fairs-and-delegations" }, { label: "Belgium Business Visa", href: "/visa-consultancy/belgium-business-visa" }, { label: "Our Visa Process", href: "/visa-process" }],
         },
         ...(supportLinks.length > 0 ? [{ heading: "Application Support", links: supportLinks }] : []),
         {

@@ -15,6 +15,7 @@ const staticRoutes: { path: string; priority: number; changeFrequency: Entry["ch
   { path: "/visas", priority: 0.9, changeFrequency: "monthly" },
   { path: "/visa-refusal", priority: 0.8, changeFrequency: "monthly" },
   { path: "/visa-consultancy/trade-fairs-and-delegations", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/visa-consultancy/belgium-business-visa", priority: 0.8, changeFrequency: "monthly" },
   { path: "/tour-packages", priority: 0.8, changeFrequency: "weekly" },
   { path: "/tour-packages/group-tours", priority: 0.6, changeFrequency: "weekly" },
   { path: "/tour-packages/customized", priority: 0.6, changeFrequency: "monthly" },

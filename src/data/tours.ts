@@ -14,6 +14,13 @@ export interface TourPackage {
   notes: string[];
   /** Documents the visa application needs (shown on the tour page when present). */
   documents?: string[];
+  /** Optional long-form sections, FAQs and SEO overrides. */
+  sections?: { heading: string; paragraphs?: string[]; bullets?: string[] }[];
+  faqs?: { question: string; answer: string }[];
+  metaTitle?: string;
+  metaDescription?: string;
+  /** Page H1 when the destination name alone is too short for SEO. */
+  heading?: string;
 }
 
 export const tours: TourPackage[] = [
@@ -132,6 +139,80 @@ export function getTour(slug: string) {
  * wins, so once Canada is added or edited there this entry simply steps aside.
  */
 export const extraTours: TourPackage[] = [
+  {
+    slug: "usa-group-tour",
+    destination: "USA",
+    image: "/destinations/usa.webp",
+    duration: "Duration: ask us for the full itinerary",
+    departure: "Departure: March to April 2027",
+    price: "Call for price",
+    visaAssistance: false,
+    heading: "USA Group Tour, March to April 2027",
+    metaTitle: "USA Group Tour from Pakistan, March 2027",
+    metaDescription:
+      "Guided USA group tour from Pakistan, March to April 2027. Limited seats. Call 0311-1666076 for the route, price, booking terms and US visa guidance.",
+    summary:
+      "A guided USA group tour from Pakistan planned for March to April 2027. Seats are limited. Call or WhatsApp 0311-1666076 for the route, the price and the booking terms.",
+    highlights: [
+      "Guided USA group tour, March to April 2027",
+      "Limited seats: check availability before you plan",
+      "US visa guidance from our consultants (the visa is decided only by the US authorities)",
+      "Route, price and booking terms confirmed in writing before you pay",
+    ],
+    included: [],
+    excluded: [],
+    itinerary: [],
+    notes: [
+      "The route, hotels, flights, price and what the package includes are shared when you enquire, and confirmed in writing before you pay.",
+      "A valid US visa is required to join. The visa is issued only by the US embassy or consulate, which can approve or refuse any application, so approval is never guaranteed.",
+      "US visa interview waiting times change by city and season. Start your visa file early and ask us when tickets will be issued.",
+      "Cancellations and refunds follow our Refund & Cancellation Policy and the booking terms we give you in writing.",
+    ],
+    sections: [
+      {
+        heading: "About this USA group tour",
+        paragraphs: [
+          "We are taking a group of travellers from Pakistan to the USA in March to April 2027. A group departure means flights, hotels and the programme are arranged together, and you travel with the same group. Group seats are limited and are given in order of booking, so the first step is to check that a seat is available.",
+          "We do not publish a price on this page. Call or WhatsApp 0311-1666076 and we will share the route, the current price, the booking amount and what is included, and we put it in writing before you pay anything.",
+        ],
+      },
+      {
+        heading: "The US visa: what to know before you book",
+        paragraphs: [
+          "Pakistani passport holders need a visa to visit the USA. Most tourists apply for the B1/B2 visitor visa: you complete the online DS-160 form, pay the visa fee, book an appointment and attend an interview at a US embassy or consulate. The officer looks at your purpose of travel, your finances and your ties to Pakistan, such as a job, a business or family.",
+          "Appointment waiting times and visa fees are set by the US authorities and change, so check them on the official US visa website before you plan. For a March to April 2027 trip, starting your visa file early gives you the most time.",
+        ],
+      },
+      {
+        heading: "How we help with your US visa file",
+        bullets: [
+          "A personal assessment of your profile and a document checklist",
+          "Help completing the DS-160 form accurately and consistently with your documents",
+          "A review of your financial, employment or business documents before you submit",
+          "Guidance on booking your appointment and preparing for the interview",
+          "A review of any earlier US or other visa refusal, so you know what to fix first",
+        ],
+      },
+      {
+        heading: "Documents to start gathering now",
+        bullets: [
+          "Passport that is valid for your travel, plus all old passports",
+          "CNIC and family details",
+          "Bank statements and proof of income that match your declared work",
+          "Employment letter, or business registration, NTN and tax returns",
+          "Previous travel history and visas, if any",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "When does the USA group tour leave?", answer: "The tour is planned for March to April 2027. We confirm the exact dates when you enquire." },
+      { question: "How much does the USA group tour cost?", answer: "Call or WhatsApp 0311-1666076 for the current price, the booking amount and what is included. We confirm everything in writing before you pay." },
+      { question: "Are seats really limited?", answer: "Yes. A group departure has a fixed number of seats, given in order of booking. Message us to check whether a seat is available." },
+      { question: "Do I need a US visa to join the tour?", answer: "Yes. Pakistani citizens need a valid US visa to travel. The visa is decided only by the US embassy or consulate." },
+      { question: "Can you help me get my US visa?", answer: "We guide your application: assessment, document checklist, DS-160 help, appointment and interview preparation. We cannot guarantee a visa, because the US authorities make that decision." },
+      { question: "What happens if my US visa is refused?", answer: "Refund and cancellation terms are stated in writing before you pay and follow our Refund & Cancellation Policy. Ask us about this before you book, and we can review the refusal with you." },
+    ],
+  },
   {
     slug: "canada-group-tour",
     destination: "Canada",

@@ -284,6 +284,13 @@ export default async function CountryPage({ params }: { params: Promise<{ slug: 
                   {hasRefusalPage ? `${country.name} visa refusal case review` : "Visa refusal assistance"}
                 </Link>
               </li>
+              {slug === "belgium" && (
+                <li>
+                  <Link href="/visa-consultancy/belgium-business-visa" className="font-semibold text-primary hover:text-primary-dark">
+                    Belgium business visa from Pakistan
+                  </Link>
+                </li>
+              )}
               {countryTours.map((t) => (
                 <li key={t.slug}>
                   <Link href={`/tour-packages/${t.slug}`} className="font-semibold text-primary hover:text-primary-dark">
