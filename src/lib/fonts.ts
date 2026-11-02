@@ -1,15 +1,16 @@
-import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import localFont from "next/font/local";
 
-export const fontHeading = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
+// Self-hosted variable fonts (see src/fonts/README.md). No build-time download from Google Fonts.
+export const fontHeading = localFont({
+  src: "../fonts/plus-jakarta-sans-latin-wght-normal.woff2",
+  weight: "200 800",
   variable: "--font-heading",
   display: "swap",
 });
 
-export const fontBody = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+export const fontBody = localFont({
+  src: "../fonts/inter-latin-wght-normal.woff2",
+  weight: "100 900",
   variable: "--font-body",
   display: "swap",
 });

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Noto_Naskh_Arabic } from "next/font/google";
+import localFont from "next/font/local";
 import { pageMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { Container } from "@/components/ui/Container";
@@ -11,7 +11,14 @@ import { getOffices, getSiteSettings } from "@/lib/content";
 import { telHref, whatsappHref } from "@/lib/whatsapp";
 import { siteConfig } from "@/data/site";
 
-const urduFont = Noto_Naskh_Arabic({ subsets: ["arabic"], weight: ["400", "600", "700"], display: "swap" });
+const urduFont = localFont({
+  src: "../../../fonts/noto-naskh-arabic-arabic-wght-normal.woff2",
+  weight: "400 700",
+  display: "swap",
+  // Latin words on this page (link labels, phone numbers) should fall back to a sans-serif, not a serif.
+  adjustFontFallback: "Arial",
+  fallback: ["system-ui", "sans-serif"],
+});
 
 export const metadata: Metadata = pageMetadata({
   title: "اردو میں ویزا اور ٹریول معلومات",
