@@ -48,7 +48,7 @@ export const siteConfig = {
 export const publicSettings = {
   happyCustomersStat: "7,500+",
   youtubeSubscribers: "58,500+",
-  announcement: { text: "", href: "/", active: false },
+  announcement: { text: "Japan group tour 2027 is now open: Osaka & Tokyo, 7 days, limited seats.", href: "/tour-packages/japan-group-tour", active: true },
   /** Shown as "last reviewed" on country pages and in the sitemap. Update when content is re-checked. */
   contentReviewed: "2026-09-30",
 };

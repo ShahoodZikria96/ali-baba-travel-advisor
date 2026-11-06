@@ -6,12 +6,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessageCircle, X } from "lucide-react";
 import { whatsappHref } from "@/lib/whatsapp";
-import { DaysLeft } from "@/components/ui/DaysLeft";
 import { trackEvent } from "@/lib/analytics";
 
-// The offer stops being shown when booking closes (31 October 2026, end of day in Pakistan, UTC+5).
-const OFFER_ENDS = Date.parse("2026-10-31T18:59:59Z");
-const STORAGE_KEY = "ab_canada_popup_closed";
+// The featured tour shown in the popup. To promote another tour, change this object (and set `until` to the booking deadline, if any).
+const FEATURED = {
+  slug: "japan-group-tour",
+  poster: "/tours/japan-group-tour-2027.webp",
+  alt: "Japan group tour 2027, January to February: Osaka and Tokyo, 7 days / 6 nights",
+  title: "Japan Group Tour 2027",
+  places: "Osaka · Kyoto · Nara · Tokyo · Mount Fuji",
+  text: "7 days / 6 nights, January to February 2027. Flights, 3-star hotels, meals and the bullet train included.",
+  message: "Hi, I would like details and the price for the Japan group tour (January to February 2027).",
+  /** Booking deadline as YYYY-MM-DD (Pakistan time); the popup stops after it. Empty = no deadline. */
+  until: "",
+};
+const OFFER_ENDS = FEATURED.until ? Date.parse(`${FEATURED.until}T18:59:59Z`) : Infinity;
+const STORAGE_KEY = "ab_featured_tour_popup_closed";
 const HIDE_FOR_MS = 3 * 24 * 60 * 60 * 1000; // once closed, do not show again for 3 days
 const SHOW_AFTER_MS = 9000; // never an instant interstitial: wait, or show after the visitor has scrolled a bit
 const SHOW_AFTER_SCROLL = 0.35;
@@ -26,17 +36,17 @@ function recentlyClosed(): boolean {
 }
 
 /**
- * Promotional popup for the Canada group tour. Shown once per few days, only while booking is open,
+ * Promotional popup for the featured group tour. Shown once per few days, only while booking is open,
  * never on the tour's own pages or the ad landing pages, and not instantly on arrival (Google dislikes
  * full-screen popups that cover a page the moment it opens).
  */
-export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) {
+export function FeaturedTourPopup({ whatsappNumber }: { whatsappNumber: string }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const shown = useRef(false);
 
-  const excluded = pathname.startsWith("/lp/") || pathname.includes("canada-group-tour");
+  const excluded = pathname.startsWith("/lp/") || pathname.includes(FEATURED.slug);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -53,7 +63,7 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
       if (shown.current) return;
       shown.current = true;
       setOpen(true);
-      trackEvent("cta_click", { cta: "canada_popup_view" });
+      trackEvent("cta_click", { cta: "featured_tour_popup_view" });
     };
     const timer = window.setTimeout(show, SHOW_AFTER_MS);
     const onScroll = () => {
@@ -79,14 +89,14 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
 
   if (!open || excluded) return null;
 
-  const message = "Hi, I would like details and the price for the Canada group tour (March 2027).";
+  const message = FEATURED.message;
 
   return (
     <div className="fixed inset-0 z-[70] flex items-end justify-center bg-charcoal/60 p-0 sm:items-center sm:p-4" onClick={close}>
       <div
         role="dialog"
         aria-modal="true"
-        aria-labelledby="canada-popup-title"
+        aria-labelledby="featured-popup-title"
         className="animate-fade-in relative max-h-[92vh] w-full max-w-md overflow-y-auto rounded-t-[var(--radius-lg)] bg-surface shadow-2xl sm:rounded-[var(--radius-lg)]"
         onClick={(e) => e.stopPropagation()}
       >
@@ -101,8 +111,8 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
         </button>
 
         <Image
-          src="/tours/canada-group-tour-march-2027.webp"
-          alt="Canada group tour, March 2027: travel with Ali Jawad and Molvi Usman"
+          src={FEATURED.poster}
+          alt={FEATURED.alt}
           width={1080}
           height={1080}
           sizes="(max-width: 640px) 100vw, 448px"
@@ -111,14 +121,14 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
 
         <div className="p-5">
           <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
-            Featured group tour <DaysLeft until="2026-10-31" className="ml-1 rounded-full bg-primary px-2 py-0.5 normal-case tracking-normal text-white" />
+            Bookings open · limited seats
           </p>
-          <h2 id="canada-popup-title" className="mt-1 font-heading text-xl font-extrabold text-charcoal">
-            Canada Group Tour, March 2027
+          <h2 id="featured-popup-title" className="mt-1 font-heading text-xl font-extrabold text-charcoal">
+            {FEATURED.title}
           </h2>
-          <p className="mt-1 text-sm text-text-muted">Niagara Falls · Toronto · Banff · Ottawa</p>
+          <p className="mt-1 text-sm text-text-muted">{FEATURED.places}</p>
           <p className="mt-3 text-sm text-charcoal">
-            <b>PKR 885,000</b> total · booking amount PKR 120,000 per person (embassy fee included). Book before <b>31 October 2026</b>.
+            {FEATURED.text}
           </p>
 
           <div className="mt-4 grid grid-cols-2 gap-2.5">
@@ -131,8 +141,8 @@ export function CanadaTourPopup({ whatsappNumber }: { whatsappNumber: string }) 
               <MessageCircle size={16} /> WhatsApp
             </a>
             <Link
-              href="/tour-packages/canada-group-tour"
-              data-cta="canada_popup_details"
+              href={`/tour-packages/${FEATURED.slug}`}
+              data-cta="featured_tour_popup_details"
               onClick={close}
               className="flex h-11 items-center justify-center rounded-[var(--radius-md)] bg-primary text-sm font-semibold text-white hover:bg-primary-dark"
             >
