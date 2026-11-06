@@ -140,6 +140,84 @@ export function getTour(slug: string) {
  */
 export const extraTours: TourPackage[] = [
   {
+    slug: "japan-group-tour",
+    destination: "Japan",
+    image: "/destinations/japan.webp",
+    duration: "7 Days / 6 Nights",
+    departure: "Departure: January to February 2027",
+    price: "Call for price",
+    visaAssistance: true,
+    heading: "Japan Group Tour 2027: Osaka & Tokyo, 7 Days",
+    metaTitle: "Japan Group Tour 2027 from Pakistan, Osaka & Tokyo",
+    metaDescription:
+      "7 days / 6 nights Japan group tour from Pakistan, January to February 2027: Osaka, Kyoto, Nara, bullet train, Tokyo and Mount Fuji. Flights, 3-star hotels, meals. Limited seats.",
+    summary:
+      "A 7 day / 6 night guided Japan group tour from Pakistan in January to February 2027, covering Osaka, Kyoto and Nara, a bullet train ride to Tokyo, and a Mount Fuji and Hakone day. Return flights, 3-star hotels, meals, the bullet train and sightseeing are included. Bookings are open and seats are limited.",
+    highlights: [
+      "Two cities in 7 days: Osaka and Tokyo, with Kyoto, Nara, Mount Fuji and Hakone on the way",
+      "Bullet train (Shinkansen) from Osaka to Tokyo",
+      "Return flight tickets, 3-star hotels, meals and city tours included",
+      "Meals: breakfast on 6 days, lunch on 5 days and dinner on 6 days",
+      "Limited seats: call or WhatsApp to check availability",
+    ],
+    included: [
+      "Return flight tickets",
+      "3-star hotels",
+      "All meals (breakfast 6, lunch 5, dinner 6)",
+      "Bullet train experience (Osaka to Tokyo)",
+      "Sightseeing and city tours",
+    ],
+    excluded: [],
+    itinerary: [
+      { day: "Day 1", description: "Arrival in Osaka." },
+      { day: "Day 2", description: "Osaka full-day city tour." },
+      { day: "Day 3", description: "Full-day Kyoto and Nara tour." },
+      { day: "Day 4", description: "Osaka to Tokyo by bullet train." },
+      { day: "Day 5", description: "Tokyo full-day city tour." },
+      { day: "Day 6", description: "Mount Fuji and Hakone tour." },
+      { day: "Day 7", description: "Departure from Tokyo." },
+    ],
+    notes: [
+      "The exact departure date, the price and the booking amount are shared when you enquire and confirmed in writing before you pay.",
+      "A Japanese visa is required for Pakistani passport holders. The visa is decided only by the Japanese authorities, so approval is never guaranteed. Our team guides your file.",
+      "Cancellations and refunds follow our Refund & Cancellation Policy and the booking terms we give you in writing.",
+    ],
+    sections: [
+      {
+        heading: "About the Japan group tour 2027",
+        paragraphs: [
+          "This is a guided group tour from Pakistan to Japan in January to February 2027. Flights, hotels, meals and the sightseeing programme are arranged together and you travel with the same group, so you do not have to plan trains, hotels or tickets yourself.",
+          "The tour is based in two cities, Osaka and Tokyo, and links them with a bullet train ride. Day trips take you to Kyoto and Nara from Osaka, and to Mount Fuji and Hakone from Tokyo.",
+        ],
+      },
+      {
+        heading: "What is included",
+        bullets: [
+          "Return flight tickets",
+          "3-star hotels for 6 nights",
+          "Meals: 6 breakfasts, 5 lunches and 6 dinners",
+          "Bullet train from Osaka to Tokyo",
+          "Sightseeing and city tours as per the itinerary",
+        ],
+      },
+      {
+        heading: "Japan visa for Pakistani travellers",
+        paragraphs: [
+          "Pakistani citizens need a visa to visit Japan. The application needs a clear itinerary, proof of finances and proof of your ties to Pakistan, such as a job, business or family. Start early, because processing time and requirements are set by the Japanese authorities and can change.",
+          "Our team assesses your profile, gives you a document checklist and reviews your file before it is submitted. We cannot guarantee a visa, because the decision is made only by the Japanese authorities.",
+        ],
+      },
+    ],
+    faqs: [
+      { question: "When does the Japan group tour leave?", answer: "The tour is planned for January to February 2027. We confirm the exact departure date when you enquire." },
+      { question: "How long is the tour and which cities does it cover?", answer: "7 days and 6 nights in Osaka and Tokyo, with day tours to Kyoto, Nara, Mount Fuji and Hakone, and a bullet train between Osaka and Tokyo." },
+      { question: "What does the package include?", answer: "Return flight tickets, 3-star hotels, meals (breakfast 6, lunch 5, dinner 6), the Osaka to Tokyo bullet train and sightseeing and city tours." },
+      { question: "How much does the Japan group tour cost?", answer: "Call or WhatsApp 0311-1666076 for the current price and booking amount. We confirm everything in writing before you pay." },
+      { question: "Do I need a Japan visa?", answer: "Yes. Pakistani passport holders need a Japanese visa. We guide your application, but the visa is decided only by the Japanese authorities and is never guaranteed." },
+      { question: "Are seats limited?", answer: "Yes. A group departure has a fixed number of seats, given in order of booking. Message us to check availability." },
+    ],
+  },
+  {
     slug: "usa-group-tour",
     destination: "USA",
     image: "/destinations/usa.webp",

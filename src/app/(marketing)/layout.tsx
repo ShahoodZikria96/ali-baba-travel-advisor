@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { CanadaTourPopup } from "@/components/layout/CanadaTourPopup";
+import { FeaturedTourPopup } from "@/components/layout/FeaturedTourPopup";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
@@ -103,7 +103,7 @@ export default async function MarketingLayout({ children }: { children: ReactNod
       <Footer />
       <StickyMobileCTA phone={settings.phone} whatsappNumber={settings.whatsappNumber} />
       <FloatingWhatsApp whatsappNumber={settings.whatsappNumber} />
-      <CanadaTourPopup whatsappNumber={settings.whatsappNumber} />
+      <FeaturedTourPopup whatsappNumber={settings.whatsappNumber} />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Hero } from "@/components/home/Hero";
 import { PackagesFromPakistan } from "@/components/home/PackagesFromPakistan";
 import { ServiceAreas } from "@/components/home/ServiceAreas";
+import { FeaturedTourBanner } from "@/components/home/FeaturedTourBanner";
 import { StatsBar } from "@/components/home/StatsBar";
 import { VisaFinder } from "@/components/home/VisaFinder";
 import { CoreServices } from "@/components/home/CoreServices";
@@ -33,6 +34,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <FeaturedTourBanner />
       <StatsBar />
       <VisaFinder />
       <CoreServices />
