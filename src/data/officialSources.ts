@@ -13,7 +13,6 @@ export interface OfficialSource {
 
 export const officialSources: Record<string, OfficialSource[]> = {
   uk: [{ label: "GOV.UK — Standard Visitor visa", href: "https://www.gov.uk/standard-visitor" }],
-  canada: [{ label: "IRCC — Visit Canada", href: "https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada.html" }],
   usa: [{ label: "U.S. Department of State — Visas", href: "https://travel.state.gov/content/travel/en/us-visas.html" }],
   australia: [{ label: "Australian Department of Home Affairs", href: "https://immi.homeaffairs.gov.au/" }],
   schengen: [{ label: "European Commission — Schengen visa policy", href: "https://home-affairs.ec.europa.eu/" }],

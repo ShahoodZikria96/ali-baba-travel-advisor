@@ -118,7 +118,7 @@ export default async function LocationPage({ params }: { params: Promise<{ slug:
 
           <h2 className="mt-10 font-heading text-xl font-bold text-charcoal">Popular Visa Destinations</h2>
           <div className="mt-4 flex flex-wrap gap-2.5">
-            {[["UK", "uk"], ["Canada", "canada"], ["USA", "usa"], ["Schengen", "schengen"], ["Australia", "australia"], ["Turkey", "turkey"]].map(([label, cs]) => (
+            {[["UK", "uk"], ["New Zealand", "new-zealand"], ["USA", "usa"], ["Schengen", "schengen"], ["Australia", "australia"], ["Turkey", "turkey"]].map(([label, cs]) => (
               <Link key={cs} href={`/visas/${cs}`} className="rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-charcoal hover:border-primary hover:text-primary">
                 {label} visa
               </Link>

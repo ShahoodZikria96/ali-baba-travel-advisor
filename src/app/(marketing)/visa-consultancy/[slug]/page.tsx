@@ -43,7 +43,6 @@ const BUSINESS_GUIDES = [
   "schengen-business-visa-from-pakistan-documents",
   "uk-business-visit-from-pakistan-standard-visitor-visa",
   "usa-b1-business-visa-from-pakistan-interview-documents",
-  "canada-business-visitor-visa-from-pakistan",
 ];
 
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {

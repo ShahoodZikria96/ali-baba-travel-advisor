@@ -17,14 +17,6 @@ export const popularDestinations: CountryDestination[] = [
     description: "Standard Visitor visa assistance for tourism, family and business trips.",
   },
   {
-    slug: "canada",
-    name: "Canada",
-    flag: "🇨🇦",
-    flagImage: "/flags/canada.webp",
-    visaType: "Visitor Visa",
-    description: "Temporary Resident Visa documentation and case guidance.",
-  },
-  {
     slug: "usa",
     name: "United States",
     flag: "🇺🇸",

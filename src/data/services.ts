@@ -49,16 +49,6 @@ export const refusalServices: ServiceItem[] = [
     description: "Guidance on the Pre-Action Protocol process for eligible UK refusal cases.",
   },
   {
-    slug: "canada-refusal",
-    title: "Canada Visit Visa Refusal",
-    description: "Case review and reconsideration guidance for refused Canada applications.",
-  },
-  {
-    slug: "canada-judicial-review",
-    title: "Canada Judicial Review Consultancy",
-    description: "Guidance on the judicial review pathway, with judicial review handled by our in-house legal team where required.",
-  },
-  {
     slug: "schengen-refusal",
     title: "Schengen Refusal / Appeal Guidance",
     description: "Assessment of Schengen refusal letters and appeal documentation support.",

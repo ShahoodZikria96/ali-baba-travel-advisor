@@ -28,7 +28,7 @@ export const servicePages: ServicePageContent[] = [
       "Submission and status tracking",
     ],
     faqs: [
-      { question: "Which countries do you assist with visit visas for?", answer: "We regularly assist with UK, Canada, USA, Australia, Schengen Europe, Turkey, Japan and New Zealand, among others." },
+      { question: "Which countries do you assist with visit visas for?", answer: "We regularly assist with UK, USA, Australia, Schengen Europe, Turkey, Japan and New Zealand, among others." },
       { question: "Do you guarantee visa approval?", answer: "No consultancy can guarantee an outcome, as the decision rests solely with the relevant embassy or consulate. We focus on presenting a strong, genuine and well-documented application." },
     ],
   },

@@ -12,7 +12,7 @@ import { getRefusalPages } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Visa Refusal Assistance",
-  description: "Case review and reapplication guidance for applicants who have received a previous visa refusal — UK, Canada, Schengen, Australia and USA.",
+  description: "Case review and reapplication guidance for applicants who have received a previous visa refusal — UK, Schengen, Australia and USA.",
   path: "/visa-refusal",
 });
 

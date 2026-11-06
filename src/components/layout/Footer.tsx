@@ -15,7 +15,7 @@ const popularCountriesColumn = {
   heading: "Popular Countries",
   links: [
     { label: "UK Visa", href: "/visas/uk" },
-    { label: "Canada Visa", href: "/visas/canada" },
+    { label: "Canada Group Tour", href: "/tour-packages/canada-group-tour" },
     { label: "USA Visa", href: "/visas/usa" },
     { label: "Schengen Visa", href: "/visas/schengen" },
     { label: "Australia Visa", href: "/visas/australia" },
