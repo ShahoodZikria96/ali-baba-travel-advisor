@@ -15,7 +15,7 @@ import { getCountries } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
   title: "Visa Countries from Pakistan",
-  description: "Visa assistance from Pakistan for the UK, Canada, USA, Australia, Schengen Europe, Turkey, Japan, Thailand, Singapore, South Korea and 40+ destinations.",
+  description: "Visa assistance from Pakistan for the UK, USA, Australia, Schengen Europe, Turkey, Japan, Thailand, Singapore, South Korea and 40+ destinations.",
   path: "/visas",
 });
 

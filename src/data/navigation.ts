@@ -24,7 +24,7 @@ interface NavTour { slug: string; destination: string }
 
 const VISA_CATEGORY_SLUGS = ["visit-visa", "business-visa", "family-visit-visa", "study-visa"];
 
-const POPULAR_COUNTRIES = ["uk", "usa", "canada", "australia", "schengen", "new-zealand", "turkey", "japan"];
+const POPULAR_COUNTRIES = ["uk", "usa", "australia", "schengen", "new-zealand", "turkey", "japan"];
 const EUROPE_COUNTRIES = [
   "france", "germany", "italy", "spain", "netherlands", "belgium", "austria",
   "switzerland", "sweden", "norway", "denmark",
@@ -119,7 +119,6 @@ export function buildPrimaryNav(
           links: [
             { label: "Visa Refusal Assistance", href: "/visa-refusal" },
             { label: "UK Pre-Action Protocol", href: "/visa-refusal/uk" },
-            { label: "Canada Reconsideration", href: "/visa-refusal/canada" },
           ],
         },
       ],

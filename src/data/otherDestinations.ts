@@ -40,7 +40,7 @@ export const destinationRegions: DestinationRegion[] = [
   {
     region: "North & South America",
     items: [
-      { name: "USA", href: "/visas/usa" }, { name: "Canada", href: "/visas/canada" },
+      { name: "USA", href: "/visas/usa" },
       { name: "Brazil" }, { name: "Colombia" },
     ],
   },

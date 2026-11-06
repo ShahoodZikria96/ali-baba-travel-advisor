@@ -39,33 +39,6 @@ export const refusalPages: RefusalPageContent[] = [
     ],
   },
   {
-    slug: "canada",
-    country: "Canada",
-    metaTitle: "Canada Visa Refusal Assistance from Pakistan",
-    metaDescription: "Guidance for applicants refused a Canada visitor visa — reconsideration requests, reapplication and judicial review coordination.",
-    intro:
-      "Canada visitor visa refusals are common and often relate to how an officer assessed your ties to Pakistan or your financial documentation. A stronger, better-evidenced reapplication frequently succeeds where the first attempt did not.",
-    commonReasons: [
-      "Officer not satisfied you would leave Canada by the end of your stay",
-      "Insufficient or unclear proof of funds",
-      "Limited or no international travel history",
-      "Purpose of visit not clearly established",
-      "Family ties in Canada raising unaddressed dual-intent concerns",
-    ],
-    whatWeReview: [
-      "The refusal letter and GCMS notes, where available",
-      "Financial evidence and its presentation",
-      "Ties to Pakistan and travel history",
-      "Whether a reconsideration request or fresh application is more appropriate",
-    ],
-    specialNote:
-      "Canada reconsideration requests and judicial review are formal processes with strict timelines. We assess whether your case is suited to reconsideration, a fresh application, or judicial review, and our in-house legal team handles judicial review where formal legal action is required.",
-    faqs: [
-      { question: "What is a Canada reconsideration request?", answer: "It asks IRCC to review a decision without submitting a brand new application — generally used where there's a clear officer error, and it isn't appropriate for every refusal." },
-      { question: "Do you handle Canada judicial review directly?", answer: "We provide consultancy and case documentation support, and our in-house legal team handles the judicial review process itself, since that requires formal legal action." },
-    ],
-  },
-  {
     slug: "schengen",
     country: "Schengen Europe",
     metaTitle: "Schengen Visa Refusal & Appeal Guidance from Pakistan",

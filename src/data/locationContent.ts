@@ -11,7 +11,7 @@ export const locationContent: LocationContent[] = [
     intro:
       "Our Lahore office, located at Siddiq Trade Center in Gulberg II, is Ali Baba Travel Advisor's main branch — serving families, students and business travelers across the city with visa consultancy, tour packages and flight bookings.",
     localContext:
-      "Gulberg II is one of Lahore's central commercial areas, making our office an easy walk-in stop for clients from Model Town, Garden Town, DHA and the wider Gulberg corridor. Our Lahore consultants handle the highest volume of UK, Canada, USA and Schengen visit visa cases in our network.",
+      "Gulberg II is one of Lahore's central commercial areas, making our office an easy walk-in stop for clients from Model Town, Garden Town, DHA and the wider Gulberg corridor. Our Lahore consultants handle the highest volume of UK, USA and Schengen visit visa cases in our network.",
     servicesOffered: ["Visit, business and family visit visa consultancy", "Visa refusal case review", "Group and customized tour bookings", "Air ticketing and hotel booking"],
   },
   {

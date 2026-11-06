@@ -25,6 +25,12 @@ RewriteCond %{THE_REQUEST} \s/+([^?\s]*?)index\.html[\s?] [NC]
 RewriteRule ^(.*?)index\.html$ /$1 [L,R=301]
 
 # 3) Old / alternative URLs -> current pages (301)
+# Canada is offered only as a group tour: former Canada visa / refusal / reconsideration / judicial review URLs go to the tour.
+RewriteRule ^visas/canada/?$                                       /tour-packages/canada-group-tour/ [L,R=301]
+RewriteRule ^countries/canada/?$                                    /tour-packages/canada-group-tour/ [L,R=301]
+RewriteRule ^visa-refusal/canada/?$                                /tour-packages/canada-group-tour/ [L,R=301]
+RewriteRule ^guides/canada-visitor-visa-from-pakistan/?$           /tour-packages/canada-group-tour/ [L,R=301]
+RewriteRule ^guides/canada-business-visitor-visa-from-pakistan/?$  /tour-packages/canada-group-tour/ [L,R=301]
 RewriteRule ^visa/?$                    /visas/ [L,R=301]
 RewriteRule ^visas/uae/?$               /visas/ [L,R=301]
 RewriteRule ^countries/?$               /visas/ [L,R=301]
@@ -83,7 +89,7 @@ RewriteRule ^required-documents-for-japan-visa-for-pakistani-nationals/?$       
 RewriteRule ^thailand-visit-visa-from-pakistan-how-to-apply-easily/?$              /visas/thailand/ [L,R=301]
 RewriteRule ^explore-the-adventure-in-thailand-with-best-travel-agency-in-lahore/?$ /visas/thailand/ [L,R=301]
 RewriteRule ^best-honeymoon-places-for-france/?$                                   /visas/france/ [L,R=301]
-RewriteRule ^best-way-to-travel-around-canada-in-winter(-[0-9]+)?/?$                   /visas/canada/ [L,R=301]
+RewriteRule ^best-way-to-travel-around-canada-in-winter(-[0-9]+)?/?$                   /tour-packages/canada-group-tour/ [L,R=301]
 RewriteRule ^dubai-tour-packages-from-pakistan-with-flight-and-hotel/?$            /guides/dubai-travel-guide-for-pakistani-travellers/ [L,R=301]
 RewriteRule ^discover-the-beauty-of-the-island-with-lahores-top-travel-company/?$  /tour-packages/ [L,R=301]
 RewriteRule ^top-beaches-to-visit-in-gulf-countries-a-travelers-paradise/?$        /guides/travel/ [L,R=301]
@@ -98,7 +104,7 @@ RewriteRule ^category/visa-tour-news/?$                                         
 RewriteRule ^category/destinations/?$                                              /tour-packages/ [L,R=301]
 RewriteRule ^sitemap/?$                                                            /sitemap.xml [L,R=301]
 RewriteRule ^countries-info/schengen[^/]*/?$                                       /visas/schengen/ [L,R=301]
-RewriteRule ^countries-info/canada[^/]*/?$                                         /visas/canada/ [L,R=301]
+RewriteRule ^countries-info/canada[^/]*/?$                                         /tour-packages/canada-group-tour/ [L,R=301]
 RewriteRule ^countries-info/uk[^/]*/?$                                             /visas/uk/ [L,R=301]
 RewriteRule ^countries-info/.+$                                                    /visas/ [L,R=301]
 

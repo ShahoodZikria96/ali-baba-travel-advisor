@@ -79,7 +79,6 @@ export function RefusalCaseForm({
           <SelectInput id="rf-country" error={!!errors.country} {...register("country")}>
             <option value="">Select country</option>
             <option value="UK">UK</option>
-            <option value="Canada">Canada</option>
             <option value="Schengen">Schengen</option>
             <option value="Australia">Australia</option>
             <option value="USA">USA</option>

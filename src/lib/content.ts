@@ -11,6 +11,7 @@ import { sampleReviews, googleReviews, sampleSuccessStories, sampleVideos } from
 import { generalFaqs } from "@/data/faqs";
 import { team, extraTeam, teamRoleOverrides } from "@/data/team";
 import { siteConfig, publicSettings } from "@/data/site";
+import { removedCountrySlugs, removedRefusalSlugs, removedGuideSlugs, isRemovedServiceSlug, isRemovedStory, isRemovedVideoTitle } from "@/data/removedPages";
 import type {
   Country, Faq, Guide, Office, RefusalPage, ServicePage, SiteSettings, SuccessStory, TeamMember, Testimonial, Tour, Video,
 } from "@/lib/types";
@@ -147,7 +148,7 @@ let countryListCache: Country[] | null = null;
 async function countryList(): Promise<Country[]> {
   if (countryListCache) return countryListCache;
   const api = await fetchResource<ApiCountry[]>("countries");
-  return (countryListCache = api && api.length ? api.map(fromApiCountry) : countryFallback);
+  return (countryListCache = (api && api.length ? api.map(fromApiCountry) : countryFallback).filter((c) => !removedCountrySlugs.has(c.slug)));
 }
 
 export async function getCountries() { return countryList(); }
@@ -178,7 +179,7 @@ let refusalListCache: RefusalPage[] | null = null;
 async function refusalList(): Promise<RefusalPage[]> {
   if (refusalListCache) return refusalListCache;
   const api = await fetchResource<ApiRefusalPage[]>("refusal_pages");
-  return (refusalListCache = api && api.length ? api.map(fromApiRefusal) : refusalFallback);
+  return (refusalListCache = (api && api.length ? api.map(fromApiRefusal) : refusalFallback).filter((r) => !removedRefusalSlugs.has(r.slug)));
 }
 
 export async function getRefusalPages() { return refusalList(); }
@@ -204,7 +205,7 @@ let serviceListCache: ServicePage[] | null = null;
 async function serviceList(): Promise<ServicePage[]> {
   if (serviceListCache) return serviceListCache;
   const api = await fetchResource<ApiServicePage[]>("service_pages");
-  return (serviceListCache = api && api.length ? api.map(fromApiService) : serviceFallback);
+  return (serviceListCache = (api && api.length ? api.map(fromApiService) : serviceFallback).filter((s) => !isRemovedServiceSlug(s.slug)));
 }
 
 export async function getServicePages() { return serviceList(); }
@@ -273,7 +274,7 @@ async function guideList(): Promise<Guide[]> {
   const titleFixes: Record<string, string> = {
     "how-to-build-travel-history-for-visa-applications": "Travel History and Visa Applications: Does It Help?",
   };
-  const merged = [...base, ...extras].map((g) => (titleFixes[g.slug] ? { ...g, title: titleFixes[g.slug] } : g));
+  const merged = [...base, ...extras].filter((g) => !removedGuideSlugs.has(g.slug)).map((g) => (titleFixes[g.slug] ? { ...g, title: titleFixes[g.slug] } : g));
   return (guideListCache = merged.sort((a, b) => +b.publishedDate - +a.publishedDate));
 }
 
@@ -308,9 +309,9 @@ let storyListCache: SuccessStory[] | null = null;
 export async function getSuccessStories(): Promise<SuccessStory[]> {
   if (storyListCache) return storyListCache;
   const api = await fetchResource<ApiSuccessStory[]>("success_stories");
-  return (storyListCache = api && api.length
+  return (storyListCache = (api && api.length
     ? api.map((s) => ({ id: `s${s.id}`, country: s.country, category: s.category, period: s.period, summary: s.summary }))
-    : storyFallback);
+    : storyFallback).filter((s) => !isRemovedStory(s.country, s.category)));
 }
 
 const videoFallback: Video[] = sampleVideos.map((v, i) => ({ id: `v${i}`, ...v }));
@@ -319,9 +320,9 @@ let videoListCache: Video[] | null = null;
 export async function getVideos(): Promise<Video[]> {
   if (videoListCache) return videoListCache;
   const api = await fetchResource<ApiVideo[]>("videos");
-  return (videoListCache = api && api.length
+  return (videoListCache = (api && api.length
     ? api.map((v) => ({ id: `v${v.id}`, title: v.title, category: v.category, duration: v.duration ?? "", youtubeUrl: v.youtube_url, thumbnail: v.thumbnail }))
-    : videoFallback);
+    : videoFallback).filter((v) => !isRemovedVideoTitle(v.title)));
 }
 
 const faqFallback: Faq[] = generalFaqs.map((f, i) => ({ id: `f${i}`, ...f }));

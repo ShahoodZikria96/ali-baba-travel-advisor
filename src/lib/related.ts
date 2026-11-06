@@ -50,7 +50,7 @@ const REGION_GROUPS: string[][] = [
     "luxembourg", "albania", "bulgaria", "romania", "serbia", "uk",
   ],
   ["japan", "south-korea", "hong-kong", "singapore", "thailand", "malaysia", "indonesia", "cambodia", "australia", "new-zealand"],
-  ["turkey", "azerbaijan", "egypt", "morocco", "south-africa", "usa", "canada", "brazil", "colombia"],
+  ["turkey", "azerbaijan", "egypt", "morocco", "south-africa", "usa", "brazil", "colombia"],
 ];
 
 export function relatedCountries(slug: string, all: Country[], count = 6): Country[] {

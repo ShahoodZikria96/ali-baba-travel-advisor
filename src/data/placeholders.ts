@@ -10,7 +10,6 @@
 
 export const sampleSuccessStories = [
   { country: "UK", category: "Family Visit Visa", period: "2026", summary: "Assisted with documentation for a family visit application to attend a wedding." },
-  { country: "Canada", category: "Visitor Visa", period: "2026", summary: "Guided a reapplication following a previous refusal, focusing on stronger financial evidence." },
   { country: "Schengen", category: "Tourist Visa", period: "2025", summary: "Supported a first-time applicant through the Schengen documentation process." },
   { country: "Australia", category: "Visitor Visa", period: "2025", summary: "Helped a business owner prepare a visit visa case for a trade conference." },
 ];

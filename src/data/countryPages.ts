@@ -70,58 +70,6 @@ export const countryPages: CountryPageContent[] = [
     ],
   },
   {
-    slug: "canada",
-    name: "Canada",
-    flagImage: "/flags/canada.webp",
-    metaTitle: "Canada Visitor Visa from Pakistan",
-    metaDescription:
-      "Canada Temporary Resident Visa (visitor visa) guidance from Pakistan — documentation, financial evidence and processing information.",
-    intro:
-      "Canada's Temporary Resident Visa (TRV) allows Pakistani nationals to visit for tourism, to see family, or for short business purposes. IRCC places significant weight on an applicant's ties to Pakistan and their travel history when assessing genuine intent to return.",
-    whoCanApply: [
-      "Tourists and leisure travelers",
-      "Applicants visiting family members in Canada",
-      "Business visitors attending meetings or conferences",
-      "Applicants attending a wedding or family event",
-    ],
-    visaTypes: [
-      { name: "Single-Entry Visitor Visa", description: "Valid for one entry into Canada within a specified period." },
-      { name: "Multiple-Entry Visitor Visa", description: "Allows several visits over a period, commonly issued up to 10 years or passport expiry." },
-      { name: "Super Visa", description: "A long-stay option for parents and grandparents of Canadian citizens or permanent residents." },
-    ],
-    documents: [
-      "Valid passport",
-      "Digital photograph meeting IRCC specifications",
-      "Proof of funds (bank statements, pay slips)",
-      "Letter of invitation, if applicable",
-      "Travel history and previous visas",
-      "Proof of ties to Pakistan (employment, property, family)",
-      "Purpose-of-travel letter",
-    ],
-    financialNote:
-      "IRCC does not publish a fixed minimum amount for a visitor visa. Officers assess whether your funds are sufficient for the length and nature of your stay and whether the source of funds is well documented.",
-    processingTime: "Processing times vary and are published by IRCC; straightforward applications from Pakistan commonly take several weeks.",
-    steps: [
-      "Case assessment and document checklist",
-      "IRCC online account setup and form completion",
-      "Financial and supporting document review",
-      "Biometrics appointment",
-      "Application submission and status tracking",
-    ],
-    refusalReasons: [
-      "Officer not satisfied the applicant will leave Canada by the end of their stay",
-      "Insufficient or unclear financial documentation",
-      "Weak or no travel history",
-      "Purpose of visit not clearly established",
-      "Family ties in Canada raising dual-intent concerns without adequate explanation",
-    ],
-    faqs: [
-      { question: "Can a previously refused Canada applicant reapply?", answer: "Yes — we assess the refusal letter (procedural fairness or refusal reasons) and help strengthen the reapplication, particularly around financial evidence and ties to Pakistan." },
-      { question: "What is a Canada reconsideration request?", answer: "It's a request asking IRCC to review a decision without a new application, used in limited circumstances such as an officer error. We can advise whether this route is appropriate for your case." },
-      { question: "Is Canada judicial review something Ali Baba Travel Advisor handles directly?", answer: "We provide consultancy and case guidance, and our in-house legal team handles judicial review proceedings, since that is a formal legal process." },
-    ],
-  },
-  {
     slug: "usa",
     name: "United States",
     flagImage: "/flags/usa.webp",

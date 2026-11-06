@@ -55,17 +55,16 @@ const baseDestinations: PackageDestination[] = [
     region: "Americas & Oceania",
     image: "/destinations/canada.webp",
     intro:
-      "Canada rewards first-time visitors with Niagara Falls, the Rocky Mountains and big, friendly cities. We run Canada group tours and also plan private trips, and our team prepares the visitor visa file with your itinerary, funds and ties to Pakistan documented properly.",
+      "Canada rewards first-time visitors with Niagara Falls, the Rocky Mountains and big, friendly cities. Our Canada offer is the group tour: a guided itinerary with flights, hotels and visa assistance included in the package.",
     bestTime: "June to September for warm weather and the Rockies; late September to October for autumn colours; December to February for skiing and winter scenes.",
     places: ["Niagara Falls", "Toronto and the CN Tower", "Banff and Lake Louise", "Ottawa", "Vancouver", "Montreal and Quebec City"],
     ideas: ["Toronto, Niagara Falls and Ottawa", "Rocky Mountains: Banff, Jasper and Lake Louise", "East-to-west Canada group tour"],
     visaNote: "Pakistani passport holders need a Canadian visitor visa (TRV) and biometrics. Approval is decided by the Canadian immigration authority.",
-    visaSlug: "canada",
     tourSlug: "canada-group-tour",
     related: ["usa", "uk", "new-zealand", "australia"],
     faqs: [
       { question: "Is there a Canada group tour from Pakistan?", answer: "Yes. Our Canada group tour departs in March 2027 and covers Niagara Falls, Toronto, Banff and Ottawa, with return tickets, hotel bookings, daily tours, visa assistance and breakfast included. The total price is PKR 885,000, the booking amount is PKR 120,000 per person, and booking closes on 31 October 2026." },
-      { question: "Can I travel to Canada with family?", answer: "Yes. Each family member needs their own visitor visa application, and we prepare the files together so the documents are consistent." },
+      { question: "Can I travel to Canada with family?", answer: "Ask us about group tour seats for each family member. Every traveller needs their own Canadian visitor visa, and visa assistance is part of the group tour package." },
     ],
   },
   {
@@ -554,7 +553,7 @@ const extras: Record<string, Pick<PackageDestination, "sections" | "guides">> = 
     guides: ["france-honeymoon-from-pakistan", "schengen-visa-from-pakistan-time-fees-documents"],
   },
   canada: {
-    guides: ["canada-group-tour-niagara-toronto-banff-ottawa", "canada-visitor-visa-from-pakistan"],
+    guides: ["canada-group-tour-niagara-toronto-banff-ottawa"],
   },
   japan: {
     guides: ["japan-visa-for-pakistanis-documents-process", "japan-or-south-korea-first-asia-trip-from-pakistan"],
