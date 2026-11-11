@@ -237,6 +237,8 @@ async function tourList(): Promise<Tour[]> {
   const fixed = [...list, ...extras].map((t) => ({
     ...t,
     departure: fix(t.departure, t.slug),
+    summary: fix(t.summary, t.slug),
+    highlights: (t.highlights as string[]).map((x) => fix(x, t.slug)),
     notes: (t.notes as string[]).map((x) => fix(x, t.slug)),
   }));
   return (tourListCache = fixed);

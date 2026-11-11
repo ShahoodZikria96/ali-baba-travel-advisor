@@ -1,6 +1,6 @@
 # Meta (Facebook / Instagram) Ads: Canada Group Tour, First Test
 
-**Timing: the Canada tour closes for booking on 31 October 2026. Start today and keep the ads running until the deadline. Do not wait for a full 7-day test; use the daily routine below as a guide.**
+**Timing: the Canada tour closes for booking on 30 November 2026. Start today and keep the ads running until the deadline. Do not wait for a full 7-day test; use the daily routine below as a guide.**
 
 Budget for the test: **Rs 500 to 600 per day for 7 days** (about Rs 3,500 to 4,200 in total).
 That is enough to learn which poster and message work. It is not enough to promise a number of leads.
@@ -37,7 +37,7 @@ Objective: **Leads** or **Traffic** to the landing page above, with the Pixel in
 Use the poster `public/tours/canada-group-tour-march-2027.webp` (1080 x 1080, with Ali Jawad and Molvi Usman) for all three, and change only the text. The second poster (`canada-group-tour-terms-2027.webp`, terms and documents) is for the carousel or a follow-up ad. This tells you which message works.
 
 **Ad 1: The offer**
-- Primary text: `Canada Group Tour, March 2027. Niagara Falls, Toronto, Banff and Ottawa with visa support, 4-star hotels, return flights and breakfast. Travel with our CEO Syed Ali Jawad. Total price PKR 885,000, booking amount PKR 120,000 per person. Book before 31 October 2026.`
+- Primary text: `Canada Group Tour, March 2027. Niagara Falls, Toronto, Banff and Ottawa with visa support, 4-star hotels, return flights and breakfast. Travel with our CEO Syed Ali Jawad. Total price PKR 885,000, booking amount PKR 120,000 per person. Book before 30 November 2026.`
 - Headline: `Canada Group Tour, March 2027`
 - Button: `Send WhatsApp message`
 
@@ -58,7 +58,7 @@ Use the poster `public/tours/canada-group-tour-march-2027.webp` (1080 x 1080, wi
 
 - Never write "visa guaranteed" or "100 percent visa". Only the embassy decides.
 - Do not use the Canadian flag or logos in a way that suggests you are the Canadian government.
-- The price is confirmed: total PKR 885,000, booking amount PKR 120,000 per person (embassy fee included), booking closes 31 October 2026. State the non-refundable booking amount clearly if you mention it.
+- The price is confirmed: total PKR 885,000, booking amount PKR 120,000 per person (embassy fee included), booking closes 30 November 2026. State the non-refundable booking amount clearly if you mention it.
 
 ## Daily routine for the 7 days
 
