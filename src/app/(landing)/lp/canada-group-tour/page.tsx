@@ -19,7 +19,7 @@ const included = ["Return tickets", "Hotel bookings (4-star)", "Daily tours and 
 const places = ["Niagara Falls", "Toronto", "Banff", "Ottawa"];
 
 const faqs = [
-  { q: "When does the tour leave?", a: "March 2027. Booking closes on 31 October 2026 and the departure dates are confirmed." },
+  { q: "When does the tour leave?", a: "March 2027. Booking closes on 30 November 2026 and the departure dates are confirmed." },
   { q: "What is the price?", a: "The total price is PKR 885,000. The booking amount is PKR 120,000 per person (embassy fee included), paid upfront and non-refundable in case of a change of mind or a visa refusal." },
   { q: "Is the visa included?", a: "Visa assistance is included: we prepare your file and guide you through it. The visa is issued by the embassy, which can approve or refuse any application, so approval is never guaranteed." },
   { q: "Who travels with the group?", a: "Our CEO Syed Ali Jawad and Usman Molvi travel with the group." },
@@ -51,7 +51,7 @@ export default async function CanadaLandingPage() {
       <Container className="grid grid-cols-1 gap-10 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:py-12">
         <div>
           <p className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-primary">
-            Bookings open · March 2027 · <DaysLeft until="2026-10-31" />
+            Bookings open · March 2027 · <DaysLeft until="2026-11-30" />
           </p>
           <h1 className="mt-4 font-heading text-[1.9rem] font-extrabold leading-tight text-charcoal sm:text-4xl">
             Canada Group Tour from Pakistan
@@ -72,7 +72,7 @@ export default async function CanadaLandingPage() {
             </div>
             <div className="rounded-[var(--radius-md)] border border-border bg-surface p-3.5">
               <p className="text-xs font-bold uppercase tracking-wide text-text-muted">Book before</p>
-              <p className="font-heading text-xl font-extrabold text-charcoal">31 Oct 2026</p>
+              <p className="font-heading text-xl font-extrabold text-charcoal">30 Nov 2026</p>
               <p className="text-xs text-text-muted">Travel: March 2027</p>
             </div>
           </div>
@@ -131,7 +131,7 @@ export default async function CanadaLandingPage() {
 
         <div className="h-fit rounded-[var(--radius-lg)] border border-border bg-surface p-6 shadow-sm lg:sticky lg:top-20">
           <h2 className="font-heading text-xl font-bold text-charcoal">Reserve your seat</h2>
-          <p className="mt-1 text-sm text-text-muted">Fill in the form; we reply the same day on WhatsApp. Booking closes on 31 October 2026.</p>
+          <p className="mt-1 text-sm text-text-muted">Fill in the form; we reply the same day on WhatsApp. Booking closes on 30 November 2026.</p>
           <div className="mt-5">
             <TourEnquiryForm defaultDestination="Canada Group Tour (March 2027)" whatsappNumber={settings.whatsappNumber} />
           </div>

@@ -29,7 +29,7 @@ export const tours: TourPackage[] = [
     destination: "Thailand, Indonesia, Malaysia & Sri Lanka",
     image: "/destinations/malaysia.webp",
     duration: "10 Days",
-    departure: "Departure: November 2026 · Last date to book: 31 October 2026",
+    departure: "Departure: November 2026 · Last date to book: 30 November 2026",
     price: "PKR 560,000",
     visaAssistance: true,
     summary:
@@ -44,7 +44,7 @@ export const tours: TourPackage[] = [
     excluded: ["Lunch and dinner", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
     itinerary: [],
     notes: [
-      "Departure is in November 2026 and booking closes on 31 October 2026. Contact us to confirm seat availability and the exact departure date.",
+      "Departure is in November 2026 and booking closes on 30 November 2026. Contact us to confirm seat availability and the exact departure date.",
       "The price is per person.",
       "Visa decisions are made by each country's immigration authority; a group tour and its price do not guarantee visa approval, and a tour does not guarantee a future visa outcome elsewhere.",
     ],
@@ -296,7 +296,7 @@ export const extraTours: TourPackage[] = [
     destination: "Canada",
     image: "/destinations/canada.webp",
     duration: "Duration: ask us for the full itinerary",
-    departure: "Departure: March 2027 · Last date to book: 31 October 2026",
+    departure: "Departure: March 2027 · Last date to book: 30 November 2026",
     price: "PKR 885,000",
     visaAssistance: true,
     summary:
@@ -305,7 +305,7 @@ export const extraTours: TourPackage[] = [
       "Niagara Falls, Toronto, Banff and Ottawa on one group itinerary",
       "Travel with CEO Syed Ali Jawad and Usman Molvi",
       "Total price PKR 885,000; booking amount PKR 120,000 per person (embassy fee included)",
-      "Booking closes on 31 October 2026; departure March 2027",
+      "Booking closes on 30 November 2026; departure March 2027",
     ],
     included: ["Return tickets", "Hotel bookings (4-star hotels)", "Daily tours and activities", "Visa assistance", "Breakfast"],
     excluded: ["Lunch and dinner (unless specified)", "Personal expenses and shopping", "Travel insurance", "Anything not listed under What's Included"],
@@ -316,7 +316,7 @@ export const extraTours: TourPackage[] = [
       "Departure dates are confirmed and will not be changed under any circumstances.",
       "The visa is issued by the embassy, and the embassy reserves the right to approve or refuse any application.",
       "The booking amount (PKR 120,000) is charged upfront and is non-refundable in case of a change of mind or a visa refusal.",
-      "Booking must be completed before 31 October 2026. Travel date: March 2027.",
+      "Booking must be completed before 30 November 2026. Travel date: March 2027.",
     ],
     documents: [
       "Valid passport with at least 8 months of validity",
@@ -336,10 +336,15 @@ export const extraTours: TourPackage[] = [
 ];
 
 /**
- * Booking-date correction for the Travel History group tour: the deadline was extended from
- * 5 October to 31 October 2026. getTours applies it to the admin-panel copy too; once the admin
- * entry says 31 October the replacement simply finds nothing to change.
+ * Booking-date correction: the booking deadline of the Travel History and Canada group tours was
+ * extended to 30 November 2026. getTours applies it to the admin-panel copy too, so an older date
+ * saved in the admin panel is replaced; once the admin entry says 30 November nothing is changed.
  */
+const extendedDeadline: [string, string][] = [
+  ["5 October 2026", "30 November 2026"],
+  ["31 October 2026", "30 November 2026"],
+];
 export const tourTextFixes: Record<string, [string, string][]> = {
-  "travel-history-group-tour": [["5 October 2026", "31 October 2026"]],
+  "travel-history-group-tour": extendedDeadline,
+  "canada-group-tour": extendedDeadline,
 };
