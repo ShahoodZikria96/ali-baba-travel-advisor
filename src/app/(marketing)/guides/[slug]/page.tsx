@@ -15,6 +15,14 @@ import { officialSources } from "@/data/officialSources";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { countriesMentioned, siteLinks } from "@/lib/related";
 
+/** Turns [text](/internal-path) into links, so articles can link to related pages. */
+function withLinks(text: string) {
+  return text.split(/(\[[^\]]+\]\(\/[^)\s]*\))/g).map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\((\/[^)\s]*)\)$/);
+    return m ? <Link key={i} href={m[2]} className="font-semibold text-primary underline underline-offset-2">{m[1]}</Link> : part;
+  });
+}
+
 export async function generateStaticParams() {
   const guides = await getGuides();
   return guides.map((g) => ({ slug: g.slug }));
@@ -83,13 +91,30 @@ export default async function GuideArticlePage({ params }: { params: Promise<{ s
           </div>
 
           <div className="prose-content mt-6 space-y-4 text-[0.98rem] leading-relaxed text-text">
-            {content.map((paragraph, i) =>
-              paragraph.startsWith("## ") ? (
-                <h2 key={i} className="pt-4 font-heading text-xl font-bold text-charcoal">{paragraph.slice(3)}</h2>
-              ) : (
-                <p key={i}>{paragraph}</p>
-              )
-            )}
+            {content.map((paragraph, i) => {
+              if (paragraph.startsWith("## ")) {
+                return <h2 key={i} className="pt-4 font-heading text-xl font-bold text-charcoal">{paragraph.slice(3)}</h2>;
+              }
+              // Image: ![alt text](/path.webp|1600x1000)
+              const img = paragraph.match(/^!\[(.+?)\]\((\/[^|)\s]+)\|(\d+)x(\d+)\)$/);
+              if (img) {
+                return (
+                  <figure key={i} className="my-6">
+                    <Image src={img[2]} alt={img[1]} width={Number(img[3])} height={Number(img[4])} sizes="(max-width: 760px) 100vw, 760px" className="h-auto w-full rounded-[var(--radius-md)] border border-border" />
+                    <figcaption className="mt-2 text-center text-xs text-text-muted">{img[1]}</figcaption>
+                  </figure>
+                );
+              }
+              // Bullet list: lines that start with "- "
+              if (paragraph.startsWith("- ")) {
+                return (
+                  <ul key={i} className="list-disc space-y-1.5 pl-5">
+                    {paragraph.split("\n").map((li, j) => <li key={j}>{withLinks(li.replace(/^- /, ""))}</li>)}
+                  </ul>
+                );
+              }
+              return <p key={i}>{withLinks(paragraph)}</p>;
+            })}
           </div>
 
           <AdSlot placement="end-of-article" />
