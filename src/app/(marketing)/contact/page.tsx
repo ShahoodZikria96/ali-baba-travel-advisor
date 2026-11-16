@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { RelatedLinks } from "@/components/ui/RelatedLinks";
 import { siteLinks } from "@/lib/related";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, absoluteUrl, orgId } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageHero } from "@/components/ui/PageHero";
@@ -13,16 +14,29 @@ import { siteConfig as bizConfig } from "@/data/site";
 import { getOffices, getSiteSettings, getFaqs, telHref, whatsappHref } from "@/lib/content";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Contact Us",
-  description: "Contact Ali Baba Travel Advisor by phone, WhatsApp, email or in person at our Lahore, Islamabad, Wazirabad or Karachi offices.",
+  title: "Contact Us – Call 0311-1666076",
+  description: "Call or WhatsApp 0311-1666076 for a free consultation. Visit our Lahore, Islamabad, Wazirabad or Karachi offices, or email us. Same-day response.",
   path: "/contact",
 });
 
 export default async function ContactPage() {
   const [offices, siteConfig, generalFaqs] = await Promise.all([getOffices(), getSiteSettings(), getFaqs()]);
 
+  // The organisation itself (phone numbers, opening hours, social profiles) is described once in the site-wide
+  // TravelAgency schema; this page adds a ContactPage that points to it, and lists the offices as places.
+  const contactJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": `${absoluteUrl("/contact")}#contactpage`,
+    url: absoluteUrl("/contact"),
+    name: "Contact Ali Baba Travel Advisor",
+    mainEntity: { "@id": orgId },
+    about: { "@id": orgId },
+  };
+
   return (
     <>
+      <JsonLd data={contactJsonLd} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
       <PageHero
         eyebrow="Get in Touch"
