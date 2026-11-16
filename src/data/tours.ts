@@ -295,6 +295,10 @@ export const extraTours: TourPackage[] = [
     slug: "canada-group-tour",
     destination: "Canada",
     image: "/destinations/canada.webp",
+    heading: "Canada Tour Packages from Pakistan: Niagara, Toronto, Banff & Ottawa",
+    metaTitle: "Canada Tour Packages from Pakistan | Group Tour March 2027",
+    metaDescription:
+      "Canada tour packages from Pakistan covering Niagara Falls, Toronto, Banff and Ottawa. Return flights, 4-star hotels, visa assistance and breakfast included. Total PKR 885,000.",
     duration: "Duration: ask us for the full itinerary",
     departure: "Departure: March 2027 · Last date to book: 30 November 2026",
     price: "PKR 885,000",
