@@ -12,7 +12,7 @@ Use this for each office profile (Lahore, Islamabad, Wazirabad, Karachi). Everyt
 
 ## 2. Categories
 - **Primary:** Travel agency
-- **Additional:** Visa consultant, Tour agency, Ticket agent (airline tickets), Travel lounge is NOT correct, do not add it.
+- **Additional:** Visa consultant, Tour agency, Ticket agent (airline tickets).
 - If "Immigration consultant" is offered, add it only if you also provide that service.
 
 ## 3. Business description (max 750 characters)
